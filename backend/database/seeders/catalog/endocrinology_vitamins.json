@@ -1,0 +1,91 @@
+[
+  {
+    "code": "TFT1",
+    "name": "Thyroid Function Test (Free)",
+    "short_name": "TFT-1",
+    "department": "Endocrinology",
+    "aliases": ["TFT", "TFT-1", "FT3 FT4 TSH", "Thyroid Profile Free"],
+    "sample_type": "Serum",
+    "methodology": "CLIA / ECLIA",
+    "verification_status": "VERIFIED",
+    "source": "Chughtai Lab style adult non-pregnant",
+    "parameters": [
+      {"name": "TSH", "short_name": "TSH", "unit": "mIU/L", "data_type": "numeric", "sort_order": 1, "ranges": [{"gender": "both", "age_label": "Adult", "low": 0.4, "high": 4.0, "range_text": "0.4 – 4.0", "verification_status": "VERIFIED"}]},
+      {"name": "Free T4", "short_name": "FT4", "unit": "ng/dL", "data_type": "numeric", "sort_order": 2, "ranges": [{"gender": "both", "age_label": "Adult", "low": 0.8, "high": 1.8, "range_text": "0.8 – 1.8", "verification_status": "VERIFIED"}]},
+      {"name": "Free T3", "short_name": "FT3", "unit": "pg/mL", "data_type": "numeric", "sort_order": 3, "ranges": [{"gender": "both", "age_label": "Adult", "low": 2.3, "high": 4.2, "range_text": "2.3 – 4.2", "verification_status": "VERIFIED"}]}
+    ]
+  },
+  {
+    "code": "TSH",
+    "name": "Serum TSH",
+    "short_name": "TSH",
+    "department": "Endocrinology",
+    "aliases": ["TSH", "Thyroid Stimulating Hormone"],
+    "sample_type": "Serum",
+    "methodology": "CLIA",
+    "verification_status": "VERIFIED",
+    "source": "Chughtai Lab style",
+    "parameters": [
+      {"name": "TSH", "short_name": "TSH", "unit": "mIU/L", "data_type": "numeric", "sort_order": 1, "ranges": [{"gender": "both", "age_label": "Adult", "low": 0.4, "high": 4.0, "range_text": "0.4 – 4.0", "verification_status": "VERIFIED"}]}
+    ]
+  },
+  {
+    "code": "VIT_D",
+    "name": "Serum 25-OH Vitamin D",
+    "short_name": "Vit D",
+    "department": "Vitamins & Minerals",
+    "aliases": ["Vitamin D", "25-OH D", "Vit D", "25 Hydroxy Vitamin D"],
+    "sample_type": "Serum",
+    "methodology": "CLIA / LC-MS",
+    "verification_status": "VERIFIED",
+    "source": "Common Pakistani lab cut-offs",
+    "parameters": [
+      {"name": "25-OH Vitamin D", "short_name": "Vit D", "unit": "ng/mL", "data_type": "numeric", "sort_order": 1, "ranges": [{"gender": "both", "age_label": "Adult", "low": 30, "high": 100, "range_text": "≥ 30 Sufficient | 20–30 Insufficient | < 20 Deficient", "verification_status": "VERIFIED"}]}
+    ]
+  },
+  {
+    "code": "B12",
+    "name": "Serum Vitamin B12",
+    "short_name": "B12",
+    "department": "Vitamins & Minerals",
+    "aliases": ["Vitamin B12", "Cobalamin", "B12"],
+    "sample_type": "Serum",
+    "methodology": "CLIA",
+    "verification_status": "VERIFIED",
+    "source": "Chughtai Lab style",
+    "parameters": [
+      {"name": "Vitamin B12", "short_name": "B12", "unit": "pg/mL", "data_type": "numeric", "sort_order": 1, "ranges": [{"gender": "both", "age_label": "Adult", "low": 200, "high": 900, "range_text": "200 – 900 (deficiency often < 250)", "verification_status": "VERIFIED"}]}
+    ]
+  },
+  {
+    "code": "FERRITIN",
+    "name": "Serum Ferritin",
+    "short_name": "Ferritin",
+    "department": "Vitamins & Minerals",
+    "aliases": ["Ferritin", "Serum Ferritin"],
+    "sample_type": "Serum",
+    "methodology": "CLIA",
+    "verification_status": "VERIFIED",
+    "source": "Chughtai Lab style",
+    "parameters": [
+      {"name": "Ferritin", "short_name": "Ferritin", "unit": "ng/mL", "data_type": "numeric", "sort_order": 1, "ranges": [
+        {"gender": "male", "age_label": "Adult", "low": 30, "high": 400, "range_text": "30 – 400", "verification_status": "VERIFIED"},
+        {"gender": "female", "age_label": "Adult", "low": 15, "high": 150, "range_text": "15 – 150 (iron def often < 30)", "verification_status": "VERIFIED"}
+      ]}
+    ]
+  },
+  {
+    "code": "CRP",
+    "name": "C-Reactive Protein (Quantitative)",
+    "short_name": "CRP",
+    "department": "Clinical Chemistry",
+    "aliases": ["CRP", "C-Reactive Protein"],
+    "sample_type": "Serum",
+    "methodology": "Immunoturbidimetry",
+    "verification_status": "VERIFIED",
+    "source": "Chughtai Lab style",
+    "parameters": [
+      {"name": "CRP", "short_name": "CRP", "unit": "mg/L", "data_type": "numeric", "sort_order": 1, "ranges": [{"gender": "both", "age_label": "Adult", "low": 0, "high": 10, "range_text": "< 5–10", "verification_status": "VERIFIED"}]}
+    ]
+  }
+]

@@ -1,0 +1,271 @@
+[
+  {
+    "code": "CBC",
+    "name": "Complete Blood Count (Blood C/E)",
+    "short_name": "CBC",
+    "department": "Hematology",
+    "aliases": ["CBC", "Blood CP", "Blood Complete Picture", "FBC", "Blood C/E", "Hemogram"],
+    "sample_type": "EDTA Whole Blood",
+    "methodology": "Automated Hematology Analyzer",
+    "verification_status": "VERIFIED",
+    "source": "Chughtai Lab style adult ranges (2025-2026)",
+    "parameters": [
+      {
+        "name": "Hemoglobin",
+        "short_name": "Hb",
+        "unit": "g/dL",
+        "data_type": "numeric",
+        "sort_order": 1,
+        "ranges": [
+          {"gender": "male", "age_label": "Adult", "low": 12.3, "high": 16.6, "range_text": "12.3 – 16.6", "verification_status": "VERIFIED"},
+          {"gender": "female", "age_label": "Adult", "low": 11.0, "high": 14.5, "range_text": "11.0 – 14.5", "verification_status": "VERIFIED"}
+        ]
+      },
+      {
+        "name": "RBC Count",
+        "short_name": "RBC",
+        "unit": "×10¹²/L",
+        "data_type": "numeric",
+        "sort_order": 2,
+        "ranges": [
+          {"gender": "male", "age_label": "Adult", "low": 4.25, "high": 6.02, "range_text": "4.25 – 6.02", "verification_status": "VERIFIED"},
+          {"gender": "female", "age_label": "Adult", "low": 3.61, "high": 5.20, "range_text": "3.61 – 5.20", "verification_status": "VERIFIED"}
+        ]
+      },
+      {
+        "name": "Hematocrit",
+        "short_name": "HCT",
+        "unit": "%",
+        "data_type": "numeric",
+        "sort_order": 3,
+        "ranges": [
+          {"gender": "male", "age_label": "Adult", "low": 38.0, "high": 50.0, "range_text": "38 – 50", "verification_status": "VERIFIED"},
+          {"gender": "female", "age_label": "Adult", "low": 34.5, "high": 45.4, "range_text": "34.5 – 45.4", "verification_status": "VERIFIED"}
+        ]
+      },
+      {
+        "name": "MCV",
+        "short_name": "MCV",
+        "unit": "fL",
+        "data_type": "numeric",
+        "sort_order": 4,
+        "ranges": [
+          {"gender": "both", "age_label": "Adult", "low": 78, "high": 96, "range_text": "78 – 96", "verification_status": "VERIFIED"}
+        ]
+      },
+      {
+        "name": "MCH",
+        "short_name": "MCH",
+        "unit": "pg",
+        "data_type": "numeric",
+        "sort_order": 5,
+        "ranges": [
+          {"gender": "both", "age_label": "Adult", "low": 25, "high": 31, "range_text": "25 – 31", "verification_status": "VERIFIED"}
+        ]
+      },
+      {
+        "name": "MCHC",
+        "short_name": "MCHC",
+        "unit": "g/dL",
+        "data_type": "numeric",
+        "sort_order": 6,
+        "ranges": [
+          {"gender": "both", "age_label": "Adult", "low": 30, "high": 36, "range_text": "30 – 36", "verification_status": "VERIFIED"}
+        ]
+      },
+      {
+        "name": "RDW-CV",
+        "short_name": "RDW",
+        "unit": "%",
+        "data_type": "numeric",
+        "sort_order": 7,
+        "ranges": [
+          {"gender": "both", "age_label": "Adult", "low": 11.5, "high": 14.5, "range_text": "11.5 – 14.5", "verification_status": "VERIFIED"}
+        ]
+      },
+      {
+        "name": "Platelet Count",
+        "short_name": "PLT",
+        "unit": "×10⁹/L",
+        "data_type": "numeric",
+        "sort_order": 8,
+        "ranges": [
+          {"gender": "both", "age_label": "Adult", "low": 150, "high": 450, "range_text": "150 – 450", "verification_status": "VERIFIED"}
+        ]
+      },
+      {
+        "name": "MPV",
+        "short_name": "MPV",
+        "unit": "fL",
+        "data_type": "numeric",
+        "sort_order": 9,
+        "ranges": [
+          {"gender": "both", "age_label": "Adult", "low": 7, "high": 11, "range_text": "7 – 11", "verification_status": "VERIFIED"}
+        ]
+      },
+      {
+        "name": "WBC (TLC)",
+        "short_name": "WBC",
+        "unit": "×10⁹/L",
+        "data_type": "numeric",
+        "sort_order": 10,
+        "ranges": [
+          {"gender": "both", "age_label": "Adult", "low": 4.8, "high": 11.3, "range_text": "4.8 – 11.3", "verification_status": "VERIFIED"}
+        ]
+      },
+      {
+        "name": "Neutrophils %",
+        "short_name": "Neut %",
+        "unit": "%",
+        "data_type": "numeric",
+        "sort_order": 11,
+        "ranges": [
+          {"gender": "both", "age_label": "Adult", "low": 35, "high": 76, "range_text": "35 – 76", "verification_status": "VERIFIED"}
+        ]
+      },
+      {
+        "name": "Lymphocytes %",
+        "short_name": "Lymph %",
+        "unit": "%",
+        "data_type": "numeric",
+        "sort_order": 12,
+        "ranges": [
+          {"gender": "both", "age_label": "Adult", "low": 18, "high": 45, "range_text": "18 – 45", "verification_status": "VERIFIED"}
+        ]
+      },
+      {
+        "name": "Monocytes %",
+        "short_name": "Mono %",
+        "unit": "%",
+        "data_type": "numeric",
+        "sort_order": 13,
+        "ranges": [
+          {"gender": "both", "age_label": "Adult", "low": 4, "high": 10, "range_text": "4 – 10", "verification_status": "VERIFIED"}
+        ]
+      },
+      {
+        "name": "Eosinophils %",
+        "short_name": "Eos %",
+        "unit": "%",
+        "data_type": "numeric",
+        "sort_order": 14,
+        "ranges": [
+          {"gender": "both", "age_label": "Adult", "low": 1, "high": 6, "range_text": "1 – 6", "verification_status": "VERIFIED"}
+        ]
+      },
+      {
+        "name": "Basophils %",
+        "short_name": "Baso %",
+        "unit": "%",
+        "data_type": "numeric",
+        "sort_order": 15,
+        "ranges": [
+          {"gender": "both", "age_label": "Adult", "low": 0, "high": 1, "range_text": "< 1", "verification_status": "VERIFIED"}
+        ]
+      }
+    ]
+  },
+  {
+    "code": "ESR",
+    "name": "Erythrocyte Sedimentation Rate",
+    "short_name": "ESR",
+    "department": "Hematology",
+    "aliases": ["ESR", "Sed Rate", "Westergren"],
+    "sample_type": "EDTA / Citrate",
+    "methodology": "Westergren",
+    "verification_status": "VERIFIED",
+    "source": "Chughtai Lab style",
+    "parameters": [
+      {
+        "name": "ESR (1 hour)",
+        "short_name": "ESR",
+        "unit": "mm/hr",
+        "data_type": "numeric",
+        "sort_order": 1,
+        "ranges": [
+          {"gender": "male", "age_label": "Adult", "low": 0, "high": 15, "range_text": "0 – 15", "verification_status": "VERIFIED"},
+          {"gender": "female", "age_label": "Adult", "low": 0, "high": 20, "range_text": "0 – 20", "verification_status": "VERIFIED"}
+        ]
+      }
+    ]
+  },
+  {
+    "code": "BLOOD_GROUP",
+    "name": "Blood Group & Rh Factor",
+    "short_name": "ABO & Rh",
+    "department": "Hematology",
+    "aliases": ["Blood Group", "ABO", "Rh Typing", "Blood Grouping"],
+    "sample_type": "EDTA / Clotted",
+    "methodology": "Forward + Reverse Typing",
+    "verification_status": "VERIFIED",
+    "source": "Standard",
+    "parameters": [
+      {
+        "name": "ABO Group",
+        "short_name": "ABO",
+        "unit": null,
+        "data_type": "text",
+        "sort_order": 1,
+        "ranges": [
+          {"gender": "both", "age_label": "All", "text_normal": "A / B / AB / O", "range_text": "A, B, AB or O", "verification_status": "VERIFIED"}
+        ]
+      },
+      {
+        "name": "Rh (D) Type",
+        "short_name": "Rh",
+        "unit": null,
+        "data_type": "text",
+        "sort_order": 2,
+        "ranges": [
+          {"gender": "both", "age_label": "All", "text_normal": "Positive / Negative", "range_text": "Positive or Negative", "verification_status": "VERIFIED"}
+        ]
+      }
+    ]
+  },
+  {
+    "code": "RETIC",
+    "name": "Reticulocyte Count",
+    "short_name": "Retic",
+    "department": "Hematology",
+    "aliases": ["Retic Count", "Reticulocytes"],
+    "sample_type": "EDTA",
+    "methodology": "Automated / Manual",
+    "verification_status": "VERIFIED",
+    "source": "Chughtai Lab style",
+    "parameters": [
+      {
+        "name": "Reticulocyte %",
+        "short_name": "Retic %",
+        "unit": "%",
+        "data_type": "numeric",
+        "sort_order": 1,
+        "ranges": [
+          {"gender": "both", "age_label": "Adult", "low": 0.5, "high": 1.5, "range_text": "0.5 – 1.5", "verification_status": "VERIFIED"}
+        ]
+      }
+    ]
+  },
+  {
+    "code": "AEC",
+    "name": "Absolute Eosinophil Count",
+    "short_name": "AEC",
+    "department": "Hematology",
+    "aliases": ["AEC", "Absolute Eosinophils"],
+    "sample_type": "EDTA",
+    "methodology": "Calculated / Direct",
+    "verification_status": "VERIFIED",
+    "source": "Chughtai Lab style",
+    "parameters": [
+      {
+        "name": "Absolute Eosinophil Count",
+        "short_name": "AEC",
+        "unit": "×10⁹/L",
+        "data_type": "numeric",
+        "sort_order": 1,
+        "ranges": [
+          {"gender": "both", "age_label": "Adult", "low": 0.02, "high": 0.50, "range_text": "0.02 – 0.50", "verification_status": "VERIFIED"}
+        ]
+      }
+    ]
+  }
+]

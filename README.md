@@ -36,14 +36,15 @@ Repository: https://github.com/multitestlabkachapakka-byte/Pakistani-World-Class
 |--------|--------|
 | Repository foundation | Done |
 | Project structure | Done |
-| Laravel backend skeleton | In progress |
-| Vue frontend skeleton | In progress |
-| Database schema (sync-ready UUIDs) | Next |
-| Patient + Report vertical slice | Planned |
-| Catalog seed (500+ tests from major labs data) | Planned |
+| Database schema (UUID + soft-delete + snapshots) | Done |
+| Core models (Patient, Report, Catalog, etc.) | Done |
+| Catalog seed Phase A (Hematology + Chemistry + Endocrine/Vitamins) | Done |
+| Laravel backend bootstrap + API | In progress |
+| Vue frontend skeleton | Done (placeholders) |
+| Patient + Report vertical slice | Next |
+| Remaining catalog departments | Planned |
 | Google Drive sync | Planned |
 | Capacitor / Tauri packaging | Later stages |
-| Full acceptance tests | Later stages |
 
 ---
 
