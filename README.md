@@ -45,7 +45,7 @@ Repository: https://github.com/multitestlabkachapakka-byte/Pakistani-World-Class
 | Catalog Phase B (Serology, Coagulation, Urine, Tumor markers) | Done |
 | PDF engine (HTML report ready for print / DomPDF) | Done (Phase 1) |
 | Dashboard (live counts + recent reports) | Done |
-| Google Drive sync | Planned |
+| Google Drive sync (skeleton + status API + Roman Urdu setup guide) | Done Phase 1 |
 | Capacitor / Tauri packaging | Later stages |
 
 ---
