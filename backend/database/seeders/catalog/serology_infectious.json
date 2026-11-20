@@ -1,0 +1,216 @@
+[
+  {
+    "code": "HBsAg",
+    "name": "HBsAg (Hepatitis B Surface Antigen)",
+    "short_name": "HBsAg",
+    "department": "Infectious / Serology",
+    "aliases": ["HBsAg", "Hepatitis B", "HBV Surface Antigen"],
+    "sample_type": "Serum",
+    "methodology": "ICT / ELISA / CLIA",
+    "verification_status": "VERIFIED",
+    "source": "Standard qualitative",
+    "parameters": [
+      {
+        "name": "HBsAg",
+        "short_name": "HBsAg",
+        "unit": null,
+        "data_type": "qualitative",
+        "sort_order": 1,
+        "ranges": [
+          {"gender": "both", "age_label": "All", "text_normal": "Negative / Non-reactive", "range_text": "Negative / Non-reactive", "verification_status": "VERIFIED"}
+        ]
+      }
+    ]
+  },
+  {
+    "code": "ANTI_HCV",
+    "name": "Anti-HCV (Hepatitis C Antibody)",
+    "short_name": "Anti-HCV",
+    "department": "Infectious / Serology",
+    "aliases": ["Anti-HCV", "HCV Antibody", "Hepatitis C"],
+    "sample_type": "Serum",
+    "methodology": "ICT / ELISA / CLIA",
+    "verification_status": "VERIFIED",
+    "source": "Standard qualitative",
+    "parameters": [
+      {
+        "name": "Anti-HCV",
+        "short_name": "Anti-HCV",
+        "unit": null,
+        "data_type": "qualitative",
+        "sort_order": 1,
+        "ranges": [
+          {"gender": "both", "age_label": "All", "text_normal": "Negative / Non-reactive", "range_text": "Negative / Non-reactive (Positive → confirm with HCV RNA)", "verification_status": "VERIFIED"}
+        ]
+      }
+    ]
+  },
+  {
+    "code": "HIV",
+    "name": "Anti-HIV 1 & 2",
+    "short_name": "HIV Ab",
+    "department": "Infectious / Serology",
+    "aliases": ["HIV", "Anti-HIV", "HIV 1&2"],
+    "sample_type": "Serum",
+    "methodology": "ICT / ELISA + counseling flag",
+    "verification_status": "VERIFIED",
+    "source": "Standard screening",
+    "parameters": [
+      {
+        "name": "Anti-HIV 1 & 2",
+        "short_name": "HIV",
+        "unit": null,
+        "data_type": "qualitative",
+        "sort_order": 1,
+        "ranges": [
+          {"gender": "both", "age_label": "All", "text_normal": "Negative / Non-reactive", "range_text": "Negative / Non-reactive", "verification_status": "VERIFIED"}
+        ]
+      }
+    ]
+  },
+  {
+    "code": "DENGUE_NS1",
+    "name": "Dengue NS1 Antigen",
+    "short_name": "Dengue NS1",
+    "department": "Infectious / Serology",
+    "aliases": ["Dengue NS1", "NS1", "Dengue Antigen"],
+    "sample_type": "Serum",
+    "methodology": "ICT / ELISA",
+    "verification_status": "VERIFIED",
+    "source": "Standard",
+    "parameters": [
+      {
+        "name": "Dengue NS1 Antigen",
+        "short_name": "NS1",
+        "unit": null,
+        "data_type": "qualitative",
+        "sort_order": 1,
+        "ranges": [
+          {"gender": "both", "age_label": "All", "text_normal": "Negative", "range_text": "Negative (Positive = acute dengue, usually day 1–5)", "verification_status": "VERIFIED"}
+        ]
+      }
+    ]
+  },
+  {
+    "code": "DENGUE_IGM_IGG",
+    "name": "Dengue IgM / IgG",
+    "short_name": "Dengue Serology",
+    "department": "Infectious / Serology",
+    "aliases": ["Dengue IgM", "Dengue IgG", "Dengue Serology"],
+    "sample_type": "Serum",
+    "methodology": "ICT / ELISA",
+    "verification_status": "VERIFIED",
+    "source": "Standard",
+    "parameters": [
+      {
+        "name": "Dengue IgM",
+        "short_name": "IgM",
+        "unit": null,
+        "data_type": "qualitative",
+        "sort_order": 1,
+        "ranges": [
+          {"gender": "both", "age_label": "All", "text_normal": "Negative", "range_text": "Negative", "verification_status": "VERIFIED"}
+        ]
+      },
+      {
+        "name": "Dengue IgG",
+        "short_name": "IgG",
+        "unit": null,
+        "data_type": "qualitative",
+        "sort_order": 2,
+        "ranges": [
+          {"gender": "both", "age_label": "All", "text_normal": "Negative", "range_text": "Negative", "verification_status": "VERIFIED"}
+        ]
+      }
+    ]
+  },
+  {
+    "code": "MP",
+    "name": "Malarial Parasite (MP)",
+    "short_name": "MP",
+    "department": "Infectious / Serology",
+    "aliases": ["MP", "Malaria", "Malaria Smear", "Malaria ICT"],
+    "sample_type": "EDTA Blood",
+    "methodology": "Thick & Thin Smear / Antigen Rapid Test",
+    "verification_status": "VERIFIED",
+    "source": "Standard",
+    "parameters": [
+      {
+        "name": "Malarial Parasite",
+        "short_name": "MP",
+        "unit": null,
+        "data_type": "qualitative",
+        "sort_order": 1,
+        "ranges": [
+          {"gender": "both", "age_label": "All", "text_normal": "No parasite seen / Negative", "range_text": "No parasite seen / Negative", "verification_status": "VERIFIED"}
+        ]
+      }
+    ]
+  },
+  {
+    "code": "WIDAL",
+    "name": "Widal Test (Typhoid)",
+    "short_name": "Widal",
+    "department": "Infectious / Serology",
+    "aliases": ["Widal", "Typhoid", "Widal Test"],
+    "sample_type": "Serum",
+    "methodology": "Tube / Slide agglutination",
+    "verification_status": "VERIFIED",
+    "source": "Endemic area interpretation (lab-specific)",
+    "parameters": [
+      {
+        "name": "TO",
+        "short_name": "TO",
+        "unit": "titre",
+        "data_type": "text",
+        "sort_order": 1,
+        "ranges": [
+          {"gender": "both", "age_label": "Adult", "text_normal": "< 1:80", "range_text": "Often ≥ 1:160 suggestive in endemic areas (lab-specific)", "verification_status": "VERIFY REQUIRED"}
+        ]
+      },
+      {
+        "name": "TH",
+        "short_name": "TH",
+        "unit": "titre",
+        "data_type": "text",
+        "sort_order": 2,
+        "ranges": [
+          {"gender": "both", "age_label": "Adult", "text_normal": "< 1:80", "range_text": "Often ≥ 1:160 suggestive in endemic areas (lab-specific)", "verification_status": "VERIFY REQUIRED"}
+        ]
+      }
+    ]
+  },
+  {
+    "code": "TYPHIDOT",
+    "name": "Typhidot IgG / IgM",
+    "short_name": "Typhidot",
+    "department": "Infectious / Serology",
+    "aliases": ["Typhidot", "Typhoid IgM", "Typhoid IgG"],
+    "sample_type": "Serum",
+    "methodology": "ICT",
+    "verification_status": "VERIFIED",
+    "source": "Standard",
+    "parameters": [
+      {
+        "name": "Typhidot IgM",
+        "short_name": "IgM",
+        "unit": null,
+        "data_type": "qualitative",
+        "sort_order": 1,
+        "ranges": [
+          {"gender": "both", "age_label": "All", "text_normal": "Negative", "range_text": "Negative", "verification_status": "VERIFIED"}
+        ]
+      },
+      {
+        "name": "Typhidot IgG",
+        "short_name": "IgG",
+        "unit": null,
+        "data_type": "qualitative",
+        "sort_order": 2,
+        "ranges": [
+          {"gender": "both", "age_label": "All", "text_normal": "Negative", "range_text": "Negative", "verification_status": "VERIFIED"}
+        ]
+      }
+    ]
+  }
+]

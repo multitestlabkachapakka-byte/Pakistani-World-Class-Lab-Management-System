@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\PatientController;
 use App\Http\Controllers\Api\ReportController;
 use App\Http\Controllers\Api\CatalogController;
+use App\Http\Controllers\Api\PdfController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,3 +43,6 @@ Route::post('/reports/{id}/finalize', [ReportController::class, 'finalize']);
 Route::get('/catalog/search', [CatalogController::class, 'search']);
 Route::get('/catalog/departments', [CatalogController::class, 'departments']);
 Route::get('/catalog/{id}', [CatalogController::class, 'show']);
+
+// PDF
+Route::get("/reports/{id}/pdf", [PdfController::class, "show"]);

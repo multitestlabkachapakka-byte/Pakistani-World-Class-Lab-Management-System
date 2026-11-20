@@ -42,8 +42,8 @@ Repository: https://github.com/multitestlabkachapakka-byte/Pakistani-World-Class
 | Patient + Report + Catalog API endpoints | Done |
 | Vue Patients screen (search + register) | Done |
 | Vue Create Report screen (patient → tests → results → finalize) | Done |
-| Remaining catalog departments | Planned |
-| PDF engine | Planned |
+| Catalog Phase B (Serology, Coagulation, Urine, Tumor markers) | Done |
+| PDF engine (HTML report ready for print / DomPDF) | Done (Phase 1) |
 | Google Drive sync | Planned |
 | Capacitor / Tauri packaging | Later stages |
 
