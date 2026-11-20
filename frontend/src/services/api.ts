@@ -49,3 +49,8 @@ export const reportsApi = {
   finalize: (id: string) =>
     api.post(`/reports/${id}/finalize`).then((r) => r.data),
 }
+
+// ---------- Dashboard ----------
+export const dashboardApi = {
+  summary: () => api.get('/dashboard').then((r) => r.data),
+}

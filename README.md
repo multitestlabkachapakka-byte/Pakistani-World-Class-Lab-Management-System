@@ -44,6 +44,7 @@ Repository: https://github.com/multitestlabkachapakka-byte/Pakistani-World-Class
 | Vue Create Report screen (patient → tests → results → finalize) | Done |
 | Catalog Phase B (Serology, Coagulation, Urine, Tumor markers) | Done |
 | PDF engine (HTML report ready for print / DomPDF) | Done (Phase 1) |
+| Dashboard (live counts + recent reports) | Done |
 | Google Drive sync | Planned |
 | Capacitor / Tauri packaging | Later stages |
 
