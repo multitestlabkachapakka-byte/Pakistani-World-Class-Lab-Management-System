@@ -32,8 +32,20 @@ Repository: https://github.com/multitestlabkachapakka-byte/Pakistani-World-Class
 
 ## Current Status
 
-| Module | Status |
-|--------|--------|
+CI is green (PHP 8.2/8.3 + SQLite, MariaDB 10.11, frontend). **Verified** = proven by automated tests.
+
+| Area | Status |
+|------|--------|
+| Patient / report / catalog API (registration, ranges by sex+age, flags, finalize + snapshot) | Verified |
+| Catalog | 34 tests, all `VERIFY REQUIRED` (not pathologist-verified) |
+| Vue screens (Patients, Create Report, Dashboard) | Build + typecheck verified; not yet tested end-to-end |
+| PDF engine, Google Drive sync | Code only - not verified |
+| Authentication / audit trail | **Not implemented - API is open** |
+| Offline SQLite layer, Android, Windows, iOS, releases | Not started |
+
+Full module list, decisions and next steps: [docs/PROGRESS.md](docs/PROGRESS.md)
+
+--------|--------|
 | Repository foundation | Done |
 | Project structure | Done |
 | Database schema (UUID + soft-delete + snapshots) | Done |
@@ -65,7 +77,7 @@ composer install
 cp .env.example .env
 php artisan key:generate
 # MySQL details .env mein set karein
-php artisan migrate
+php artisan migrate --seed
 php artisan serve
 ```
 
