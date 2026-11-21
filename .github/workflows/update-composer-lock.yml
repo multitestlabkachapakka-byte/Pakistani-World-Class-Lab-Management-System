@@ -1,0 +1,54 @@
+name: Update composer.lock for PHP 8.2
+
+# The project supports PHP 8.2+ (XAMPP). Resolve dependencies against a PHP 8.2 platform so the
+# lock file installs on 8.2, 8.3 and newer. Run manually when dependencies should be re-resolved.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  checks: write
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    env:
+      LOG_NAME: update-composer-lock
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: mbstring, xml, ctype, json, pdo_sqlite, sqlite3, curl, zip, bcmath, fileinfo, intl
+          tools: composer:v2
+          coverage: none
+      - name: Pin platform to PHP 8.2 and re-resolve
+        working-directory: backend
+        run: |
+          composer config platform.php 8.2.0 2>&1 | tee -a /tmp/ci.log
+          composer update --no-interaction --prefer-dist --no-progress 2>&1 | tee -a /tmp/ci.log
+      - name: Commit composer.json + composer.lock
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add backend/composer.json backend/composer.lock
+          if git diff --cached --quiet; then echo "nothing to commit"; else
+            git commit -m "chore(backend): pin composer platform to PHP 8.2 and re-resolve lock"
+            git push
+          fi 2>&1 | tee -a /tmp/ci.log
+      - name: Publish log tail as a check run
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const text = fs.existsSync('/tmp/ci.log') ? fs.readFileSync('/tmp/ci.log', 'utf8').slice(-60000) : '(no log)';
+            await github.rest.checks.create({
+              owner: context.repo.owner, repo: context.repo.repo, head_sha: context.sha,
+              name: 'log-' + process.env.LOG_NAME, status: 'completed', conclusion: 'neutral',
+              output: { title: 'log tail', summary: 'tail of captured output', text: '```\n' + text + '\n```' }
+            });
