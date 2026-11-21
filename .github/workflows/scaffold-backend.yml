@@ -7,6 +7,11 @@ on:
 
 permissions:
   contents: write
+  checks: write
+
+defaults:
+  run:
+    shell: bash
 
 jobs:
   scaffold:
@@ -21,33 +26,36 @@ jobs:
           tools: composer:v2
 
       - name: Create a fresh Laravel 11 skeleton
-        run: composer create-project laravel/laravel:^11.0 /tmp/lv --no-interaction --prefer-dist --no-progress
+        run: composer create-project laravel/laravel /tmp/lv "^11.0" --no-interaction --prefer-dist --no-progress 2>&1 | tee -a /tmp/ci.log
 
       - name: Copy only the missing skeleton files into backend/
         run: |
-          rsync -a --ignore-existing \
-            --exclude 'vendor' --exclude 'node_modules' --exclude '.env' \
-            --exclude 'composer.json' --exclude 'composer.lock' --exclude 'package.json' \
-            --exclude 'vite.config.js' --exclude 'README.md' --exclude '.gitignore' \
-            --exclude '.gitattributes' --exclude '.editorconfig' \
-            /tmp/lv/ backend/
-          cp /tmp/lv/artisan backend/artisan   # the repo only had an empty placeholder
-          chmod +x backend/artisan
+          {
+            rsync -a --ignore-existing \
+              --exclude 'vendor' --exclude 'node_modules' --exclude '.env' \
+              --exclude 'composer.json' --exclude 'composer.lock' --exclude 'package.json' \
+              --exclude 'vite.config.js' --exclude 'README.md' --exclude '.gitignore' \
+              --exclude '.gitattributes' --exclude '.editorconfig' \
+              /tmp/lv/ backend/
+            cp /tmp/lv/artisan backend/artisan   # the repo only had an empty placeholder
+            chmod +x backend/artisan
+          } 2>&1 | tee -a /tmp/ci.log
 
       - name: Register API routes in bootstrap/app.php
         run: |
-          python3 - <<'PY'
+          python3 - <<'PY' 2>&1 | tee -a /tmp/ci.log
           p = 'backend/bootstrap/app.php'
           s = open(p).read()
           if 'routes/api.php' not in s:
               s = s.replace("web: __DIR__.'/../routes/web.php',",
                             "web: __DIR__.'/../routes/web.php',\n        api: __DIR__.'/../routes/api.php',")
           open(p, 'w').write(s)
+          print('bootstrap/app.php registers api routes:', 'routes/api.php' in s)
           PY
 
       - name: Resolve and lock PHP dependencies
         working-directory: backend
-        run: composer update --no-interaction --prefer-dist --no-progress
+        run: composer update --no-interaction --prefer-dist --no-progress 2>&1 | tee -a /tmp/ci.log
 
       - name: Commit skeleton
         run: |
@@ -57,4 +65,17 @@ jobs:
           if git diff --cached --quiet; then echo "nothing to commit"; else
             git commit -m "chore(backend): add Laravel 11 skeleton and composer.lock"
             git push
-          fi
+          fi 2>&1 | tee -a /tmp/ci.log
+
+      - name: Publish log tail as a check run (readable through the API)
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const text = fs.existsSync('/tmp/ci.log') ? fs.readFileSync('/tmp/ci.log', 'utf8').slice(-60000) : '(no log)';
+            await github.rest.checks.create({
+              owner: context.repo.owner, repo: context.repo.repo, head_sha: context.sha,
+              name: 'log-' + context.job, status: 'completed', conclusion: 'neutral',
+              output: { title: 'log tail', summary: 'tail of captured output', text: '```\n' + text + '\n```' }
+            });
