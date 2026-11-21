@@ -7,7 +7,7 @@
     "aliases": ["PT", "INR", "Prothrombin Time"],
     "sample_type": "Citrate Plasma",
     "methodology": "Clotting assay",
-    "verification_status": "VERIFIED",
+    "verification_status": "VERIFY REQUIRED",
     "source": "Chughtai Lab style",
     "parameters": [
       {
@@ -17,7 +17,7 @@
         "data_type": "numeric",
         "sort_order": 1,
         "ranges": [
-          {"gender": "both", "age_label": "Adult", "low": 11, "high": 13.5, "range_text": "11 – 13.5 (control dependent)", "verification_status": "VERIFIED"}
+          {"gender": "both", "age_label": "Adult", "low": 11, "high": 13.5, "range_text": "11 – 13.5 (control dependent)", "verification_status": "VERIFY REQUIRED"}
         ]
       },
       {
@@ -27,7 +27,7 @@
         "data_type": "numeric",
         "sort_order": 2,
         "ranges": [
-          {"gender": "both", "age_label": "Adult", "low": 0.8, "high": 1.2, "range_text": "0.8 – 1.2 (Therapeutic warfarin usually 2.0 – 3.0)", "verification_status": "VERIFIED"}
+          {"gender": "both", "age_label": "Adult", "low": 0.8, "high": 1.2, "range_text": "0.8 – 1.2 (Therapeutic warfarin usually 2.0 – 3.0)", "verification_status": "VERIFY REQUIRED"}
         ]
       }
     ]
@@ -40,7 +40,7 @@
     "aliases": ["APTT", "PTT", "aPTT"],
     "sample_type": "Citrate Plasma",
     "methodology": "Clotting assay",
-    "verification_status": "VERIFIED",
+    "verification_status": "VERIFY REQUIRED",
     "source": "Chughtai Lab style",
     "parameters": [
       {
@@ -50,7 +50,7 @@
         "data_type": "numeric",
         "sort_order": 1,
         "ranges": [
-          {"gender": "both", "age_label": "Adult", "low": 25, "high": 35, "range_text": "25 – 35 (reagent dependent)", "verification_status": "VERIFIED"}
+          {"gender": "both", "age_label": "Adult", "low": 25, "high": 35, "range_text": "25 – 35 (reagent dependent)", "verification_status": "VERIFY REQUIRED"}
         ]
       }
     ]
@@ -63,7 +63,7 @@
     "aliases": ["D-Dimer", "D Dimer"],
     "sample_type": "Citrate Plasma",
     "methodology": "Immunoturbidimetry / ELISA",
-    "verification_status": "VERIFIED",
+    "verification_status": "VERIFY REQUIRED",
     "source": "Common cut-off",
     "parameters": [
       {
@@ -73,7 +73,7 @@
         "data_type": "numeric",
         "sort_order": 1,
         "ranges": [
-          {"gender": "both", "age_label": "Adult", "low": 0, "high": 0.5, "range_text": "< 0.5 (lab-specific cut-off)", "verification_status": "VERIFIED"}
+          {"gender": "both", "age_label": "Adult", "low": 0, "high": 0.5, "range_text": "< 0.5 (lab-specific cut-off)", "verification_status": "VERIFY REQUIRED"}
         ]
       }
     ]
@@ -86,7 +86,7 @@
     "aliases": ["Fibrinogen"],
     "sample_type": "Citrate Plasma",
     "methodology": "Clauss method",
-    "verification_status": "VERIFIED",
+    "verification_status": "VERIFY REQUIRED",
     "source": "Chughtai Lab style",
     "parameters": [
       {
@@ -96,7 +96,7 @@
         "data_type": "numeric",
         "sort_order": 1,
         "ranges": [
-          {"gender": "both", "age_label": "Adult", "low": 200, "high": 400, "range_text": "200 – 400", "verification_status": "VERIFIED"}
+          {"gender": "both", "age_label": "Adult", "low": 200, "high": 400, "range_text": "200 – 400", "verification_status": "VERIFY REQUIRED"}
         ]
       }
     ]
@@ -109,19 +109,19 @@
     "aliases": ["Urine RE", "Urine DR", "Urine C/E", "Urine Test", "Urine Routine"],
     "sample_type": "Midstream Clean Catch",
     "methodology": "Dipstick + Microscopy",
-    "verification_status": "VERIFIED",
+    "verification_status": "VERIFY REQUIRED",
     "source": "Chughtai Lab style",
     "parameters": [
-      {"name": "Color", "short_name": "Color", "unit": null, "data_type": "text", "sort_order": 1, "ranges": [{"gender": "both", "age_label": "All", "text_normal": "Pale yellow / Yellow", "range_text": "Pale yellow to yellow", "verification_status": "VERIFIED"}]},
-      {"name": "Appearance", "short_name": "Appearance", "unit": null, "data_type": "text", "sort_order": 2, "ranges": [{"gender": "both", "age_label": "All", "text_normal": "Clear", "range_text": "Clear", "verification_status": "VERIFIED"}]},
-      {"name": "Specific Gravity", "short_name": "SG", "unit": null, "data_type": "numeric", "sort_order": 3, "ranges": [{"gender": "both", "age_label": "Adult", "low": 1.005, "high": 1.030, "range_text": "1.005 – 1.030", "verification_status": "VERIFIED"}]},
-      {"name": "pH", "short_name": "pH", "unit": null, "data_type": "numeric", "sort_order": 4, "ranges": [{"gender": "both", "age_label": "Adult", "low": 5.0, "high": 8.0, "range_text": "5.0 – 8.0", "verification_status": "VERIFIED"}]},
-      {"name": "Protein", "short_name": "Protein", "unit": null, "data_type": "qualitative", "sort_order": 5, "ranges": [{"gender": "both", "age_label": "All", "text_normal": "Negative / Trace", "range_text": "Negative / Trace", "verification_status": "VERIFIED"}]},
-      {"name": "Glucose", "short_name": "Glucose", "unit": null, "data_type": "qualitative", "sort_order": 6, "ranges": [{"gender": "both", "age_label": "All", "text_normal": "Negative", "range_text": "Negative", "verification_status": "VERIFIED"}]},
-      {"name": "Ketones", "short_name": "Ketones", "unit": null, "data_type": "qualitative", "sort_order": 7, "ranges": [{"gender": "both", "age_label": "All", "text_normal": "Negative", "range_text": "Negative", "verification_status": "VERIFIED"}]},
-      {"name": "Blood", "short_name": "Blood", "unit": null, "data_type": "qualitative", "sort_order": 8, "ranges": [{"gender": "both", "age_label": "All", "text_normal": "Negative", "range_text": "Negative", "verification_status": "VERIFIED"}]},
-      {"name": "RBC / HPF", "short_name": "RBC", "unit": "/HPF", "data_type": "numeric", "sort_order": 9, "ranges": [{"gender": "both", "age_label": "Adult", "low": 0, "high": 2, "range_text": "0 – 2 /HPF", "verification_status": "VERIFIED"}]},
-      {"name": "WBC / HPF", "short_name": "WBC", "unit": "/HPF", "data_type": "numeric", "sort_order": 10, "ranges": [{"gender": "both", "age_label": "Adult", "low": 0, "high": 5, "range_text": "0 – 5 /HPF", "verification_status": "VERIFIED"}]}
+      {"name": "Color", "short_name": "Color", "unit": null, "data_type": "text", "sort_order": 1, "ranges": [{"gender": "both", "age_label": "All", "text_normal": "Pale yellow / Yellow", "range_text": "Pale yellow to yellow", "verification_status": "VERIFY REQUIRED"}]},
+      {"name": "Appearance", "short_name": "Appearance", "unit": null, "data_type": "text", "sort_order": 2, "ranges": [{"gender": "both", "age_label": "All", "text_normal": "Clear", "range_text": "Clear", "verification_status": "VERIFY REQUIRED"}]},
+      {"name": "Specific Gravity", "short_name": "SG", "unit": null, "data_type": "numeric", "sort_order": 3, "ranges": [{"gender": "both", "age_label": "Adult", "low": 1.005, "high": 1.030, "range_text": "1.005 – 1.030", "verification_status": "VERIFY REQUIRED"}]},
+      {"name": "pH", "short_name": "pH", "unit": null, "data_type": "numeric", "sort_order": 4, "ranges": [{"gender": "both", "age_label": "Adult", "low": 5.0, "high": 8.0, "range_text": "5.0 – 8.0", "verification_status": "VERIFY REQUIRED"}]},
+      {"name": "Protein", "short_name": "Protein", "unit": null, "data_type": "qualitative", "sort_order": 5, "ranges": [{"gender": "both", "age_label": "All", "text_normal": "Negative / Trace", "range_text": "Negative / Trace", "verification_status": "VERIFY REQUIRED"}]},
+      {"name": "Glucose", "short_name": "Glucose", "unit": null, "data_type": "qualitative", "sort_order": 6, "ranges": [{"gender": "both", "age_label": "All", "text_normal": "Negative", "range_text": "Negative", "verification_status": "VERIFY REQUIRED"}]},
+      {"name": "Ketones", "short_name": "Ketones", "unit": null, "data_type": "qualitative", "sort_order": 7, "ranges": [{"gender": "both", "age_label": "All", "text_normal": "Negative", "range_text": "Negative", "verification_status": "VERIFY REQUIRED"}]},
+      {"name": "Blood", "short_name": "Blood", "unit": null, "data_type": "qualitative", "sort_order": 8, "ranges": [{"gender": "both", "age_label": "All", "text_normal": "Negative", "range_text": "Negative", "verification_status": "VERIFY REQUIRED"}]},
+      {"name": "RBC / HPF", "short_name": "RBC", "unit": "/HPF", "data_type": "numeric", "sort_order": 9, "ranges": [{"gender": "both", "age_label": "Adult", "low": 0, "high": 2, "range_text": "0 – 2 /HPF", "verification_status": "VERIFY REQUIRED"}]},
+      {"name": "WBC / HPF", "short_name": "WBC", "unit": "/HPF", "data_type": "numeric", "sort_order": 10, "ranges": [{"gender": "both", "age_label": "Adult", "low": 0, "high": 5, "range_text": "0 – 5 /HPF", "verification_status": "VERIFY REQUIRED"}]}
     ]
   },
   {
@@ -132,7 +132,7 @@
     "aliases": ["PSA", "Prostate Specific Antigen", "Prostate Test"],
     "sample_type": "Serum",
     "methodology": "CLIA",
-    "verification_status": "VERIFIED",
+    "verification_status": "VERIFY REQUIRED",
     "source": "Traditional cut-off; age-specific preferred",
     "parameters": [
       {
@@ -142,7 +142,7 @@
         "data_type": "numeric",
         "sort_order": 1,
         "ranges": [
-          {"gender": "male", "age_label": "Adult", "low": 0, "high": 4.0, "range_text": "< 4.0 (age-specific ranges preferred)", "verification_status": "VERIFIED"}
+          {"gender": "male", "age_label": "Adult", "low": 0, "high": 4.0, "range_text": "< 4.0 (age-specific ranges preferred)", "verification_status": "VERIFY REQUIRED"}
         ]
       }
     ]
@@ -155,7 +155,7 @@
     "aliases": ["CA-125", "CA125"],
     "sample_type": "Serum",
     "methodology": "CLIA",
-    "verification_status": "VERIFIED",
+    "verification_status": "VERIFY REQUIRED",
     "source": "Standard",
     "parameters": [
       {
@@ -165,7 +165,7 @@
         "data_type": "numeric",
         "sort_order": 1,
         "ranges": [
-          {"gender": "both", "age_label": "Adult", "low": 0, "high": 35, "range_text": "< 35", "verification_status": "VERIFIED"}
+          {"gender": "both", "age_label": "Adult", "low": 0, "high": 35, "range_text": "< 35", "verification_status": "VERIFY REQUIRED"}
         ]
       }
     ]
@@ -178,7 +178,7 @@
     "aliases": ["CEA"],
     "sample_type": "Serum",
     "methodology": "CLIA",
-    "verification_status": "VERIFIED",
+    "verification_status": "VERIFY REQUIRED",
     "source": "Standard",
     "parameters": [
       {
@@ -188,7 +188,7 @@
         "data_type": "numeric",
         "sort_order": 1,
         "ranges": [
-          {"gender": "both", "age_label": "Adult", "low": 0, "high": 5, "range_text": "< 5 (non-smokers) | < 10 (smokers)", "verification_status": "VERIFIED"}
+          {"gender": "both", "age_label": "Adult", "low": 0, "high": 5, "range_text": "< 5 (non-smokers) | < 10 (smokers)", "verification_status": "VERIFY REQUIRED"}
         ]
       }
     ]

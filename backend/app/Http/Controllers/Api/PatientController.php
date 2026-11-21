@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Patient;
+use App\Support\DeviceCode;
+use Illuminate\Database\UniqueConstraintViolationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
@@ -69,11 +71,10 @@ class PatientController extends Controller
         $data['id'] = (string) Str::uuid();
         $data['phone_raw'] = $data['phone'];
         $data['phone'] = $this->normalizePhone($data['phone']);
-        $data['mr_number'] = $this->generateMrNumber($request);
-        $data['updated_by_device'] = $request->header('X-Device-Code', 'P');
+        $data['updated_by_device'] = DeviceCode::fromRequest($request);
         $data['rev'] = 1;
 
-        $patient = Patient::create($data);
+        $patient = $this->createWithUniqueMr($data, $request);
 
         return response()->json(['data' => $patient], 201);
     }
@@ -109,7 +110,7 @@ class PatientController extends Controller
             $data['phone'] = $this->normalizePhone($data['phone']);
         }
 
-        $data['updated_by_device'] = $request->header('X-Device-Code', 'P');
+        $data['updated_by_device'] = DeviceCode::fromRequest($request);
         $data['rev'] = $patient->rev + 1;
 
         $patient->update($data);
@@ -139,9 +140,25 @@ class PatientController extends Controller
         return $phone;
     }
 
+    /** Creates the patient, retrying with a fresh MR number if two requests raced for the same one. */
+    protected function createWithUniqueMr(array $data, Request $request): Patient
+    {
+        for ($attempt = 1; ; $attempt++) {
+            $data['mr_number'] = $this->generateMrNumber($request);
+
+            try {
+                return Patient::create($data);
+            } catch (UniqueConstraintViolationException $e) {
+                if ($attempt >= 5) {
+                    throw $e;
+                }
+            }
+        }
+    }
+
     protected function generateMrNumber(Request $request): string
     {
-        $device = $request->header('X-Device-Code', 'P');
+        $device = DeviceCode::fromRequest($request);
         $date = now('Asia/Karachi')->format('ymd');
         $prefix = "{$date}-{$device}-";
 

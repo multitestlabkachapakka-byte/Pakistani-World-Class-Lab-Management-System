@@ -7,7 +7,7 @@
     "aliases": ["CBC", "Blood CP", "Blood Complete Picture", "FBC", "Blood C/E", "Hemogram"],
     "sample_type": "EDTA Whole Blood",
     "methodology": "Automated Hematology Analyzer",
-    "verification_status": "VERIFIED",
+    "verification_status": "VERIFY REQUIRED",
     "source": "Chughtai Lab style adult ranges (2025-2026)",
     "parameters": [
       {
@@ -17,8 +17,8 @@
         "data_type": "numeric",
         "sort_order": 1,
         "ranges": [
-          {"gender": "male", "age_label": "Adult", "low": 12.3, "high": 16.6, "range_text": "12.3 – 16.6", "verification_status": "VERIFIED"},
-          {"gender": "female", "age_label": "Adult", "low": 11.0, "high": 14.5, "range_text": "11.0 – 14.5", "verification_status": "VERIFIED"}
+          {"gender": "male", "age_label": "Adult", "low": 12.3, "high": 16.6, "range_text": "12.3 – 16.6", "verification_status": "VERIFY REQUIRED"},
+          {"gender": "female", "age_label": "Adult", "low": 11.0, "high": 14.5, "range_text": "11.0 – 14.5", "verification_status": "VERIFY REQUIRED"}
         ]
       },
       {
@@ -28,8 +28,8 @@
         "data_type": "numeric",
         "sort_order": 2,
         "ranges": [
-          {"gender": "male", "age_label": "Adult", "low": 4.25, "high": 6.02, "range_text": "4.25 – 6.02", "verification_status": "VERIFIED"},
-          {"gender": "female", "age_label": "Adult", "low": 3.61, "high": 5.20, "range_text": "3.61 – 5.20", "verification_status": "VERIFIED"}
+          {"gender": "male", "age_label": "Adult", "low": 4.25, "high": 6.02, "range_text": "4.25 – 6.02", "verification_status": "VERIFY REQUIRED"},
+          {"gender": "female", "age_label": "Adult", "low": 3.61, "high": 5.20, "range_text": "3.61 – 5.20", "verification_status": "VERIFY REQUIRED"}
         ]
       },
       {
@@ -39,8 +39,8 @@
         "data_type": "numeric",
         "sort_order": 3,
         "ranges": [
-          {"gender": "male", "age_label": "Adult", "low": 38.0, "high": 50.0, "range_text": "38 – 50", "verification_status": "VERIFIED"},
-          {"gender": "female", "age_label": "Adult", "low": 34.5, "high": 45.4, "range_text": "34.5 – 45.4", "verification_status": "VERIFIED"}
+          {"gender": "male", "age_label": "Adult", "low": 38.0, "high": 50.0, "range_text": "38 – 50", "verification_status": "VERIFY REQUIRED"},
+          {"gender": "female", "age_label": "Adult", "low": 34.5, "high": 45.4, "range_text": "34.5 – 45.4", "verification_status": "VERIFY REQUIRED"}
         ]
       },
       {
@@ -50,7 +50,7 @@
         "data_type": "numeric",
         "sort_order": 4,
         "ranges": [
-          {"gender": "both", "age_label": "Adult", "low": 78, "high": 96, "range_text": "78 – 96", "verification_status": "VERIFIED"}
+          {"gender": "both", "age_label": "Adult", "low": 78, "high": 96, "range_text": "78 – 96", "verification_status": "VERIFY REQUIRED"}
         ]
       },
       {
@@ -60,7 +60,7 @@
         "data_type": "numeric",
         "sort_order": 5,
         "ranges": [
-          {"gender": "both", "age_label": "Adult", "low": 25, "high": 31, "range_text": "25 – 31", "verification_status": "VERIFIED"}
+          {"gender": "both", "age_label": "Adult", "low": 25, "high": 31, "range_text": "25 – 31", "verification_status": "VERIFY REQUIRED"}
         ]
       },
       {
@@ -70,7 +70,7 @@
         "data_type": "numeric",
         "sort_order": 6,
         "ranges": [
-          {"gender": "both", "age_label": "Adult", "low": 30, "high": 36, "range_text": "30 – 36", "verification_status": "VERIFIED"}
+          {"gender": "both", "age_label": "Adult", "low": 30, "high": 36, "range_text": "30 – 36", "verification_status": "VERIFY REQUIRED"}
         ]
       },
       {
@@ -80,7 +80,7 @@
         "data_type": "numeric",
         "sort_order": 7,
         "ranges": [
-          {"gender": "both", "age_label": "Adult", "low": 11.5, "high": 14.5, "range_text": "11.5 – 14.5", "verification_status": "VERIFIED"}
+          {"gender": "both", "age_label": "Adult", "low": 11.5, "high": 14.5, "range_text": "11.5 – 14.5", "verification_status": "VERIFY REQUIRED"}
         ]
       },
       {
@@ -90,7 +90,7 @@
         "data_type": "numeric",
         "sort_order": 8,
         "ranges": [
-          {"gender": "both", "age_label": "Adult", "low": 150, "high": 450, "range_text": "150 – 450", "verification_status": "VERIFIED"}
+          {"gender": "both", "age_label": "Adult", "low": 150, "high": 450, "range_text": "150 – 450", "verification_status": "VERIFY REQUIRED"}
         ]
       },
       {
@@ -100,7 +100,7 @@
         "data_type": "numeric",
         "sort_order": 9,
         "ranges": [
-          {"gender": "both", "age_label": "Adult", "low": 7, "high": 11, "range_text": "7 – 11", "verification_status": "VERIFIED"}
+          {"gender": "both", "age_label": "Adult", "low": 7, "high": 11, "range_text": "7 – 11", "verification_status": "VERIFY REQUIRED"}
         ]
       },
       {
@@ -110,7 +110,7 @@
         "data_type": "numeric",
         "sort_order": 10,
         "ranges": [
-          {"gender": "both", "age_label": "Adult", "low": 4.8, "high": 11.3, "range_text": "4.8 – 11.3", "verification_status": "VERIFIED"}
+          {"gender": "both", "age_label": "Adult", "low": 4.8, "high": 11.3, "range_text": "4.8 – 11.3", "verification_status": "VERIFY REQUIRED"}
         ]
       },
       {
@@ -120,7 +120,7 @@
         "data_type": "numeric",
         "sort_order": 11,
         "ranges": [
-          {"gender": "both", "age_label": "Adult", "low": 35, "high": 76, "range_text": "35 – 76", "verification_status": "VERIFIED"}
+          {"gender": "both", "age_label": "Adult", "low": 35, "high": 76, "range_text": "35 – 76", "verification_status": "VERIFY REQUIRED"}
         ]
       },
       {
@@ -130,7 +130,7 @@
         "data_type": "numeric",
         "sort_order": 12,
         "ranges": [
-          {"gender": "both", "age_label": "Adult", "low": 18, "high": 45, "range_text": "18 – 45", "verification_status": "VERIFIED"}
+          {"gender": "both", "age_label": "Adult", "low": 18, "high": 45, "range_text": "18 – 45", "verification_status": "VERIFY REQUIRED"}
         ]
       },
       {
@@ -140,7 +140,7 @@
         "data_type": "numeric",
         "sort_order": 13,
         "ranges": [
-          {"gender": "both", "age_label": "Adult", "low": 4, "high": 10, "range_text": "4 – 10", "verification_status": "VERIFIED"}
+          {"gender": "both", "age_label": "Adult", "low": 4, "high": 10, "range_text": "4 – 10", "verification_status": "VERIFY REQUIRED"}
         ]
       },
       {
@@ -150,7 +150,7 @@
         "data_type": "numeric",
         "sort_order": 14,
         "ranges": [
-          {"gender": "both", "age_label": "Adult", "low": 1, "high": 6, "range_text": "1 – 6", "verification_status": "VERIFIED"}
+          {"gender": "both", "age_label": "Adult", "low": 1, "high": 6, "range_text": "1 – 6", "verification_status": "VERIFY REQUIRED"}
         ]
       },
       {
@@ -160,7 +160,7 @@
         "data_type": "numeric",
         "sort_order": 15,
         "ranges": [
-          {"gender": "both", "age_label": "Adult", "low": 0, "high": 1, "range_text": "< 1", "verification_status": "VERIFIED"}
+          {"gender": "both", "age_label": "Adult", "low": 0, "high": 1, "range_text": "< 1", "verification_status": "VERIFY REQUIRED"}
         ]
       }
     ]
@@ -173,7 +173,7 @@
     "aliases": ["ESR", "Sed Rate", "Westergren"],
     "sample_type": "EDTA / Citrate",
     "methodology": "Westergren",
-    "verification_status": "VERIFIED",
+    "verification_status": "VERIFY REQUIRED",
     "source": "Chughtai Lab style",
     "parameters": [
       {
@@ -183,8 +183,8 @@
         "data_type": "numeric",
         "sort_order": 1,
         "ranges": [
-          {"gender": "male", "age_label": "Adult", "low": 0, "high": 15, "range_text": "0 – 15", "verification_status": "VERIFIED"},
-          {"gender": "female", "age_label": "Adult", "low": 0, "high": 20, "range_text": "0 – 20", "verification_status": "VERIFIED"}
+          {"gender": "male", "age_label": "Adult", "low": 0, "high": 15, "range_text": "0 – 15", "verification_status": "VERIFY REQUIRED"},
+          {"gender": "female", "age_label": "Adult", "low": 0, "high": 20, "range_text": "0 – 20", "verification_status": "VERIFY REQUIRED"}
         ]
       }
     ]
@@ -197,7 +197,7 @@
     "aliases": ["Blood Group", "ABO", "Rh Typing", "Blood Grouping"],
     "sample_type": "EDTA / Clotted",
     "methodology": "Forward + Reverse Typing",
-    "verification_status": "VERIFIED",
+    "verification_status": "VERIFY REQUIRED",
     "source": "Standard",
     "parameters": [
       {
@@ -207,7 +207,7 @@
         "data_type": "text",
         "sort_order": 1,
         "ranges": [
-          {"gender": "both", "age_label": "All", "text_normal": "A / B / AB / O", "range_text": "A, B, AB or O", "verification_status": "VERIFIED"}
+          {"gender": "both", "age_label": "All", "text_normal": "A / B / AB / O", "range_text": "A, B, AB or O", "verification_status": "VERIFY REQUIRED"}
         ]
       },
       {
@@ -217,7 +217,7 @@
         "data_type": "text",
         "sort_order": 2,
         "ranges": [
-          {"gender": "both", "age_label": "All", "text_normal": "Positive / Negative", "range_text": "Positive or Negative", "verification_status": "VERIFIED"}
+          {"gender": "both", "age_label": "All", "text_normal": "Positive / Negative", "range_text": "Positive or Negative", "verification_status": "VERIFY REQUIRED"}
         ]
       }
     ]
@@ -230,7 +230,7 @@
     "aliases": ["Retic Count", "Reticulocytes"],
     "sample_type": "EDTA",
     "methodology": "Automated / Manual",
-    "verification_status": "VERIFIED",
+    "verification_status": "VERIFY REQUIRED",
     "source": "Chughtai Lab style",
     "parameters": [
       {
@@ -240,7 +240,7 @@
         "data_type": "numeric",
         "sort_order": 1,
         "ranges": [
-          {"gender": "both", "age_label": "Adult", "low": 0.5, "high": 1.5, "range_text": "0.5 – 1.5", "verification_status": "VERIFIED"}
+          {"gender": "both", "age_label": "Adult", "low": 0.5, "high": 1.5, "range_text": "0.5 – 1.5", "verification_status": "VERIFY REQUIRED"}
         ]
       }
     ]
@@ -253,7 +253,7 @@
     "aliases": ["AEC", "Absolute Eosinophils"],
     "sample_type": "EDTA",
     "methodology": "Calculated / Direct",
-    "verification_status": "VERIFIED",
+    "verification_status": "VERIFY REQUIRED",
     "source": "Chughtai Lab style",
     "parameters": [
       {
@@ -263,7 +263,7 @@
         "data_type": "numeric",
         "sort_order": 1,
         "ranges": [
-          {"gender": "both", "age_label": "Adult", "low": 0.02, "high": 0.50, "range_text": "0.02 – 0.50", "verification_status": "VERIFIED"}
+          {"gender": "both", "age_label": "Adult", "low": 0.02, "high": 0.50, "range_text": "0.02 – 0.50", "verification_status": "VERIFY REQUIRED"}
         ]
       }
     ]

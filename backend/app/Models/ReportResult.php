@@ -19,11 +19,15 @@ class ReportResult extends Model
         'result_flag', 'reference_range_text', 'ref_low', 'ref_high',
         'is_abnormal', 'is_critical', 'print_selected',
         'was_auto_filled', 'was_manually_edited', 'sort_order', 'interpretation',
+        'reference_range_id', 'critical_low', 'critical_high',
+        'reference_source', 'reference_verification_status',
     ];
 
     protected $casts = [
         'ref_low' => 'decimal:4',
         'ref_high' => 'decimal:4',
+        'critical_low' => 'decimal:4',
+        'critical_high' => 'decimal:4',
         'is_abnormal' => 'boolean',
         'is_critical' => 'boolean',
         'print_selected' => 'boolean',

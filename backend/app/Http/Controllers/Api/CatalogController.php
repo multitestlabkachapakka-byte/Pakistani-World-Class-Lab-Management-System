@@ -26,7 +26,7 @@ class CatalogController extends Controller
                 $builder->where('name', 'like', "%{$q}%")
                     ->orWhere('short_name', 'like', "%{$q}%")
                     ->orWhere('code', 'like', "%{$q}%")
-                    ->orWhereJsonContains('aliases', $q);
+                    ->orWhereRaw('CAST(aliases AS CHAR) LIKE ?', ["%{$q}%"]);
             });
         }
 

@@ -2,113 +2,173 @@
 
 namespace Database\Seeders;
 
+use App\Models\ReferenceRange;
+use App\Models\TestDefinition;
+use App\Models\TestParameter;
+use App\Services\ReferenceRangeResolver;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Str;
-use App\Models\TestDefinition;
-use App\Models\TestParameter;
-use App\Models\ReferenceRange;
+use Ramsey\Uuid\Uuid;
 
 /**
- * Loads verified catalog JSON files from database/seeders/catalog/
- * Never invents ranges — only seeds what is present in the JSON files.
+ * Loads the catalog JSON files from database/seeders/catalog/.
+ *
+ * Clinical-safety rules:
+ *  - Only values present in the JSON are stored; nothing is invented.
+ *  - Everything is "VERIFY REQUIRED" unless the JSON names a verifier (verified_by + verified_at).
+ *    A bare "VERIFIED" without a verifier is downgraded.
+ *  - IDs are deterministic (UUIDv5): every device that seeds the catalog gets identical IDs,
+ *    so catalog records stay mergeable by the Google Drive sync and re-seeding never re-keys rows.
  */
 class CatalogSeeder extends Seeder
 {
+    private const ID_NAMESPACE = 'lims.catalog';
+
     public function run(): void
     {
-        $catalogDir = database_path('seeders/catalog');
+        $dir = database_path('seeders/catalog');
 
-        if (!File::isDirectory($catalogDir)) {
+        if (!File::isDirectory($dir)) {
             $this->command?->warn('No catalog directory found.');
             return;
         }
 
-        $files = File::files($catalogDir);
-        $totalTests = 0;
-        $totalParams = 0;
+        $tests = 0;
+        $params = 0;
 
-        foreach ($files as $file) {
-            if ($file->getExtension() !== 'json') {
-                continue;
+        DB::transaction(function () use ($dir, &$tests, &$params) {
+            foreach (File::files($dir) as $file) {
+                if ($file->getExtension() !== 'json') {
+                    continue;
+                }
+
+                $data = json_decode(File::get($file->getPathname()), true);
+                if (!is_array($data)) {
+                    throw new \RuntimeException("Invalid catalog JSON: {$file->getFilename()}");
+                }
+
+                foreach ($data as $testData) {
+                    $this->seedTest($testData);
+                    $tests++;
+                    $params += count($testData['parameters'] ?? []);
+                }
+
+                $this->command?->info("Loaded: {$file->getFilename()}");
             }
+        });
 
-            $data = json_decode(File::get($file->getPathname()), true);
-            if (!is_array($data)) {
-                $this->command?->error("Invalid JSON: {$file->getFilename()}");
-                continue;
-            }
-
-            foreach ($data as $testData) {
-                $this->seedTest($testData);
-                $totalTests++;
-                $totalParams += count($testData['parameters'] ?? []);
-            }
-
-            $this->command?->info("Loaded: {$file->getFilename()}");
-        }
-
-        $this->command?->info("Catalog seed complete. Tests: {$totalTests}, Parameters: {$totalParams}");
+        $this->command?->info("Catalog seed complete. Tests: {$tests}, Parameters: {$params}");
     }
 
     protected function seedTest(array $data): void
     {
-        $test = TestDefinition::updateOrCreate(
-            ['code' => $data['code']],
+        $code = $data['code'];
+
+        $test = TestDefinition::withTrashed()->firstOrNew(['id' => $this->uuid("test:{$code}")]);
+        $isNew = !$test->exists;
+
+        $test->fill([
+            'code' => $code,
+            'name' => $data['name'],
+            'short_name' => $data['short_name'] ?? null,
+            'department' => $data['department'],
+            'aliases' => $data['aliases'] ?? [],
+            'sample_type' => $data['sample_type'] ?? null,
+            'methodology' => $data['methodology'] ?? null,
+            'is_profile' => $data['is_profile'] ?? false,
+            'verification_status' => $this->status($data),
+            'verified_by' => $this->isVerified($data) ? $data['verified_by'] : null,
+            'last_verified' => $this->isVerified($data) ? $data['verified_at'] : null,
+            'source' => $data['source'] ?? null,
+            'notes' => $data['notes'] ?? null,
+            'sort_order' => $data['sort_order'] ?? 0,
+            'rev' => 1,
+        ]);
+        if ($isNew) {
+            $test->is_active = true; // never re-enable a test an administrator switched off
+        }
+        $test->save();
+
+        foreach ($data['parameters'] ?? [] as $paramData) {
+            $param = TestParameter::updateOrCreate(
+                ['id' => $this->uuid("param:{$code}:{$paramData['name']}")],
+                [
+                    'test_definition_id' => $test->id,
+                    'name' => $paramData['name'],
+                    'short_name' => $paramData['short_name'] ?? null,
+                    'unit' => $paramData['unit'] ?? null,
+                    'data_type' => $paramData['data_type'] ?? 'numeric',
+                    'is_calculated' => $paramData['is_calculated'] ?? false,
+                    'calculation_formula' => $paramData['calculation_formula'] ?? null,
+                    'sort_order' => $paramData['sort_order'] ?? 0,
+                    'print_by_default' => $paramData['print_by_default'] ?? true,
+                ]
+            );
+
+            foreach ($paramData['ranges'] ?? [] as $rangeData) {
+                $this->seedRange($data, $paramData, $param, $rangeData);
+            }
+        }
+    }
+
+    protected function seedRange(array $testData, array $paramData, TestParameter $param, array $rangeData): void
+    {
+        $gender = $rangeData['gender'] ?? 'both';
+        $label = $rangeData['age_label'] ?? 'All';
+        $min = $rangeData['age_min_days'] ?? null;
+        $max = $rangeData['age_max_days'] ?? null;
+
+        // An "Adult" range must never be shown for a child.
+        if ($min === null && $max === null && $label === 'Adult') {
+            $min = ReferenceRangeResolver::ADULT_MIN_DAYS;
+        }
+
+        $id = $this->uuid(sprintf(
+            'range:%s:%s:%s:%s:%s:%s',
+            $testData['code'], $paramData['name'], $gender, $label, $min ?? '', $max ?? ''
+        ));
+
+        ReferenceRange::withTrashed()->updateOrCreate(
+            ['id' => $id],
             [
-                'id' => (string) Str::uuid(),
-                'name' => $data['name'],
-                'short_name' => $data['short_name'] ?? null,
-                'department' => $data['department'],
-                'aliases' => $data['aliases'] ?? [],
-                'sample_type' => $data['sample_type'] ?? null,
-                'methodology' => $data['methodology'] ?? null,
-                'is_profile' => $data['is_profile'] ?? false,
-                'is_active' => true,
-                'verification_status' => $data['verification_status'] ?? 'VERIFY REQUIRED',
-                'source' => $data['source'] ?? null,
-                'notes' => $data['notes'] ?? null,
-                'sort_order' => $data['sort_order'] ?? 0,
+                'test_parameter_id' => $param->id,
+                'gender' => $gender,
+                'age_min_days' => $min,
+                'age_max_days' => $max,
+                'age_label' => $label,
+                'low' => $rangeData['low'] ?? null,
+                'high' => $rangeData['high'] ?? null,
+                'critical_low' => $rangeData['critical_low'] ?? null,
+                'critical_high' => $rangeData['critical_high'] ?? null,
+                'text_normal' => $rangeData['text_normal'] ?? null,
+                'range_text' => $rangeData['range_text'] ?? null,
+                'unit' => $rangeData['unit'] ?? $paramData['unit'] ?? null,
+                'population' => $rangeData['population'] ?? null,
+                'methodology' => $rangeData['methodology'] ?? $testData['methodology'] ?? null,
+                'source' => $rangeData['source'] ?? $testData['source'] ?? null,
+                'verification_status' => $this->status($rangeData),
+                'verified_by' => $this->isVerified($rangeData) ? $rangeData['verified_by'] : null,
+                'verified_at' => $this->isVerified($rangeData) ? $rangeData['verified_at'] : null,
                 'rev' => 1,
             ]
         );
+    }
 
-        // Clear existing parameters for clean re-seed (dev only)
-        $test->parameters()->delete();
+    private function isVerified(array $src): bool
+    {
+        return ($src['verification_status'] ?? null) === ReferenceRange::STATUS_VERIFIED
+            && !empty($src['verified_by'])
+            && !empty($src['verified_at']);
+    }
 
-        foreach ($data['parameters'] ?? [] as $paramData) {
-            $param = TestParameter::create([
-                'id' => (string) Str::uuid(),
-                'test_definition_id' => $test->id,
-                'name' => $paramData['name'],
-                'short_name' => $paramData['short_name'] ?? null,
-                'unit' => $paramData['unit'] ?? null,
-                'data_type' => $paramData['data_type'] ?? 'numeric',
-                'is_calculated' => $paramData['is_calculated'] ?? false,
-                'calculation_formula' => $paramData['calculation_formula'] ?? null,
-                'sort_order' => $paramData['sort_order'] ?? 0,
-                'print_by_default' => $paramData['print_by_default'] ?? true,
-            ]);
+    private function status(array $src): string
+    {
+        return $this->isVerified($src) ? ReferenceRange::STATUS_VERIFIED : ReferenceRange::STATUS_PENDING;
+    }
 
-            foreach ($paramData['ranges'] ?? [] as $rangeData) {
-                ReferenceRange::create([
-                    'id' => (string) Str::uuid(),
-                    'test_parameter_id' => $param->id,
-                    'gender' => $rangeData['gender'] ?? 'both',
-                    'age_min_days' => $rangeData['age_min_days'] ?? null,
-                    'age_max_days' => $rangeData['age_max_days'] ?? null,
-                    'age_label' => $rangeData['age_label'] ?? 'Adult',
-                    'low' => $rangeData['low'] ?? null,
-                    'high' => $rangeData['high'] ?? null,
-                    'critical_low' => $rangeData['critical_low'] ?? null,
-                    'critical_high' => $rangeData['critical_high'] ?? null,
-                    'text_normal' => $rangeData['text_normal'] ?? null,
-                    'range_text' => $rangeData['range_text'] ?? null,
-                    'source' => $rangeData['source'] ?? $data['source'] ?? null,
-                    'verification_status' => $rangeData['verification_status'] ?? 'VERIFY REQUIRED',
-                ]);
-            }
-        }
+    private function uuid(string $key): string
+    {
+        return Uuid::uuid5(Uuid::NAMESPACE_URL, self::ID_NAMESPACE.':'.$key)->toString();
     }
 }

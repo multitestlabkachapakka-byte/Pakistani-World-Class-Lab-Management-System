@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Services\Sync\GoogleDriveSyncService;
+use App\Support\DeviceCode;
 use Illuminate\Http\Request;
 
 class SyncController extends Controller
@@ -19,7 +20,7 @@ class SyncController extends Controller
 
     public function run(Request $request)
     {
-        $device = $request->header('X-Device-Code', 'P');
+        $device = DeviceCode::fromRequest($request);
         $result = $this->sync->syncNow($device);
 
         return response()->json([

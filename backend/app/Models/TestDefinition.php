@@ -17,7 +17,7 @@ class TestDefinition extends Model
     protected $fillable = [
         'id', 'code', 'name', 'short_name', 'department', 'aliases',
         'sample_type', 'methodology', 'is_profile', 'is_active',
-        'verification_status', 'last_verified', 'source', 'notes',
+        'verification_status', 'last_verified', 'verified_by', 'source', 'notes',
         'sort_order', 'updated_by_device', 'rev',
     ];
 
