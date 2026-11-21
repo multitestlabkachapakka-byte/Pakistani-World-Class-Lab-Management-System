@@ -1,6 +1,6 @@
 name: Scaffold Laravel backend (one-off)
 
-# Fills in the standard Laravel 11 skeleton files (bootstrap/, config/, public/, artisan, ...)
+# Fills in the standard Laravel 12 skeleton files (bootstrap/, config/, public/, artisan, ...)
 # around the application code that already lives in backend/. Never overwrites existing files.
 on:
   workflow_dispatch:
@@ -25,8 +25,8 @@ jobs:
           extensions: mbstring, xml, ctype, json, pdo_sqlite, sqlite3, curl, zip, bcmath, fileinfo, intl
           tools: composer:v2
 
-      - name: Create a fresh Laravel 11 skeleton
-        run: composer create-project laravel/laravel /tmp/lv "^11.0" --no-interaction --prefer-dist --no-progress 2>&1 | tee -a /tmp/ci.log
+      - name: Create a fresh Laravel 12 skeleton
+        run: composer create-project laravel/laravel /tmp/lv "^12.0" --no-interaction --prefer-dist --no-progress 2>&1 | tee -a /tmp/ci.log
 
       - name: Copy only the missing skeleton files into backend/
         run: |
@@ -63,9 +63,25 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add backend
           if git diff --cached --quiet; then echo "nothing to commit"; else
-            git commit -m "chore(backend): add Laravel 11 skeleton and composer.lock"
+            git commit -m "chore(backend): add Laravel 12 skeleton and composer.lock"
             git push
           fi 2>&1 | tee -a /tmp/ci.log
+
+      - name: Smoke test - boot app, list API routes, migrate and seed catalog (sqlite)
+        if: always()
+        continue-on-error: true
+        working-directory: backend
+        env:
+          DB_CONNECTION: sqlite
+          DB_DATABASE: /tmp/smoke.sqlite
+        run: |
+          {
+            touch /tmp/smoke.sqlite
+            [ -f .env ] || cp .env.example .env
+            php artisan key:generate --force
+            php artisan route:list --path=api
+            php artisan migrate:fresh --seed --force
+          } 2>&1 | tee -a /tmp/ci.log
 
       - name: Publish log tail as a check run (readable through the API)
         if: always()

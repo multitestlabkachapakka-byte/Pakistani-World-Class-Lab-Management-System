@@ -12,7 +12,7 @@ Repository: https://github.com/multitestlabkachapakka-byte/Pakistani-World-Class
 | Layer | Technology |
 |-------|------------|
 | Frontend (Web / PWA) | Vue 3 + TypeScript + Vite + Pinia + responsive medical UI |
-| Backend / API | Laravel 11 (PHP 8.2+) REST APIs, Sanctum auth, queues |
+| Backend / API | Laravel 12 (PHP 8.2+) REST APIs, Sanctum auth, queues |
 | Primary DB (XAMPP / LAN server) | MySQL / MariaDB |
 | Offline DB (Android / iOS / Windows) | SQLite (local-first) |
 | Mobile | Capacitor (Android + iOS) |
