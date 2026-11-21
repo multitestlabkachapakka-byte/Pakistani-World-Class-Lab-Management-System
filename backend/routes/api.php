@@ -48,3 +48,10 @@ Route::get('/catalog/{id}', [CatalogController::class, 'show']);
 
 // PDF
 Route::get("/reports/{id}/pdf", [PdfController::class, "show"]);
+
+// Dashboard
+Route::get('/dashboard', [DashboardController::class, 'summary']);
+
+// Google Drive sync (status + manual run)
+Route::get('/sync/status', [SyncController::class, 'status']);
+Route::post('/sync/run', [SyncController::class, 'run']);

@@ -1,0 +1,60 @@
+name: Scaffold Laravel backend (one-off)
+
+# Fills in the standard Laravel 11 skeleton files (bootstrap/, config/, public/, artisan, ...)
+# around the application code that already lives in backend/. Never overwrites existing files.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  scaffold:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: mbstring, xml, ctype, json, pdo_sqlite, sqlite3, curl, zip, bcmath, fileinfo, intl
+          tools: composer:v2
+
+      - name: Create a fresh Laravel 11 skeleton
+        run: composer create-project laravel/laravel:^11.0 /tmp/lv --no-interaction --prefer-dist --no-progress
+
+      - name: Copy only the missing skeleton files into backend/
+        run: |
+          rsync -a --ignore-existing \
+            --exclude 'vendor' --exclude 'node_modules' --exclude '.env' \
+            --exclude 'composer.json' --exclude 'composer.lock' --exclude 'package.json' \
+            --exclude 'vite.config.js' --exclude 'README.md' --exclude '.gitignore' \
+            --exclude '.gitattributes' --exclude '.editorconfig' \
+            /tmp/lv/ backend/
+          cp /tmp/lv/artisan backend/artisan   # the repo only had an empty placeholder
+          chmod +x backend/artisan
+
+      - name: Register API routes in bootstrap/app.php
+        run: |
+          python3 - <<'PY'
+          p = 'backend/bootstrap/app.php'
+          s = open(p).read()
+          if 'routes/api.php' not in s:
+              s = s.replace("web: __DIR__.'/../routes/web.php',",
+                            "web: __DIR__.'/../routes/web.php',\n        api: __DIR__.'/../routes/api.php',")
+          open(p, 'w').write(s)
+          PY
+
+      - name: Resolve and lock PHP dependencies
+        working-directory: backend
+        run: composer update --no-interaction --prefer-dist --no-progress
+
+      - name: Commit skeleton
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add backend
+          if git diff --cached --quiet; then echo "nothing to commit"; else
+            git commit -m "chore(backend): add Laravel 11 skeleton and composer.lock"
+            git push
+          fi
