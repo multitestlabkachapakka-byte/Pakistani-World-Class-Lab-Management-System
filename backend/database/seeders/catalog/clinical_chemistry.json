@@ -62,8 +62,8 @@
       {"name": "Total Cholesterol", "short_name": "TC", "unit": "mg/dL", "data_type": "numeric", "sort_order": 1, "ranges": [{"gender": "both", "age_label": "Adult", "low": 0, "high": 200, "range_text": "Desirable < 200", "verification_status": "VERIFY REQUIRED"}]},
       {"name": "Triglycerides", "short_name": "TG", "unit": "mg/dL", "data_type": "numeric", "sort_order": 2, "ranges": [{"gender": "both", "age_label": "Adult", "low": 0, "high": 150, "range_text": "Normal < 150", "verification_status": "VERIFY REQUIRED"}]},
       {"name": "HDL Cholesterol", "short_name": "HDL", "unit": "mg/dL", "data_type": "numeric", "sort_order": 3, "ranges": [
-        {"gender": "male", "age_label": "Adult", "low": 40, "high": 999, "range_text": "≥ 40 (Optimal ≥ 60)", "verification_status": "VERIFY REQUIRED"},
-        {"gender": "female", "age_label": "Adult", "low": 50, "high": 999, "range_text": "≥ 50 (Optimal ≥ 60)", "verification_status": "VERIFY REQUIRED"}
+        {"gender": "male", "age_label": "Adult", "low": 40, "range_text": "≥ 40 (Optimal ≥ 60)", "verification_status": "VERIFY REQUIRED"},
+        {"gender": "female", "age_label": "Adult", "low": 50, "range_text": "≥ 50 (Optimal ≥ 60)", "verification_status": "VERIFY REQUIRED"}
       ]},
       {"name": "LDL Cholesterol", "short_name": "LDL", "unit": "mg/dL", "data_type": "numeric", "sort_order": 4, "is_calculated": true, "ranges": [{"gender": "both", "age_label": "Adult", "low": 0, "high": 100, "range_text": "Optimal < 100", "verification_status": "VERIFY REQUIRED"}]},
       {"name": "VLDL", "short_name": "VLDL", "unit": "mg/dL", "data_type": "numeric", "sort_order": 5, "is_calculated": true, "ranges": [{"gender": "both", "age_label": "Adult", "low": 5, "high": 40, "range_text": "5 – 40", "verification_status": "VERIFY REQUIRED"}]}

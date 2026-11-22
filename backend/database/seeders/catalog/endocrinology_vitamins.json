@@ -40,7 +40,7 @@
     "verification_status": "VERIFY REQUIRED",
     "source": "Common Pakistani lab cut-offs",
     "parameters": [
-      {"name": "25-OH Vitamin D", "short_name": "Vit D", "unit": "ng/mL", "data_type": "numeric", "sort_order": 1, "ranges": [{"gender": "both", "age_label": "Adult", "low": 30, "high": 100, "range_text": "≥ 30 Sufficient | 20–30 Insufficient | < 20 Deficient", "verification_status": "VERIFY REQUIRED"}]}
+      {"name": "25-OH Vitamin D", "short_name": "Vit D", "unit": "ng/mL", "data_type": "numeric", "sort_order": 1, "ranges": [{"gender": "both", "age_label": "Adult", "low": 30, "range_text": "≥ 30 Sufficient | 20–30 Insufficient | < 20 Deficient", "verification_status": "VERIFY REQUIRED"}]}
     ]
   },
   {

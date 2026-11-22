@@ -68,6 +68,13 @@ class CatalogSeeder extends Seeder
         $test = TestDefinition::withTrashed()->firstOrNew(['id' => $this->uuid("test:{$code}")]);
         $isNew = !$test->exists;
 
+        // A test that staff have reviewed (rev > 1) or removed is left exactly as they left it.
+        if (!$isNew && ($test->rev > 1 || $test->trashed())) {
+            $this->seedParameters($data, $test);
+
+            return;
+        }
+
         $test->fill([
             'code' => $code,
             'name' => $data['name'],
@@ -89,6 +96,13 @@ class CatalogSeeder extends Seeder
             $test->is_active = true; // never re-enable a test an administrator switched off
         }
         $test->save();
+
+        $this->seedParameters($data, $test);
+    }
+
+    protected function seedParameters(array $data, TestDefinition $test): void
+    {
+        $code = $data['code'];
 
         foreach ($data['parameters'] ?? [] as $paramData) {
             $param = TestParameter::updateOrCreate(
@@ -128,6 +142,12 @@ class CatalogSeeder extends Seeder
             'range:%s:%s:%s:%s:%s:%s',
             $testData['code'], $paramData['name'], $gender, $label, $min ?? '', $max ?? ''
         ));
+
+        // A range that staff have edited (rev > 1), verified or removed is never overwritten by re-seeding.
+        $existing = ReferenceRange::withTrashed()->find($id);
+        if ($existing && ($existing->rev > 1 || $existing->verified_by !== null || $existing->trashed())) {
+            return;
+        }
 
         ReferenceRange::withTrashed()->updateOrCreate(
             ['id' => $id],

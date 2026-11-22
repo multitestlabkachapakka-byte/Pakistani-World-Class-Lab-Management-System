@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\CatalogController;
 use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\PatientController;
 use App\Http\Controllers\Api\PdfController;
+use App\Http\Controllers\Api\RangeController;
 use App\Http\Controllers\Api\ReportController;
 use App\Http\Controllers\Api\SetupController;
 use App\Http\Controllers\Api\SyncController;
@@ -45,6 +46,19 @@ Route::middleware(['auth:sanctum', 'active'])->group(function () {
     Route::get('/catalog/search', [CatalogController::class, 'search']);
     Route::get('/catalog/departments', [CatalogController::class, 'departments']);
     Route::get('/catalog/{id}', [CatalogController::class, 'show']);
+
+    // Reference ranges: review status (everyone), management (admin + pathologist), verification (pathologist only)
+    Route::get('/review/catalog', [RangeController::class, 'reviewQueue']);
+    Route::middleware('role:admin,pathologist')->group(function () {
+        Route::post('/parameters/{parameterId}/ranges', [RangeController::class, 'store']);
+        Route::put('/ranges/{id}', [RangeController::class, 'update']);
+        Route::delete('/ranges/{id}', [RangeController::class, 'destroy']);
+    });
+    Route::middleware('role:pathologist')->group(function () {
+        Route::post('/ranges/{id}/verify', [RangeController::class, 'verify']);
+        Route::post('/ranges/{id}/unverify', [RangeController::class, 'unverify']);
+        Route::post('/catalog/{id}/verify', [RangeController::class, 'verifyTest']);
+    });
 
     // Patients
     Route::get('/patients', [PatientController::class, 'index']);

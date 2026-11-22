@@ -121,6 +121,37 @@ class CatalogIntegrityTest extends TestCase
         }
     }
 
+    public function test_every_nonzero_limit_appears_in_its_range_text(): void
+    {
+        // A limit that drives flags must be visible in the printed text. Zero is a placeholder.
+        // Documented exception: HbA1c "< 5.7%" is stored as 5.6 because results are reported to one decimal.
+        $allowed = ['HBA1C|HbA1c|both|high'];
+        $violations = [];
+
+        foreach (glob(database_path('seeders/catalog/*.json')) as $file) {
+            foreach (json_decode(file_get_contents($file), true) as $test) {
+                foreach ($test['parameters'] ?? [] as $param) {
+                    foreach ($param['ranges'] ?? [] as $range) {
+                        preg_match_all('/\d+(?:\.\d+)?/', (string) ($range['range_text'] ?? ''), $m);
+                        $numbers = array_map('floatval', $m[0]);
+
+                        foreach (['low', 'high'] as $limit) {
+                            $value = $range[$limit] ?? null;
+                            if ($value === null || (float) $value === 0.0) {
+                                continue;
+                            }
+                            if (!in_array((float) $value, $numbers, true)) {
+                                $violations[] = "{$test['code']}|{$param['name']}|".($range['gender'] ?? 'both')."|{$limit}";
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        $this->assertEqualsCanonicalizing($allowed, $violations, 'invented limits found in the seed data');
+    }
+
     public function test_every_range_records_its_source(): void
     {
         $this->seed(CatalogSeeder::class);
