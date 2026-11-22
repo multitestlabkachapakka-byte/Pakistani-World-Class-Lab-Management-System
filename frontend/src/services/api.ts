@@ -1,16 +1,39 @@
 import axios from 'axios'
+import { session, type SessionUser } from './session'
+
+function deviceCode(): string {
+  try {
+    return (typeof localStorage !== 'undefined' && localStorage.getItem('deviceCode')) || 'P'
+  } catch {
+    return 'P'
+  }
+}
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL || '/api',
   headers: {
     'Content-Type': 'application/json',
-    'X-Device-Code': localStorage.getItem('deviceCode') || 'P',
+    'X-Device-Code': deviceCode(),
   },
 })
+
+// Every request carries the login token (if there is one).
+api.interceptors.request.use((config) => {
+  const token = session.getToken()
+  if (token) config.headers.set('Authorization', `Bearer ${token}`)
+  return config
+})
+
+// A 401 while we hold a token means it expired or was revoked: the app signs the user out.
+let unauthorizedHandler: (() => void) | null = null
+export function onUnauthorized(handler: () => void): void {
+  unauthorizedHandler = handler
+}
 
 api.interceptors.response.use(
   (res) => res,
   (err) => {
+    if (err?.response?.status === 401 && session.getToken()) unauthorizedHandler?.()
     console.error('API error', err?.response?.data || err.message)
     return Promise.reject(err)
   }
@@ -46,11 +69,54 @@ export const reportsApi = {
     api.post('/reports', payload).then((r) => r.data),
   updateResults: (id: string, results: unknown[]) =>
     api.put(`/reports/${id}/results`, { results }).then((r) => r.data),
-  finalize: (id: string) =>
-    api.post(`/reports/${id}/finalize`).then((r) => r.data),
+  finalize: (id: string, allowIncomplete = false) =>
+    api
+      .post(`/reports/${id}/finalize`, allowIncomplete ? { allow_incomplete: true } : {})
+      .then((r) => r.data),
+  // The PDF/print view needs the login token, so it cannot be a plain link: fetch it, then open it.
+  async openPdf(id: string): Promise<void> {
+    const win = window.open('', '_blank') // opened synchronously so popup blockers allow it
+    try {
+      const res = await api.get(`/reports/${id}/pdf`, { responseType: 'blob' })
+      const url = URL.createObjectURL(res.data as Blob)
+      if (win) win.location.href = url
+      else window.open(url, '_blank')
+      setTimeout(() => URL.revokeObjectURL(url), 5 * 60 * 1000)
+    } catch (e) {
+      win?.close()
+      throw e
+    }
+  },
 }
 
 // ---------- Dashboard ----------
 export const dashboardApi = {
   summary: () => api.get('/dashboard').then((r) => r.data),
+}
+
+// ---------- Auth ----------
+export interface LoginResult {
+  data: { token: string; user: SessionUser }
+}
+
+export const authApi = {
+  setupStatus: () =>
+    api.get('/setup/status').then((r) => r.data as { data: { needs_setup: boolean } }),
+  setup: (payload: {
+    name: string
+    username: string
+    password: string
+    password_confirmation: string
+  }) => api.post('/setup', payload).then((r) => r.data as LoginResult),
+  login: (username: string, password: string, deviceName = 'web') =>
+    api
+      .post('/auth/login', { username, password, device_name: deviceName })
+      .then((r) => r.data as LoginResult),
+  me: () => api.get('/auth/me').then((r) => r.data as { data: SessionUser }),
+  logout: () => api.post('/auth/logout').then((r) => r.data),
+  changePassword: (payload: {
+    current_password: string
+    password: string
+    password_confirmation: string
+  }) => api.put('/auth/password', payload).then((r) => r.data),
 }

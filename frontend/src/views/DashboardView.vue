@@ -67,7 +67,7 @@
               <td>{{ r.patient?.name || '—' }}</td>
               <td><span class="status" :class="r.status">{{ r.status }}</span></td>
               <td>
-                <a :href="`/api/reports/${r.id}/pdf`" target="_blank" class="btn small">PDF</a>
+                <button type="button" class="btn small" @click="openPdf(r.id)">PDF</button>
               </td>
             </tr>
           </tbody>
@@ -80,7 +80,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import { dashboardApi } from '../services/api'
+import { dashboardApi, reportsApi } from '../services/api'
 
 const data = ref<any>(null)
 const loading = ref(false)
@@ -97,6 +97,14 @@ async function load() {
     data.value = null
   } finally {
     loading.value = false
+  }
+}
+
+async function openPdf(id: string) {
+  try {
+    await reportsApi.openPdf(id)
+  } catch {
+    error.value = 'Could not open the report. Please try again.'
   }
 }
 

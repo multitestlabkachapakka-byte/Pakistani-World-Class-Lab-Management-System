@@ -1,6 +1,6 @@
 <template>
   <div id="app-shell">
-    <header class="app-header">
+    <header v-if="auth.isAuthenticated" class="app-header">
       <h1>Pakistani Lab LIMS</h1>
       <nav>
         <router-link to="/">Dashboard</router-link>
@@ -9,6 +9,10 @@
         <router-link to="/catalog">Catalog</router-link>
         <router-link to="/settings">Settings</router-link>
       </nav>
+      <div class="who">
+        <span>{{ auth.user?.name }} <small>({{ auth.role }})</small></span>
+        <button class="link" @click="signOut">Sign out</button>
+      </div>
     </header>
     <main>
       <router-view />
@@ -17,7 +21,16 @@
 </template>
 
 <script setup lang="ts">
-// Root shell — navigation will be refined in later stages
+import { useRouter } from 'vue-router'
+import { useAuthStore } from './stores/auth'
+
+const auth = useAuthStore()
+const router = useRouter()
+
+async function signOut() {
+  await auth.logout()
+  await router.replace({ name: 'login' })
+}
 </script>
 
 <style>
@@ -55,6 +68,23 @@ body {
 }
 .app-header a.router-link-active {
   color: var(--accent);
+}
+.who {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.9rem;
+}
+.who small {
+  color: #6c757d;
+}
+.who .link {
+  background: none;
+  border: none;
+  color: var(--accent);
+  cursor: pointer;
+  font: inherit;
 }
 main {
   padding: 1.5rem;
