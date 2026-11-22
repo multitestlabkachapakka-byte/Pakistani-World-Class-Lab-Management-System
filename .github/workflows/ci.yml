@@ -115,6 +115,33 @@ jobs:
               output: { title: 'log tail', summary: 'tail of captured output', text: '```\n' + text + '\n```' }
             });
 
+  catalog-import:
+    name: catalog-import
+    runs-on: ubuntu-latest
+    env:
+      LOG_NAME: catalog-import
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Imported catalog must match the committed workbook
+        run: |
+          pip install openpyxl 2>&1 | tee -a /tmp/ci.log
+          python tools/import_workbook_catalog.py --check 2>&1 | tee -a /tmp/ci.log
+      - name: Publish log tail as a check run
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const text = fs.existsSync('/tmp/ci.log') ? fs.readFileSync('/tmp/ci.log', 'utf8').slice(-60000) : '(no log)';
+            await github.rest.checks.create({
+              owner: context.repo.owner, repo: context.repo.repo, head_sha: context.sha,
+              name: 'log-' + process.env.LOG_NAME, status: 'completed', conclusion: 'neutral',
+              output: { title: 'log tail', summary: 'tail of captured output', text: '```\n' + text + '\n```' }
+            });
+
   frontend:
     name: frontend
     runs-on: ubuntu-latest

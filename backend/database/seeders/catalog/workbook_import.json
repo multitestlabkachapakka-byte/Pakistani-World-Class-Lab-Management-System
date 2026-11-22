@@ -1,0 +1,1536 @@
+[
+  {
+    "code": "PBS",
+    "name": "Peripheral Blood Film / Smear",
+    "short_name": "PBS",
+    "department": "Hematology",
+    "aliases": [
+      "Film"
+    ],
+    "verification_status": "VERIFY REQUIRED",
+    "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified); listed as common at: Chughtai, SKMCH, AKUH",
+    "parameters": [
+      {
+        "name": "Result",
+        "unit": null,
+        "data_type": "text",
+        "sort_order": 1,
+        "ranges": [
+          {
+            "gender": "both",
+            "age_label": "Adult",
+            "low": null,
+            "high": null,
+            "range_text": "Descriptive: Normocytic normochromic / Microcytic hypochromic etc.",
+            "unit": null,
+            "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified)",
+            "verification_status": "VERIFY REQUIRED"
+          }
+        ]
+      }
+    ],
+    "notes": "Components: RBC, WBC, Platelet morphology. Manual review of morphology."
+  },
+  {
+    "code": "GTT",
+    "name": "Glucose Tolerance Test (75g)",
+    "short_name": "GTT",
+    "department": "Clinical Chemistry",
+    "aliases": [
+      "OGTT"
+    ],
+    "verification_status": "VERIFY REQUIRED",
+    "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified); listed as common at: Chughtai, SKMCH, AKUH",
+    "parameters": [
+      {
+        "name": "Result",
+        "unit": "mg/dL",
+        "data_type": "text",
+        "sort_order": 1,
+        "ranges": [
+          {
+            "gender": "both",
+            "age_label": "Adult",
+            "low": null,
+            "high": null,
+            "range_text": "Fasting: <100 mg/dL normal | 2-hr: <140 normal | 140–199 impaired | ≥200 diabetes",
+            "unit": "mg/dL",
+            "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified)",
+            "verification_status": "VERIFY REQUIRED"
+          }
+        ]
+      }
+    ],
+    "notes": "Components: Fasting + 2-hour post 75g glucose. Standard WHO/ADA. Pregnant: different (OGTT 75g or 100g)."
+  },
+  {
+    "code": "CA",
+    "name": "Serum Calcium (Total)",
+    "short_name": "Ca",
+    "department": "Clinical Chemistry",
+    "aliases": [],
+    "verification_status": "VERIFY REQUIRED",
+    "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified); listed as common at: Chughtai, SKMCH, AKUH",
+    "parameters": [
+      {
+        "name": "Total calcium",
+        "unit": "mg/dL",
+        "data_type": "numeric",
+        "sort_order": 1,
+        "ranges": [
+          {
+            "gender": "both",
+            "age_label": "Adult",
+            "low": 8.5,
+            "high": 10.5,
+            "range_text": "8.5–10.5 mg/dL (2.12–2.62 mmol/L)",
+            "unit": "mg/dL",
+            "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified)",
+            "verification_status": "VERIFY REQUIRED"
+          }
+        ]
+      }
+    ],
+    "notes": "Corrected for albumin if low. Ionized Ca more accurate in critical illness."
+  },
+  {
+    "code": "PO4",
+    "name": "Serum Phosphate / Phosphorus",
+    "short_name": "PO4",
+    "department": "Clinical Chemistry",
+    "aliases": [
+      "Phos"
+    ],
+    "verification_status": "VERIFY REQUIRED",
+    "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified); listed as common at: Chughtai, SKMCH, AKUH",
+    "parameters": [
+      {
+        "name": "Inorganic phosphate",
+        "unit": "mg/dL",
+        "data_type": "numeric",
+        "sort_order": 1,
+        "ranges": [
+          {
+            "gender": "both",
+            "age_label": "Adult",
+            "low": 2.5,
+            "high": 4.5,
+            "range_text": "2.5–4.5 mg/dL (adult)",
+            "unit": "mg/dL",
+            "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified)",
+            "verification_status": "VERIFY REQUIRED"
+          }
+        ]
+      }
+    ],
+    "notes": "Higher in children."
+  },
+  {
+    "code": "MG",
+    "name": "Serum Magnesium",
+    "short_name": "Mg",
+    "department": "Clinical Chemistry",
+    "aliases": [],
+    "verification_status": "VERIFY REQUIRED",
+    "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified); listed as common at: Chughtai, SKMCH, AKUH",
+    "parameters": [
+      {
+        "name": "Magnesium",
+        "unit": "mg/dL",
+        "data_type": "numeric",
+        "sort_order": 1,
+        "ranges": [
+          {
+            "gender": "both",
+            "age_label": "Adult",
+            "low": 1.7,
+            "high": 2.2,
+            "range_text": "1.7–2.2 mg/dL (0.70–0.91 mmol/L) approx",
+            "unit": "mg/dL",
+            "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified)",
+            "verification_status": "VERIFY REQUIRED"
+          }
+        ]
+      }
+    ],
+    "notes": "Often ordered with calcium."
+  },
+  {
+    "code": "AMYLASE",
+    "name": "Serum Amylase",
+    "short_name": "Amylase",
+    "department": "Clinical Chemistry",
+    "aliases": [],
+    "verification_status": "VERIFY REQUIRED",
+    "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified); listed as common at: Chughtai, SKMCH, AKUH",
+    "parameters": [
+      {
+        "name": "Amylase activity",
+        "unit": "U/L",
+        "data_type": "numeric",
+        "sort_order": 1,
+        "ranges": [
+          {
+            "gender": "both",
+            "age_label": "Adult",
+            "low": 28,
+            "high": 100,
+            "range_text": "28–100 U/L (method dependent)",
+            "unit": "U/L",
+            "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified)",
+            "verification_status": "VERIFY REQUIRED"
+          }
+        ]
+      }
+    ],
+    "notes": "Pancreatitis, salivary gland."
+  },
+  {
+    "code": "LIPASE",
+    "name": "Serum Lipase",
+    "short_name": "Lipase",
+    "department": "Clinical Chemistry",
+    "aliases": [],
+    "verification_status": "VERIFY REQUIRED",
+    "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified); listed as common at: Chughtai, SKMCH, AKUH",
+    "parameters": [
+      {
+        "name": "Lipase activity",
+        "unit": "U/L",
+        "data_type": "numeric",
+        "sort_order": 1,
+        "ranges": [
+          {
+            "gender": "both",
+            "age_label": "Adult",
+            "low": 13,
+            "high": 60,
+            "range_text": "13–60 U/L (method dependent)",
+            "unit": "U/L",
+            "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified)",
+            "verification_status": "VERIFY REQUIRED"
+          }
+        ]
+      }
+    ],
+    "notes": "More specific for pancreas than amylase."
+  },
+  {
+    "code": "LDH",
+    "name": "LDH (Lactate Dehydrogenase)",
+    "short_name": "LDH",
+    "department": "Clinical Chemistry",
+    "aliases": [],
+    "verification_status": "VERIFY REQUIRED",
+    "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified); listed as common at: Chughtai, SKMCH, AKUH",
+    "parameters": [
+      {
+        "name": "LDH total",
+        "unit": "U/L",
+        "data_type": "numeric",
+        "sort_order": 1,
+        "ranges": [
+          {
+            "gender": "both",
+            "age_label": "Adult",
+            "low": 140,
+            "high": 280,
+            "range_text": "140–280 U/L (approx, method dependent)",
+            "unit": "U/L",
+            "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified)",
+            "verification_status": "VERIFY REQUIRED"
+          }
+        ]
+      }
+    ],
+    "notes": "Hemolysis, tissue damage, malignancy."
+  },
+  {
+    "code": "CK",
+    "name": "CK / CPK (Creatine Kinase)",
+    "short_name": "CK",
+    "department": "Clinical Chemistry",
+    "aliases": [
+      "CPK"
+    ],
+    "verification_status": "VERIFY REQUIRED",
+    "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified); listed as common at: Chughtai, SKMCH, AKUH",
+    "parameters": [
+      {
+        "name": "Total CK",
+        "unit": "U/L",
+        "data_type": "numeric",
+        "sort_order": 1,
+        "ranges": [
+          {
+            "gender": "male",
+            "age_label": "Adult",
+            "low": 40,
+            "high": 200,
+            "range_text": "40–200",
+            "unit": "U/L",
+            "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified)",
+            "verification_status": "VERIFY REQUIRED"
+          },
+          {
+            "gender": "female",
+            "age_label": "Adult",
+            "low": 30,
+            "high": 150,
+            "range_text": "30–150 U/L approx (method dependent)",
+            "unit": "U/L",
+            "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified)",
+            "verification_status": "VERIFY REQUIRED"
+          }
+        ]
+      }
+    ],
+    "notes": "Muscle injury, MI (with CK-MB/Troponin)."
+  },
+  {
+    "code": "CK_MB",
+    "name": "CK-MB",
+    "short_name": "CK-MB",
+    "department": "Clinical Chemistry",
+    "aliases": [],
+    "verification_status": "VERIFY REQUIRED",
+    "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified); listed as common at: Chughtai, SKMCH, AKUH",
+    "parameters": [
+      {
+        "name": "Result",
+        "unit": "ng/mL or %",
+        "data_type": "text",
+        "sort_order": 1,
+        "ranges": [
+          {
+            "gender": "both",
+            "age_label": "Adult",
+            "low": null,
+            "high": null,
+            "range_text": "Mass: <5 ng/mL or <5% of total CK (method dependent)",
+            "unit": "ng/mL or %",
+            "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified)",
+            "verification_status": "VERIFY REQUIRED"
+          }
+        ]
+      }
+    ],
+    "notes": "Components: CK-MB mass or activity. Cardiac marker (less preferred now vs Troponin)."
+  },
+  {
+    "code": "TNI",
+    "name": "Troponin I / High Sensitivity Troponin",
+    "short_name": "TnI",
+    "department": "Clinical Chemistry",
+    "aliases": [
+      "hs-TnI"
+    ],
+    "verification_status": "VERIFY REQUIRED",
+    "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified); listed as common at: Chughtai, SKMCH, AKUH",
+    "parameters": [
+      {
+        "name": "Result",
+        "unit": "ng/L or ng/mL",
+        "data_type": "text",
+        "sort_order": 1,
+        "ranges": [
+          {
+            "gender": "both",
+            "age_label": "Adult",
+            "low": null,
+            "high": null,
+            "range_text": "hs-TnI: <14–34 ng/L (99th percentile, gender specific often)",
+            "unit": "ng/L or ng/mL",
+            "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified)",
+            "verification_status": "VERIFY REQUIRED"
+          }
+        ]
+      }
+    ],
+    "notes": "Components: Cardiac Troponin I. Gold standard for MI. Cut-offs assay-specific."
+  },
+  {
+    "code": "TFT_2",
+    "name": "Thyroid Function Test-2 (Total)",
+    "short_name": "TFT-2",
+    "department": "Endocrinology",
+    "aliases": [
+      "T3 T4 TSH"
+    ],
+    "verification_status": "VERIFY REQUIRED",
+    "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified); listed as common at: Chughtai, SKMCH, AKUH",
+    "parameters": [
+      {
+        "name": "TSH",
+        "unit": "mIU/L",
+        "data_type": "numeric",
+        "sort_order": 1,
+        "ranges": [
+          {
+            "gender": "both",
+            "age_label": "Adult",
+            "low": 0.4,
+            "high": 4,
+            "range_text": "0.4–4.0 mIU/L (adult, non-pregnant)",
+            "unit": "mIU/L",
+            "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified)",
+            "verification_status": "VERIFY REQUIRED"
+          }
+        ]
+      },
+      {
+        "name": "Total T4",
+        "unit": "µg/dL",
+        "data_type": "numeric",
+        "sort_order": 2,
+        "ranges": [
+          {
+            "gender": "both",
+            "age_label": "Adult",
+            "low": 5,
+            "high": 12,
+            "range_text": "5.0–12.0 µg/dL approx",
+            "unit": "µg/dL",
+            "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified)",
+            "verification_status": "VERIFY REQUIRED"
+          }
+        ]
+      },
+      {
+        "name": "Total T3",
+        "unit": "ng/dL",
+        "data_type": "numeric",
+        "sort_order": 3,
+        "ranges": [
+          {
+            "gender": "both",
+            "age_label": "Adult",
+            "low": 80,
+            "high": 200,
+            "range_text": "80–200 ng/dL approx",
+            "unit": "ng/dL",
+            "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified)",
+            "verification_status": "VERIFY REQUIRED"
+          }
+        ]
+      }
+    ],
+    "notes": "Pregnancy ranges differ. Subclinical hypo: TSH 4–10 with normal T4."
+  },
+  {
+    "code": "FSH",
+    "name": "Serum FSH",
+    "short_name": "FSH",
+    "department": "Endocrinology",
+    "aliases": [],
+    "verification_status": "VERIFY REQUIRED",
+    "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified); listed as common at: Chughtai, SKMCH, AKUH",
+    "parameters": [
+      {
+        "name": "Result",
+        "unit": "IU/L",
+        "data_type": "text",
+        "sort_order": 1,
+        "ranges": [
+          {
+            "gender": "both",
+            "age_label": "Adult",
+            "low": null,
+            "high": null,
+            "range_text": "Male: 1.5–12.4 IU/L | Female Follicular: 3.5–12.5 | Ovulatory: 4.7–21.5 | Luteal: 1.7–7.7 | Postmeno: 25.8–134.8 IU/L",
+            "unit": "IU/L",
+            "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified)",
+            "verification_status": "VERIFY REQUIRED"
+          }
+        ]
+      }
+    ],
+    "notes": "Components: Follicle Stimulating Hormone. Cycle day important in women."
+  },
+  {
+    "code": "LH",
+    "name": "Serum LH",
+    "short_name": "LH",
+    "department": "Endocrinology",
+    "aliases": [],
+    "verification_status": "VERIFY REQUIRED",
+    "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified); listed as common at: Chughtai, SKMCH, AKUH",
+    "parameters": [
+      {
+        "name": "Result",
+        "unit": "IU/L",
+        "data_type": "text",
+        "sort_order": 1,
+        "ranges": [
+          {
+            "gender": "both",
+            "age_label": "Adult",
+            "low": null,
+            "high": null,
+            "range_text": "Male: 1.7–8.6 IU/L | Female Follicular: 2.4–12.6 | Mid-cycle: 14–96 | Luteal: 1–11.4 | Postmeno: 7.7–58.5 IU/L",
+            "unit": "IU/L",
+            "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified)",
+            "verification_status": "VERIFY REQUIRED"
+          }
+        ]
+      }
+    ],
+    "notes": "Components: Luteinizing Hormone. Peak at ovulation."
+  },
+  {
+    "code": "PRL",
+    "name": "Serum Prolactin",
+    "short_name": "PRL",
+    "department": "Endocrinology",
+    "aliases": [],
+    "verification_status": "VERIFY REQUIRED",
+    "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified); listed as common at: Chughtai, SKMCH, AKUH",
+    "parameters": [
+      {
+        "name": "Prolactin",
+        "unit": "ng/mL",
+        "data_type": "numeric",
+        "sort_order": 1,
+        "ranges": [
+          {
+            "gender": "male",
+            "age_label": "Adult",
+            "low": 4,
+            "high": 15,
+            "range_text": "4–15 ng/mL",
+            "unit": "ng/mL",
+            "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified)",
+            "verification_status": "VERIFY REQUIRED"
+          },
+          {
+            "gender": "female",
+            "age_label": "Adult",
+            "low": 4,
+            "high": 23,
+            "range_text": "4–23 ng/mL (non-pregnant; higher in pregnancy/lactation)",
+            "unit": "ng/mL",
+            "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified)",
+            "verification_status": "VERIFY REQUIRED"
+          }
+        ]
+      }
+    ],
+    "notes": "Stress, drugs, pituitary tumors raise levels."
+  },
+  {
+    "code": "TESTOSTERONE",
+    "name": "Serum Total Testosterone",
+    "short_name": "Testosterone",
+    "department": "Endocrinology",
+    "aliases": [],
+    "verification_status": "VERIFY REQUIRED",
+    "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified); listed as common at: Chughtai, SKMCH, AKUH",
+    "parameters": [
+      {
+        "name": "Total Testosterone",
+        "unit": "ng/dL",
+        "data_type": "numeric",
+        "sort_order": 1,
+        "ranges": [
+          {
+            "gender": "male",
+            "age_label": "Adult",
+            "low": 300,
+            "high": 1000,
+            "range_text": "300–1000 ng/dL (10–35 nmol/L)",
+            "unit": "ng/dL",
+            "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified)",
+            "verification_status": "VERIFY REQUIRED"
+          },
+          {
+            "gender": "female",
+            "age_label": "Adult",
+            "low": 15,
+            "high": 70,
+            "range_text": "15–70 ng/dL approx",
+            "unit": "ng/dL",
+            "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified)",
+            "verification_status": "VERIFY REQUIRED"
+          }
+        ]
+      }
+    ],
+    "notes": "Morning sample preferred. Free testosterone more informative in some cases."
+  },
+  {
+    "code": "E2",
+    "name": "Serum Estradiol (E2)",
+    "short_name": "E2",
+    "department": "Endocrinology",
+    "aliases": [],
+    "verification_status": "VERIFY REQUIRED",
+    "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified); listed as common at: Chughtai, SKMCH, AKUH",
+    "parameters": [
+      {
+        "name": "Result",
+        "unit": "pg/mL",
+        "data_type": "text",
+        "sort_order": 1,
+        "ranges": [
+          {
+            "gender": "both",
+            "age_label": "Adult",
+            "low": null,
+            "high": null,
+            "range_text": "Male: 10–40 pg/mL | Female Follicular: 30–120 | Pre-ovulatory peak: 130–370 | Luteal: 70–250 | Postmeno: <30 pg/mL",
+            "unit": "pg/mL",
+            "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified)",
+            "verification_status": "VERIFY REQUIRED"
+          }
+        ]
+      }
+    ],
+    "notes": "Components: Estradiol. Cycle dependent."
+  },
+  {
+    "code": "P4",
+    "name": "Serum Progesterone",
+    "short_name": "P4",
+    "department": "Endocrinology",
+    "aliases": [],
+    "verification_status": "VERIFY REQUIRED",
+    "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified); listed as common at: Chughtai, SKMCH, AKUH",
+    "parameters": [
+      {
+        "name": "Result",
+        "unit": "ng/mL",
+        "data_type": "text",
+        "sort_order": 1,
+        "ranges": [
+          {
+            "gender": "both",
+            "age_label": "Adult",
+            "low": null,
+            "high": null,
+            "range_text": "Female Follicular: <1 ng/mL | Luteal: 5–20 ng/mL | Postmeno: <1 ng/mL",
+            "unit": "ng/mL",
+            "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified)",
+            "verification_status": "VERIFY REQUIRED"
+          }
+        ]
+      }
+    ],
+    "notes": "Components: Progesterone. Day 21 (mid-luteal) for ovulation confirmation."
+  },
+  {
+    "code": "CORTISOL_AM",
+    "name": "Serum Cortisol (Morning)",
+    "short_name": "Cortisol AM",
+    "department": "Endocrinology",
+    "aliases": [],
+    "verification_status": "VERIFY REQUIRED",
+    "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified); listed as common at: Chughtai, SKMCH, AKUH",
+    "parameters": [
+      {
+        "name": "Morning cortisol (8 AM)",
+        "unit": "µg/dL",
+        "data_type": "numeric",
+        "sort_order": 1,
+        "ranges": [
+          {
+            "gender": "both",
+            "age_label": "Adult",
+            "low": 5,
+            "high": 25,
+            "range_text": "5–25 µg/dL (138–690 nmol/L) approx",
+            "unit": "µg/dL",
+            "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified)",
+            "verification_status": "VERIFY REQUIRED"
+          }
+        ]
+      }
+    ],
+    "notes": "Diurnal variation strong. ACTH stim test for adrenal insufficiency."
+  },
+  {
+    "code": "INSULIN",
+    "name": "Serum Insulin (Fasting)",
+    "short_name": "Insulin",
+    "department": "Endocrinology",
+    "aliases": [],
+    "verification_status": "VERIFY REQUIRED",
+    "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified); listed as common at: Chughtai, SKMCH, AKUH",
+    "parameters": [
+      {
+        "name": "Fasting insulin",
+        "unit": "µIU/mL",
+        "data_type": "numeric",
+        "sort_order": 1,
+        "ranges": [
+          {
+            "gender": "both",
+            "age_label": "Adult",
+            "low": 2,
+            "high": 25,
+            "range_text": "2–25 µIU/mL (approx)",
+            "unit": "µIU/mL",
+            "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified)",
+            "verification_status": "VERIFY REQUIRED"
+          }
+        ]
+      }
+    ],
+    "notes": "Used with glucose for HOMA-IR / insulin resistance."
+  },
+  {
+    "code": "IPTH",
+    "name": "Serum PTH (Intact)",
+    "short_name": "iPTH",
+    "department": "Endocrinology",
+    "aliases": [],
+    "verification_status": "VERIFY REQUIRED",
+    "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified); listed as common at: Chughtai, SKMCH, AKUH",
+    "parameters": [
+      {
+        "name": "Intact Parathyroid Hormone",
+        "unit": "pg/mL",
+        "data_type": "numeric",
+        "sort_order": 1,
+        "ranges": [
+          {
+            "gender": "both",
+            "age_label": "Adult",
+            "low": 15,
+            "high": 65,
+            "range_text": "15–65 pg/mL (assay dependent)",
+            "unit": "pg/mL",
+            "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified)",
+            "verification_status": "VERIFY REQUIRED"
+          }
+        ]
+      }
+    ],
+    "notes": "With calcium & vitamin D for bone/mineral disorders."
+  },
+  {
+    "code": "17_OHP",
+    "name": "17-OH Progesterone",
+    "short_name": "17-OHP",
+    "department": "Endocrinology",
+    "aliases": [],
+    "verification_status": "VERIFY REQUIRED",
+    "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified); listed as common at: Chughtai, SKMCH, AKUH",
+    "parameters": [
+      {
+        "name": "Result",
+        "unit": "ng/dL",
+        "data_type": "text",
+        "sort_order": 1,
+        "ranges": [
+          {
+            "gender": "both",
+            "age_label": "Adult",
+            "low": null,
+            "high": null,
+            "range_text": "Adult male: <200 ng/dL | Female follicular: <80 | Luteal: <285 ng/dL (approx)",
+            "unit": "ng/dL",
+            "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified)",
+            "verification_status": "VERIFY REQUIRED"
+          }
+        ]
+      }
+    ],
+    "notes": "Components: 17-Hydroxyprogesterone. CAH screening / diagnosis."
+  },
+  {
+    "code": "FOLATE",
+    "name": "Serum Folic Acid / Folate",
+    "short_name": "Folate",
+    "department": "Vitamins & Minerals",
+    "aliases": [],
+    "verification_status": "VERIFY REQUIRED",
+    "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified); listed as common at: Chughtai, SKMCH, AKUH",
+    "parameters": [
+      {
+        "name": "Serum folate",
+        "unit": "ng/mL",
+        "data_type": "numeric",
+        "sort_order": 1,
+        "ranges": [
+          {
+            "gender": "both",
+            "age_label": "Adult",
+            "low": 3,
+            "high": 17,
+            "range_text": "3–17 ng/mL (approx)",
+            "unit": "ng/mL",
+            "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified)",
+            "verification_status": "VERIFY REQUIRED"
+          }
+        ]
+      }
+    ],
+    "notes": "Deficiency causes megaloblastic anemia."
+  },
+  {
+    "code": "IRON",
+    "name": "Serum Iron",
+    "short_name": "Iron",
+    "department": "Vitamins & Minerals",
+    "aliases": [
+      "Fe"
+    ],
+    "verification_status": "VERIFY REQUIRED",
+    "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified); listed as common at: Chughtai, SKMCH, AKUH",
+    "parameters": [
+      {
+        "name": "Serum iron",
+        "unit": "µg/dL",
+        "data_type": "numeric",
+        "sort_order": 1,
+        "ranges": [
+          {
+            "gender": "male",
+            "age_label": "Adult",
+            "low": 65,
+            "high": 175,
+            "range_text": "65–175 µg/dL",
+            "unit": "µg/dL",
+            "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified)",
+            "verification_status": "VERIFY REQUIRED"
+          },
+          {
+            "gender": "female",
+            "age_label": "Adult",
+            "low": 50,
+            "high": 170,
+            "range_text": "50–170 µg/dL approx",
+            "unit": "µg/dL",
+            "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified)",
+            "verification_status": "VERIFY REQUIRED"
+          }
+        ]
+      }
+    ],
+    "notes": "Part of iron studies with TIBC, Transferrin saturation, Ferritin."
+  },
+  {
+    "code": "TIBC",
+    "name": "TIBC / Transferrin",
+    "short_name": "TIBC",
+    "department": "Vitamins & Minerals",
+    "aliases": [],
+    "verification_status": "VERIFY REQUIRED",
+    "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified); listed as common at: Chughtai, SKMCH, AKUH",
+    "parameters": [
+      {
+        "name": "Total Iron Binding Capacity",
+        "unit": "µg/dL",
+        "data_type": "numeric",
+        "sort_order": 1,
+        "ranges": [
+          {
+            "gender": "both",
+            "age_label": "Adult",
+            "low": 250,
+            "high": 400,
+            "range_text": "250–400 µg/dL approx",
+            "unit": "µg/dL",
+            "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified)",
+            "verification_status": "VERIFY REQUIRED"
+          }
+        ]
+      }
+    ],
+    "notes": "High in iron deficiency, low in anemia of chronic disease."
+  },
+  {
+    "code": "TYPHOID_PANEL",
+    "name": "Typhoid / Widal / Blood Culture",
+    "short_name": "Typhoid panel",
+    "department": "Infectious / Serology",
+    "aliases": [],
+    "verification_status": "VERIFY REQUIRED",
+    "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified); listed as common at: Chughtai, SKMCH, AKUH",
+    "parameters": [
+      {
+        "name": "Result",
+        "unit": null,
+        "data_type": "text",
+        "sort_order": 1,
+        "ranges": [
+          {
+            "gender": "both",
+            "age_label": "Adult",
+            "low": null,
+            "high": null,
+            "range_text": "Blood culture: No growth (normal) | Widal: titres interpretation lab-specific (often TO/TH ≥1:160 suggestive in endemic areas)",
+            "unit": null,
+            "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified)",
+            "verification_status": "VERIFY REQUIRED"
+          }
+        ]
+      }
+    ],
+    "notes": "Components: Blood culture (gold) ± Widal / Typhidot. Blood culture preferred. Widal has limitations in endemic areas."
+  },
+  {
+    "code": "TORCH",
+    "name": "TORCH Profile",
+    "short_name": "TORCH",
+    "department": "Infectious / Serology",
+    "aliases": [],
+    "verification_status": "VERIFY REQUIRED",
+    "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified); listed as common at: Chughtai, SKMCH, AKUH",
+    "parameters": [
+      {
+        "name": "Result",
+        "unit": null,
+        "data_type": "text",
+        "sort_order": 1,
+        "ranges": [
+          {
+            "gender": "both",
+            "age_label": "Adult",
+            "low": null,
+            "high": null,
+            "range_text": "IgM negative = no recent infection | IgG positive = past exposure / immunity",
+            "unit": null,
+            "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified)",
+            "verification_status": "VERIFY REQUIRED"
+          }
+        ]
+      }
+    ],
+    "notes": "Components: Toxoplasma IgG/IgM, Rubella IgG/IgM, CMV IgG/IgM, HSV IgG/IgM (sometimes). Prenatal screening important."
+  },
+  {
+    "code": "COVID_PCR",
+    "name": "COVID-19 PCR (SARS-CoV-2)",
+    "short_name": "COVID PCR",
+    "department": "Infectious / Serology",
+    "aliases": [],
+    "verification_status": "VERIFY REQUIRED",
+    "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified); listed as common at: Chughtai, SKMCH, AKUH",
+    "parameters": [
+      {
+        "name": "Result",
+        "unit": null,
+        "data_type": "text",
+        "sort_order": 1,
+        "ranges": [
+          {
+            "gender": "both",
+            "age_label": "Adult",
+            "low": null,
+            "high": null,
+            "range_text": "Not Detected / Negative (normal)",
+            "unit": null,
+            "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified)",
+            "verification_status": "VERIFY REQUIRED"
+          }
+        ]
+      }
+    ],
+    "notes": "Components: SARS-CoV-2 RNA detection. Nasopharyngeal swab. Ct value sometimes reported."
+  },
+  {
+    "code": "QFT",
+    "name": "Quantiferon TB Gold / TB-IGRA",
+    "short_name": "QFT",
+    "department": "Infectious / Serology",
+    "aliases": [
+      "TB-IGRA"
+    ],
+    "verification_status": "VERIFY REQUIRED",
+    "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified); listed as common at: Chughtai, SKMCH, AKUH",
+    "parameters": [
+      {
+        "name": "Result",
+        "unit": null,
+        "data_type": "text",
+        "sort_order": 1,
+        "ranges": [
+          {
+            "gender": "both",
+            "age_label": "Adult",
+            "low": null,
+            "high": null,
+            "range_text": "Negative (normal) | Positive = latent or active TB infection (further evaluation needed)",
+            "unit": null,
+            "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified)",
+            "verification_status": "VERIFY REQUIRED"
+          }
+        ]
+      }
+    ],
+    "notes": "Components: Interferon-gamma release assay. Preferred over TST in many settings."
+  },
+  {
+    "code": "RF",
+    "name": "Rheumatoid Factor (Quantitative)",
+    "short_name": "RF",
+    "department": "Immunology / Autoimmune",
+    "aliases": [],
+    "verification_status": "VERIFY REQUIRED",
+    "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified); listed as common at: Chughtai, SKMCH, AKUH",
+    "parameters": [
+      {
+        "name": "Result",
+        "unit": "IU/mL",
+        "data_type": "text",
+        "sort_order": 1,
+        "ranges": [
+          {
+            "gender": "both",
+            "age_label": "Adult",
+            "low": null,
+            "high": null,
+            "range_text": "<14–20 IU/mL (negative / normal)",
+            "unit": "IU/mL",
+            "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified)",
+            "verification_status": "VERIFY REQUIRED"
+          }
+        ]
+      }
+    ],
+    "notes": "Components: Rheumatoid factor. RA, other connective tissue diseases. Not specific."
+  },
+  {
+    "code": "ANTI_CCP",
+    "name": "Anti-CCP (Anti-Cyclic Citrullinated Peptide)",
+    "short_name": "Anti-CCP",
+    "department": "Immunology / Autoimmune",
+    "aliases": [],
+    "verification_status": "VERIFY REQUIRED",
+    "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified); listed as common at: Chughtai, SKMCH, AKUH",
+    "parameters": [
+      {
+        "name": "Result",
+        "unit": "U/mL",
+        "data_type": "text",
+        "sort_order": 1,
+        "ranges": [
+          {
+            "gender": "both",
+            "age_label": "Adult",
+            "low": null,
+            "high": null,
+            "range_text": "Negative: <20 U/mL (assay dependent) | Positive = high specificity for RA",
+            "unit": "U/mL",
+            "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified)",
+            "verification_status": "VERIFY REQUIRED"
+          }
+        ]
+      }
+    ],
+    "notes": "Components: Anti-CCP antibodies. More specific than RF for rheumatoid arthritis."
+  },
+  {
+    "code": "ANA",
+    "name": "ANA (Antinuclear Antibodies) by IFA",
+    "short_name": "ANA",
+    "department": "Immunology / Autoimmune",
+    "aliases": [],
+    "verification_status": "VERIFY REQUIRED",
+    "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified); listed as common at: Chughtai, SKMCH, AKUH",
+    "parameters": [
+      {
+        "name": "Result",
+        "unit": "Titre",
+        "data_type": "text",
+        "sort_order": 1,
+        "ranges": [
+          {
+            "gender": "both",
+            "age_label": "Adult",
+            "low": null,
+            "high": null,
+            "range_text": "Negative: <1:40 or <1:80 (lab dependent) | Positive titres with patterns (homogeneous, speckled etc.)",
+            "unit": "Titre",
+            "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified)",
+            "verification_status": "VERIFY REQUIRED"
+          }
+        ]
+      }
+    ],
+    "notes": "Components: ANA titre & pattern. Screening for SLE, other CTDs. Pattern helps differential."
+  },
+  {
+    "code": "ANTI_DSDNA",
+    "name": "Anti-dsDNA",
+    "short_name": "Anti-dsDNA",
+    "department": "Immunology / Autoimmune",
+    "aliases": [],
+    "verification_status": "VERIFY REQUIRED",
+    "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified); listed as common at: Chughtai, SKMCH, AKUH",
+    "parameters": [
+      {
+        "name": "Result",
+        "unit": "IU/mL",
+        "data_type": "text",
+        "sort_order": 1,
+        "ranges": [
+          {
+            "gender": "both",
+            "age_label": "Adult",
+            "low": null,
+            "high": null,
+            "range_text": "Negative / within normal (assay dependent, often <30–50 IU/mL)",
+            "unit": "IU/mL",
+            "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified)",
+            "verification_status": "VERIFY REQUIRED"
+          }
+        ]
+      }
+    ],
+    "notes": "Components: Anti-double stranded DNA. Specific for SLE, correlates with activity/renal involvement."
+  },
+  {
+    "code": "ASO",
+    "name": "ASO Titre (Anti-Streptolysin O)",
+    "short_name": "ASO",
+    "department": "Immunology / Autoimmune",
+    "aliases": [],
+    "verification_status": "VERIFY REQUIRED",
+    "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified); listed as common at: Chughtai, SKMCH, AKUH",
+    "parameters": [
+      {
+        "name": "ASO titre",
+        "unit": "IU/mL",
+        "data_type": "numeric",
+        "sort_order": 1,
+        "ranges": [
+          {
+            "gender": "both",
+            "age_label": "Adult",
+            "low": null,
+            "high": 200,
+            "range_text": "<200 IU/mL (adult) approx",
+            "unit": "IU/mL",
+            "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified)",
+            "verification_status": "VERIFY REQUIRED"
+          }
+        ]
+      }
+    ],
+    "notes": "Post-streptococcal sequelae (rheumatic fever, glomerulonephritis)."
+  },
+  {
+    "code": "C3",
+    "name": "Complement C3 / C4",
+    "short_name": "C3",
+    "department": "Immunology / Autoimmune",
+    "aliases": [
+      "C4"
+    ],
+    "verification_status": "VERIFY REQUIRED",
+    "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified); listed as common at: Chughtai, SKMCH, AKUH",
+    "parameters": [
+      {
+        "name": "C3",
+        "unit": "mg/dL",
+        "data_type": "numeric",
+        "sort_order": 1,
+        "ranges": [
+          {
+            "gender": "both",
+            "age_label": "Adult",
+            "low": 90,
+            "high": 180,
+            "range_text": "90–180 mg/dL",
+            "unit": "mg/dL",
+            "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified)",
+            "verification_status": "VERIFY REQUIRED"
+          }
+        ]
+      },
+      {
+        "name": "C4",
+        "unit": "mg/dL",
+        "data_type": "numeric",
+        "sort_order": 2,
+        "ranges": [
+          {
+            "gender": "both",
+            "age_label": "Adult",
+            "low": 10,
+            "high": 40,
+            "range_text": "10–40 mg/dL approx",
+            "unit": "mg/dL",
+            "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified)",
+            "verification_status": "VERIFY REQUIRED"
+          }
+        ]
+      }
+    ],
+    "notes": "Low in active SLE, some glomerulonephritides."
+  },
+  {
+    "code": "AFP",
+    "name": "AFP (Alpha Fetoprotein)",
+    "short_name": "AFP",
+    "department": "Tumor Markers",
+    "aliases": [],
+    "verification_status": "VERIFY REQUIRED",
+    "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified); listed as common at: Chughtai, SKMCH, AKUH",
+    "parameters": [
+      {
+        "name": "Alpha-fetoprotein",
+        "unit": "ng/mL",
+        "data_type": "numeric",
+        "sort_order": 1,
+        "ranges": [
+          {
+            "gender": "both",
+            "age_label": "Adult",
+            "low": null,
+            "high": 10,
+            "range_text": "<10 ng/mL (adult non-pregnant)",
+            "unit": "ng/mL",
+            "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified)",
+            "verification_status": "VERIFY REQUIRED"
+          }
+        ]
+      }
+    ],
+    "notes": "HCC, germ cell tumors, pregnancy monitoring."
+  },
+  {
+    "code": "CA_19_9",
+    "name": "CA 19-9",
+    "short_name": "CA 19-9",
+    "department": "Tumor Markers",
+    "aliases": [],
+    "verification_status": "VERIFY REQUIRED",
+    "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified); listed as common at: Chughtai, SKMCH, AKUH",
+    "parameters": [
+      {
+        "name": "Cancer Antigen 19-9",
+        "unit": "U/mL",
+        "data_type": "numeric",
+        "sort_order": 1,
+        "ranges": [
+          {
+            "gender": "both",
+            "age_label": "Adult",
+            "low": null,
+            "high": 37,
+            "range_text": "<37 U/mL",
+            "unit": "U/mL",
+            "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified)",
+            "verification_status": "VERIFY REQUIRED"
+          }
+        ]
+      }
+    ],
+    "notes": "Pancreatic & biliary tract cancers. Can be raised in cholangitis, cirrhosis."
+  },
+  {
+    "code": "CA_15_3",
+    "name": "CA 15-3",
+    "short_name": "CA 15-3",
+    "department": "Tumor Markers",
+    "aliases": [],
+    "verification_status": "VERIFY REQUIRED",
+    "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified); listed as common at: Chughtai, SKMCH, AKUH",
+    "parameters": [
+      {
+        "name": "Cancer Antigen 15-3",
+        "unit": "U/mL",
+        "data_type": "numeric",
+        "sort_order": 1,
+        "ranges": [
+          {
+            "gender": "both",
+            "age_label": "Adult",
+            "low": null,
+            "high": 30,
+            "range_text": "<30 U/mL approx",
+            "unit": "U/mL",
+            "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified)",
+            "verification_status": "VERIFY REQUIRED"
+          }
+        ]
+      }
+    ],
+    "notes": "Breast cancer monitoring."
+  },
+  {
+    "code": "UACR",
+    "name": "Urine Albumin / Creatinine Ratio (ACR)",
+    "short_name": "UACR",
+    "department": "Urine & Stool",
+    "aliases": [
+      "Microalbumin"
+    ],
+    "verification_status": "VERIFY REQUIRED",
+    "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified); listed as common at: Chughtai, SKMCH, AKUH",
+    "parameters": [
+      {
+        "name": "Result",
+        "unit": "mg/g",
+        "data_type": "text",
+        "sort_order": 1,
+        "ranges": [
+          {
+            "gender": "both",
+            "age_label": "Adult",
+            "low": null,
+            "high": null,
+            "range_text": "Normal: <30 mg/g | Microalbuminuria: 30–300 mg/g | Macroalbuminuria: >300 mg/g",
+            "unit": "mg/g",
+            "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified)",
+            "verification_status": "VERIFY REQUIRED"
+          }
+        ]
+      }
+    ],
+    "notes": "Components: Albumin/Creatinine ratio. Diabetic nephropathy screening. Spot urine."
+  },
+  {
+    "code": "24H_URINE",
+    "name": "24-hour Urine Protein / Creatinine / Electrolytes",
+    "short_name": "24h Urine",
+    "department": "Urine & Stool",
+    "aliases": [],
+    "verification_status": "VERIFY REQUIRED",
+    "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified); listed as common at: Chughtai, SKMCH, AKUH",
+    "parameters": [
+      {
+        "name": "Result",
+        "unit": "mg or g /24h",
+        "data_type": "text",
+        "sort_order": 1,
+        "ranges": [
+          {
+            "gender": "both",
+            "age_label": "Adult",
+            "low": null,
+            "high": null,
+            "range_text": "Protein: <150 mg/24h | Creatinine: 0.8–1.8 g/24h (gender dependent) | Calcium: 100–300 mg/24h approx",
+            "unit": "mg or g /24h",
+            "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified)",
+            "verification_status": "VERIFY REQUIRED"
+          }
+        ]
+      }
+    ],
+    "notes": "Components: Total protein, creatinine, Na, K, Ca, uric acid, etc. as ordered. Proper collection critical (start after first void, end with last void)."
+  },
+  {
+    "code": "STOOL_RE",
+    "name": "Stool Routine Examination (D/R)",
+    "short_name": "Stool RE",
+    "department": "Urine & Stool",
+    "aliases": [
+      "Stool DR"
+    ],
+    "verification_status": "VERIFY REQUIRED",
+    "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified); listed as common at: Chughtai, SKMCH, AKUH",
+    "parameters": [
+      {
+        "name": "Result",
+        "unit": null,
+        "data_type": "text",
+        "sort_order": 1,
+        "ranges": [
+          {
+            "gender": "both",
+            "age_label": "Adult",
+            "low": null,
+            "high": null,
+            "range_text": "No ova/cysts/parasites seen | Occult blood: Negative | No reducing substances",
+            "unit": null,
+            "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified)",
+            "verification_status": "VERIFY REQUIRED"
+          }
+        ]
+      }
+    ],
+    "notes": "Components: Consistency, color, occult blood, ova/cysts/parasites, reducing substances, fat, WBC, RBC. Fresh sample important for parasites."
+  },
+  {
+    "code": "FOBT",
+    "name": "Stool for Occult Blood (FOBT / FIT)",
+    "short_name": "FOBT",
+    "department": "Urine & Stool",
+    "aliases": [
+      "FIT"
+    ],
+    "verification_status": "VERIFY REQUIRED",
+    "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified); listed as common at: Chughtai, SKMCH, AKUH",
+    "parameters": [
+      {
+        "name": "Result",
+        "unit": null,
+        "data_type": "text",
+        "sort_order": 1,
+        "ranges": [
+          {
+            "gender": "both",
+            "age_label": "Adult",
+            "low": null,
+            "high": null,
+            "range_text": "Negative (normal)",
+            "unit": null,
+            "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified)",
+            "verification_status": "VERIFY REQUIRED"
+          }
+        ]
+      }
+    ],
+    "notes": "Components: Fecal occult blood. Colorectal cancer screening. FIT preferred over guaiac."
+  },
+  {
+    "code": "HCV_RNA",
+    "name": "HCV PCR (Qualitative / Quantitative)",
+    "short_name": "HCV RNA",
+    "department": "Special / Molecular",
+    "aliases": [
+      "Viral Load"
+    ],
+    "verification_status": "VERIFY REQUIRED",
+    "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified); listed as common at: Chughtai, SKMCH, AKUH",
+    "parameters": [
+      {
+        "name": "Result",
+        "unit": "IU/mL",
+        "data_type": "text",
+        "sort_order": 1,
+        "ranges": [
+          {
+            "gender": "both",
+            "age_label": "Adult",
+            "low": null,
+            "high": null,
+            "range_text": "Not Detected (qualitative) | Viral load in IU/mL (quantitative)",
+            "unit": "IU/mL",
+            "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified)",
+            "verification_status": "VERIFY REQUIRED"
+          }
+        ]
+      }
+    ],
+    "notes": "Components: HCV RNA detection ± quantitation. Confirm active infection, monitor treatment response."
+  },
+  {
+    "code": "HBV_DNA",
+    "name": "HBV PCR (Viral Load)",
+    "short_name": "HBV DNA",
+    "department": "Special / Molecular",
+    "aliases": [],
+    "verification_status": "VERIFY REQUIRED",
+    "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified); listed as common at: Chughtai, SKMCH, AKUH",
+    "parameters": [
+      {
+        "name": "Result",
+        "unit": "IU/mL",
+        "data_type": "text",
+        "sort_order": 1,
+        "ranges": [
+          {
+            "gender": "both",
+            "age_label": "Adult",
+            "low": null,
+            "high": null,
+            "range_text": "Not Detected or < lower limit of detection | Reported in IU/mL",
+            "unit": "IU/mL",
+            "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified)",
+            "verification_status": "VERIFY REQUIRED"
+          }
+        ]
+      }
+    ],
+    "notes": "Components: HBV DNA quantitation. Monitor chronic HBV, treatment decisions."
+  },
+  {
+    "code": "GENEXPERT",
+    "name": "GeneXpert MTB/RIF",
+    "short_name": "GeneXpert",
+    "department": "Special / Molecular",
+    "aliases": [
+      "MTB-RIF"
+    ],
+    "verification_status": "VERIFY REQUIRED",
+    "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified); listed as common at: Chughtai, SKMCH, AKUH",
+    "parameters": [
+      {
+        "name": "Result",
+        "unit": null,
+        "data_type": "text",
+        "sort_order": 1,
+        "ranges": [
+          {
+            "gender": "both",
+            "age_label": "Adult",
+            "low": null,
+            "high": null,
+            "range_text": "MTB Not Detected | If Detected: Rifampicin Resistance Detected / Not Detected",
+            "unit": null,
+            "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified)",
+            "verification_status": "VERIFY REQUIRED"
+          }
+        ]
+      }
+    ],
+    "notes": "Components: M. tuberculosis detection + Rifampicin resistance. Rapid TB diagnosis & resistance. Sputum or other specimen."
+  },
+  {
+    "code": "HLA_B27",
+    "name": "HLA-B27",
+    "short_name": "HLA-B27",
+    "department": "Special / Molecular",
+    "aliases": [],
+    "verification_status": "VERIFY REQUIRED",
+    "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified); listed as common at: Chughtai, SKMCH, AKUH",
+    "parameters": [
+      {
+        "name": "Result",
+        "unit": null,
+        "data_type": "text",
+        "sort_order": 1,
+        "ranges": [
+          {
+            "gender": "both",
+            "age_label": "Adult",
+            "low": null,
+            "high": null,
+            "range_text": "Negative (normal) | Positive associated with Ankylosing Spondylitis, reactive arthritis etc.",
+            "unit": null,
+            "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified)",
+            "verification_status": "VERIFY REQUIRED"
+          }
+        ]
+      }
+    ],
+    "notes": "Components: HLA-B27 allele detection. Genetic predisposition marker, not diagnostic alone."
+  },
+  {
+    "code": "HB_EP",
+    "name": "Hb Electrophoresis",
+    "short_name": "Hb EP",
+    "department": "Special / Molecular",
+    "aliases": [
+      "HPLC"
+    ],
+    "verification_status": "VERIFY REQUIRED",
+    "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified); listed as common at: Chughtai, SKMCH, AKUH",
+    "parameters": [
+      {
+        "name": "Result",
+        "unit": "%",
+        "data_type": "text",
+        "sort_order": 1,
+        "ranges": [
+          {
+            "gender": "both",
+            "age_label": "Adult",
+            "low": null,
+            "high": null,
+            "range_text": "HbA: ~96–98% | HbA2: 2.0–3.5% | HbF: <1–2% (adult)",
+            "unit": "%",
+            "source": "Workbook Pakistan_Major_Labs_Test_Catalog_Reference_Ranges.xlsx (compiled from public lab information; approximate; not pathologist verified)",
+            "verification_status": "VERIFY REQUIRED"
+          }
+        ]
+      }
+    ],
+    "notes": "Components: HbA, HbA2, HbF, abnormal variants (S, C, E, D etc.). Thalassemia, sickle cell, hemoglobinopathies diagnosis."
+  }
+]
