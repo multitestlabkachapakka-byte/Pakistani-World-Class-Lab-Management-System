@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Patient;
+use App\Support\AuditLogger;
 use App\Support\DeviceCode;
 use Illuminate\Database\UniqueConstraintViolationException;
 use Illuminate\Http\Request;
@@ -76,6 +77,8 @@ class PatientController extends Controller
 
         $patient = $this->createWithUniqueMr($data, $request);
 
+        AuditLogger::record($request, 'patient.created', 'patient', $patient->id, null, ['mr_number' => $patient->mr_number]);
+
         return response()->json(['data' => $patient], 201);
     }
 
@@ -115,13 +118,20 @@ class PatientController extends Controller
 
         $patient->update($data);
 
+        AuditLogger::record($request, 'patient.updated', 'patient', $patient->id, null, [
+            'mr_number' => $patient->mr_number,
+            'fields' => array_values(array_diff(array_keys($data), ['updated_by_device', 'rev', 'phone_raw'])),
+        ]);
+
         return response()->json(['data' => $patient->fresh()]);
     }
 
-    public function destroy(string $id)
+    public function destroy(Request $request, string $id)
     {
         $patient = Patient::findOrFail($id);
         $patient->delete(); // soft delete
+
+        AuditLogger::record($request, 'patient.deleted', 'patient', $patient->id, null, ['mr_number' => $patient->mr_number]);
         return response()->json(['message' => 'Patient soft-deleted']);
     }
 

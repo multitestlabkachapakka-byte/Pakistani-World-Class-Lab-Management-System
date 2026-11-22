@@ -6,6 +6,7 @@ use App\Models\ReferenceRange;
 use App\Models\Report;
 use Database\Seeders\CatalogSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\Concerns\SignsIn;
 use Tests\TestCase;
 
 /**
@@ -14,7 +15,13 @@ use Tests\TestCase;
  */
 class ReportWorkflowTest extends TestCase
 {
-    use RefreshDatabase;
+    use RefreshDatabase, SignsIn;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->signIn();
+    }
 
     private function makePatient(string $gender, int $ageYears): array
     {

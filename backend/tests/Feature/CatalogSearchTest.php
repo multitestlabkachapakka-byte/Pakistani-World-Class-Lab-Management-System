@@ -4,11 +4,18 @@ namespace Tests\Feature;
 
 use Database\Seeders\CatalogSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\Concerns\SignsIn;
 use Tests\TestCase;
 
 class CatalogSearchTest extends TestCase
 {
-    use RefreshDatabase;
+    use RefreshDatabase, SignsIn;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->signIn();
+    }
 
     private function codesFor(string $query): array
     {

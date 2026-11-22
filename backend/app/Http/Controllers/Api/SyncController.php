@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Services\Sync\GoogleDriveSyncService;
+use App\Support\AuditLogger;
 use App\Support\DeviceCode;
 use Illuminate\Http\Request;
 
@@ -22,6 +23,8 @@ class SyncController extends Controller
     {
         $device = DeviceCode::fromRequest($request);
         $result = $this->sync->syncNow($device);
+
+        AuditLogger::record($request, 'sync.run', 'sync', null, null, ['ok' => (bool) ($result['ok'] ?? false)]);
 
         return response()->json([
             'data' => $result,

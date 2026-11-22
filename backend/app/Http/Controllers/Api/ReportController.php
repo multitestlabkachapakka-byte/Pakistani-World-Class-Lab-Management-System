@@ -11,6 +11,7 @@ use App\Models\ReportTest;
 use App\Models\TestDefinition;
 use App\Services\ReferenceRangeResolver;
 use App\Services\ResultFlagger;
+use App\Support\AuditLogger;
 use App\Support\DeviceCode;
 use Carbon\Carbon;
 use Illuminate\Database\UniqueConstraintViolationException;
@@ -152,6 +153,11 @@ class ReportController extends Controller
 
         $report->load(['patient', 'reportTests.results']);
 
+        AuditLogger::record($request, 'report.created', 'report', $report->id, null, [
+            'report_number' => $report->report_number,
+            'tests' => $codes,
+        ]);
+
         return response()->json(['data' => $report], 201);
     }
 
@@ -222,6 +228,11 @@ class ReportController extends Controller
             ]);
         });
 
+        AuditLogger::record($request, 'report.results_updated', 'report', $report->id, null, [
+            'report_number' => $report->report_number,
+            'result_count' => count($data['results']),
+        ]);
+
         return response()->json([
             'data' => $report->fresh(['reportTests.results']),
         ]);
@@ -273,10 +284,17 @@ class ReportController extends Controller
         $report->update([
             'status' => 'final',
             'reported_at' => now(),
-            'finalized_by' => $request->header('X-User-Id'),
+            'finalized_by' => $request->user()?->id,
             'snapshot' => $snapshot,
             'updated_by_device' => DeviceCode::fromRequest($request),
             'rev' => $report->rev + 1,
+        ]);
+
+        AuditLogger::record($request, 'report.finalized', 'report', $report->id, null, [
+            'report_number' => $report->report_number,
+            'critical_results' => $critical,
+            'unverified_reference_ranges' => $unverified,
+            'incomplete' => $missing->isNotEmpty(),
         ]);
 
         return response()->json([

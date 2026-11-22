@@ -3,11 +3,18 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\Concerns\SignsIn;
 use Tests\TestCase;
 
 class PatientApiTest extends TestCase
 {
-    use RefreshDatabase;
+    use RefreshDatabase, SignsIn;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->signIn();
+    }
 
     private function payload(array $over = []): array
     {
