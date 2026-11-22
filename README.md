@@ -37,10 +37,10 @@ CI is green (PHP 8.2/8.3 + SQLite, MariaDB 10.11, frontend). **Verified** = prov
 | Area | Status |
 |------|--------|
 | Patient / report / catalog API (registration, ranges by sex+age, flags, finalize + snapshot) | Verified |
-| Catalog | 34 tests, all `VERIFY REQUIRED` (not pathologist-verified) |
+| Catalog | 81 tests, all `VERIFY REQUIRED` (not pathologist-verified); 47 imported from the workbook |
 | Vue screens (Patients, Create Report, Dashboard) | Build + typecheck verified; not yet tested end-to-end |
 | PDF engine, Google Drive sync | Code only - not verified |
-| Authentication / audit trail | **Not implemented - API is open** |
+| Sign-in, roles, audit trail | Verified (API + login screen); see [docs/SECURITY.md](docs/SECURITY.md) |
 | Offline SQLite layer, Android, Windows, iOS, releases | Not started |
 
 Full module list, decisions and next steps: [docs/PROGRESS.md](docs/PROGRESS.md)
@@ -87,6 +87,14 @@ cd frontend
 npm install
 npm run dev
 ```
+
+### 3b. Pehli dafa admin banana
+Server computer par browser me app kholein (`npm run dev` ke baad jo link aaye). **First-time setup**
+screen aayegi: apna naam, username aur password dein (kam az kam 8 characters, letters + numbers).
+Ye sirf ek dafa aur sirf isi computer se hota hai. Koi default password nahi hai. Baad me staff ke
+accounts admin banata hai (roles: admin, pathologist, technician, receptionist).
+LAN ke kisi aur computer se setup karna ho to `backend/.env` me `LIMS_ALLOW_REMOTE_SETUP=true`
+karein, admin bana kar wapas `false` kar dein.
 
 ### 4. XAMPP / local server
 - Apache + MySQL start karein
