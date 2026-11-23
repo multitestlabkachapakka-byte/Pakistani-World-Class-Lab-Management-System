@@ -58,6 +58,16 @@ export const catalogApi = {
     api.get('/catalog/search', { params: { q, department } }).then((r) => r.data),
   departments: () => api.get('/catalog/departments').then((r) => r.data),
   get: (id: string) => api.get(`/catalog/${id}`).then((r) => r.data),
+  // Review status + range management (admin / pathologist) and verification (pathologist only)
+  reviewQueue: () => api.get('/review/catalog').then((r) => r.data),
+  createRange: (parameterId: string, payload: Record<string, unknown>) =>
+    api.post(`/parameters/${parameterId}/ranges`, payload).then((r) => r.data),
+  updateRange: (id: string, payload: Record<string, unknown>) =>
+    api.put(`/ranges/${id}`, payload).then((r) => r.data),
+  deleteRange: (id: string) => api.delete(`/ranges/${id}`).then((r) => r.data),
+  verifyRange: (id: string) => api.post(`/ranges/${id}/verify`).then((r) => r.data),
+  unverifyRange: (id: string) => api.post(`/ranges/${id}/unverify`).then((r) => r.data),
+  verifyTest: (id: string) => api.post(`/catalog/${id}/verify`, { confirm: true }).then((r) => r.data),
 }
 
 // ---------- Reports ----------

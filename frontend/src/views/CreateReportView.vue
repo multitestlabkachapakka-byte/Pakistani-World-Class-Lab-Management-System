@@ -59,6 +59,12 @@
     <div class="card" v-if="currentReport">
       <h3>3. Results — {{ currentReport.report_number }}</h3>
       <p class="muted">Status: {{ currentReport.status }}</p>
+      <p v-if="criticalNames.length" class="alert critical">
+        Critical result: {{ criticalNames.join(', ') }}. Inform the doctor / patient immediately.
+      </p>
+      <p v-if="pendingRangeCount" class="alert warn">
+        {{ pendingRangeCount }} reference range(s) used here are pending pathologist review.
+      </p>
 
       <div v-for="rt in currentReport.report_tests || []" :key="rt.id" class="test-block">
         <h4>{{ rt.test_name_snapshot }}</h4>
@@ -80,12 +86,21 @@
                   v-model="r.result_value"
                   type="text"
                   class="result-input"
-                  :disabled="currentReport.status !== 'draft'"
+                  :disabled="currentReport.status !== 'draft' || !canEnterResults"
                   @change="markDirty"
                 />
               </td>
               <td>{{ r.unit_snapshot || '—' }}</td>
-              <td>{{ r.reference_range_text || '—' }}</td>
+              <td>
+                <span v-if="r.reference_range_text">{{ r.reference_range_text }}</span>
+                <span v-else-if="!r.reference_range_id" class="muted">No reference range for this patient</span>
+                <span v-else>—</span>
+                <span
+                  v-if="r.reference_range_id && r.reference_verification_status !== 'VERIFIED'"
+                  class="badge warn"
+                  title="This reference range has not been verified by a pathologist yet"
+                >pending review</span>
+              </td>
               <td>
                 <span v-if="r.result_flag" class="flag" :class="r.result_flag">{{ r.result_flag }}</span>
               </td>
@@ -94,26 +109,47 @@
         </table>
       </div>
 
-      <div class="form-actions" v-if="currentReport.status === 'draft'">
+      <div class="form-actions" v-if="currentReport.status === 'draft' && canEnterResults">
         <button class="btn" :disabled="savingResults" @click="saveResults">
           {{ savingResults ? 'Saving…' : 'Save Results' }}
         </button>
-        <button class="btn primary" :disabled="savingResults" @click="finalize">
+        <button class="btn primary" :disabled="savingResults" @click="finalize(false)">
           Finalize Report
         </button>
         <span v-if="msg" class="muted">{{ msg }}</span>
+        <div v-if="missing.length" class="alert warn">
+          <strong>These selected parameters have no result:</strong> {{ missing.join(', ') }}
+          <div style="margin-top: 0.5rem">
+            <button class="btn" :disabled="savingResults" @click="finalize(true)">Finalize anyway (incomplete)</button>
+            <button class="btn" @click="missing = []">Go back and enter them</button>
+          </div>
+        </div>
       </div>
-      <p v-else class="success">Report finalized. Snapshot locked.</p>
+      <p v-else-if="currentReport.status === 'draft'" class="muted">
+        Entering results and finalizing is done by a technician or pathologist.
+      </p>
+      <div v-else>
+        <p class="success">Report finalized. Snapshot locked.</p>
+        <p v-if="finalNotice.critical.length" class="alert critical">
+          Critical result: {{ finalNotice.critical.join(', ') }}. Make sure the doctor / patient is informed.
+        </p>
+        <p v-if="finalNotice.unverified" class="alert warn">
+          {{ finalNotice.unverified }} result(s) used a reference range that is pending pathologist review.
+        </p>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { patientsApi, catalogApi, reportsApi } from '../services/api'
+import { useAuthStore } from '../stores/auth'
 
 const route = useRoute()
+const auth = useAuthStore()
+const canEnterResults = computed(() => auth.can('admin', 'pathologist', 'technician'))
 
 const patientQ = ref('')
 const patientHits = ref<any[]>([])
@@ -128,6 +164,20 @@ const creating = ref(false)
 const savingResults = ref(false)
 const dirty = ref(false)
 const msg = ref('')
+const missing = ref<string[]>([])
+const finalNotice = ref<{ critical: string[]; unverified: number }>({ critical: [], unverified: 0 })
+
+const allResults = computed<any[]>(() =>
+  (currentReport.value?.report_tests || []).flatMap((rt: any) => rt.results || []),
+)
+const criticalNames = computed(() =>
+  allResults.value.filter((r) => r.is_critical).map((r) => r.parameter_name_snapshot),
+)
+const pendingRangeCount = computed(
+  () =>
+    allResults.value.filter((r) => r.reference_range_id && r.reference_verification_status !== 'VERIFIED')
+      .length,
+)
 
 let patientTimer: number | undefined
 let testTimer: number | undefined
@@ -225,16 +275,28 @@ async function saveResults() {
   }
 }
 
-async function finalize() {
+async function finalize(allowIncomplete: boolean) {
   if (!currentReport.value) return
   if (dirty.value) await saveResults()
   savingResults.value = true
+  missing.value = []
+  msg.value = ''
   try {
-    const res = await reportsApi.finalize(currentReport.value.id)
-    currentReport.value = res.data
+    const res = await reportsApi.finalize(currentReport.value.id, allowIncomplete === true)
+    finalNotice.value = {
+      critical: res.meta?.critical_results || [],
+      unverified: res.meta?.unverified_reference_ranges || 0,
+    }
+    // The finalize response carries no tests: reload the full report so the results stay visible.
+    currentReport.value = (await reportsApi.get(currentReport.value.id)).data
     msg.value = 'Report finalized.'
   } catch (e: any) {
-    msg.value = e?.response?.data?.message || 'Finalize failed.'
+    const data = e?.response?.data
+    if (data?.missing_parameters?.length) {
+      missing.value = data.missing_parameters
+    } else {
+      msg.value = data?.message || 'Finalize failed.'
+    }
   } finally {
     savingResults.value = false
   }
@@ -305,4 +367,9 @@ th, td { text-align: left; padding: 0.4rem 0.5rem; border-bottom: 1px solid #eee
 .form-actions { margin-top: 1rem; }
 .muted { color: #6c757d; font-size: 0.85rem; }
 .success { color: #198754; font-weight: 500; }
+.alert { padding: 0.6rem 0.8rem; border-radius: 6px; margin: 0.75rem 0; font-size: 0.9rem; }
+.alert.critical { background: #f8d7da; color: #842029; border: 1px solid #f5c2c7; font-weight: 600; }
+.alert.warn { background: #fff3cd; color: #664d03; border: 1px solid #ffecb5; }
+.badge { display: inline-block; margin-left: 0.4rem; padding: 0.05rem 0.45rem; border-radius: 999px; font-size: 0.7rem; }
+.badge.warn { background: #fff3cd; color: #664d03; }
 </style>
