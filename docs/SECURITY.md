@@ -25,24 +25,31 @@ to `false`. Do the setup immediately after installing.
 | Register / edit patients, create reports (book tests) | yes | yes | yes | yes |
 | Enter results, finalize reports | yes | yes | yes | no |
 | Delete (soft-delete) patients | yes | no | no | no |
+| Add / edit / remove reference ranges | yes | yes | no | no |
+| **Verify** reference ranges (clinical sign-off) | no | yes | no | no |
+| Read laboratory settings (letterhead) | yes | yes | yes | yes |
+| Change laboratory settings | yes | no | no | no |
 | Google Drive sync status | yes | yes | no | no |
 | Run sync | yes | no | no | no |
 | Manage staff accounts | yes | no | no | no |
 
 The last active administrator cannot be demoted or deactivated.
-Reference-range verification by the pathologist is not built yet; until it is, nothing in the
-catalog can become `VERIFIED`.
+Only a pathologist can verify a reference range (an administrator cannot). Any edit to a range voids
+its verification, and re-seeding the catalog never overwrites a range that staff have edited, verified
+or removed.
 
 ## Audit trail
 Recorded in `audit_logs` with user, device, IP and time: first-time setup, logins (including failed
 ones), logout, password changes, staff changes, patient created/updated/deleted, report
-created / results saved / finalized, sync runs. Only ids, numbers and field names are stored -
+created / results saved / finalized, reference range created / edited / removed / verified / withdrawn,
+whole-test verification, settings changed (field names only), sync runs. Only ids, numbers and field names are stored -
 **never passwords, tokens or result values**. There is no API to edit or delete audit rows.
 
 ## Known gaps (not done yet)
 - No HTTPS: for LAN or internet use put the app behind HTTPS (tokens travel in a header).
 - No offline sign-in for the Android / Windows apps yet (they do not exist yet).
-- The screens do not hide role-restricted buttons yet (the server refuses with 403).
+- Not every screen hides role-restricted actions yet (the server always refuses with 403). The catalog,
+  report entry and settings screens already respect the role.
 - Audit rows are not tamper-proof against someone with direct database access.
 - Backups are not encrypted (backup module not built).
 - The GitHub repository is public: never commit patient data, keys or tokens.

@@ -38,8 +38,10 @@ CI is green (PHP 8.2/8.3 + SQLite, MariaDB 10.11, frontend). **Verified** = prov
 |------|--------|
 | Patient / report / catalog API (registration, ranges by sex+age, flags, finalize + snapshot) | Verified |
 | Catalog | 81 tests, all `VERIFY REQUIRED` (not pathologist-verified); 47 imported from the workbook |
-| Vue screens (Patients, Create Report, Dashboard) | Build + typecheck verified; not yet tested end-to-end |
-| PDF engine, Google Drive sync | Code only - not verified |
+| Vue screens (Patients, Create Report, Catalog review, Settings, Dashboard) | Build + typecheck verified; not yet tested end-to-end in a browser |
+| Report print / Save as PDF (one offline-capable renderer) | Verified (unit tests); PDF file generation and sharing not built |
+| Reference range management + pathologist verification | Verified (API tests) |
+| Google Drive sync | Code only - not verified |
 | Sign-in, roles, audit trail | Verified (API + login screen); see [docs/SECURITY.md](docs/SECURITY.md) |
 | Offline SQLite layer, Android, Windows, iOS, releases | Not started |
 

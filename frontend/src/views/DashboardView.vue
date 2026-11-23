@@ -67,7 +67,7 @@
               <td>{{ r.patient?.name || '—' }}</td>
               <td><span class="status" :class="r.status">{{ r.status }}</span></td>
               <td>
-                <button type="button" class="btn small" @click="openPdf(r.id)">PDF</button>
+                <button type="button" class="btn small" @click="openPdf(r.id)">Print / PDF</button>
               </td>
             </tr>
           </tbody>
@@ -102,7 +102,7 @@ async function load() {
 
 async function openPdf(id: string) {
   try {
-    await reportsApi.openPdf(id)
+    await reportsApi.openReport(id)
   } catch {
     error.value = 'Could not open the report. Please try again.'
   }

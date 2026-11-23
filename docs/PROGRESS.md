@@ -3,6 +3,32 @@
 Rule for this file: a module is only called **Verified** when an automated test run on GitHub
 Actions proves it. Code that exists but has not been exercised is called **Code only**.
 
+## Checkpoint 3 - range verification, one report engine, settings (2026-11-22)
+
+CI is green on PHP 8.2 + SQLite, PHP 8.3 + SQLite, PHP 8.2 + MariaDB 10.11: **79 PHPUnit tests** each;
+frontend typecheck + **60 vitest tests** + build; importer drift check.
+
+- **Reference range management + pathologist verification** (API + Catalog screen): admin and
+  pathologist add / edit / remove ranges; only a **pathologist** verifies (one range, or a whole test
+  after a confirmation); the review queue shows how many ranges are still unverified. A range needs a
+  source; numbers must be consistent (low <= high, critical outside normal); the printed text must
+  mention every non-zero limit; any edit voids the verification; exact duplicates are refused.
+  Re-seeding never overwrites ranges staff have edited, verified or removed.
+- **Data quality:** two invented limits in the seed data were removed (HDL high = 999, vitamin D
+  high = 100) and a test now fails if a non-zero limit is missing from its range text (one documented
+  exception: HbA1c 5.6 for "< 5.7%" because results have one decimal).
+- **One report engine** (`frontend/src/domain/reportHtml.ts`, pure function, works offline): a final
+  report is rendered from its **frozen snapshot**; drafts carry a DRAFT banner + watermark; unverified
+  reference ranges get a dagger and footnote; critical results get a box; everything is HTML-escaped;
+  the logo is accepted only as an embedded image. Print / "Save as PDF" through the browser.
+  The old server-side HTML report was removed: it ignored all settings (the `LabSetting` model did not
+  exist) and printed live data instead of the snapshot.
+- **Settings** (API + screen): lab name, address, phone, e-mail, header / footer notes, watermark,
+  logo, up to 4 signatories, switch for the unverified-range notice. Everyone reads, only an admin changes.
+- **Create Report screen:** result entry and finalize only for admin / pathologist / technician;
+  "no reference range for this patient" and "pending review" markers; critical banner; missing
+  parameters listed with an explicit "finalize anyway (incomplete)" step; preview / print button.
+
 ## Checkpoint 2 - sign-in, roles, audit trail, workbook import (2026-11-22)
 
 CI is green on PHP 8.2 + SQLite, PHP 8.3 + SQLite, PHP 8.2 + MariaDB 10.11: **65 PHPUnit tests /
@@ -63,19 +89,19 @@ frontend typecheck + 25 vitest tests + production build.
 | 3 | MR number generation | Verified (sequence, device code); collision retry not race-tested |
 | 4 | Test catalog (target 500-1000+) | 81 tests / 132 parameters, all VERIFY REQUIRED (34 original + 47 from the workbook: 21 numeric, 26 text-only). Far from the target; growth goes through pathologist review |
 | 5 | Age/sex-specific ranges | Resolver verified; adult ranges only |
-| 6 | Reference range management + pathologist verification | Not started |
+| 6 | Reference range management + pathologist verification | Verified (API tests); Catalog screen builds, not yet tested in a browser |
 | 7 | Short forms / aliases | Verified |
 | 8 | Result entry + automatic flags | Verified (API) |
 | 9 | Clinical calculations | Not started (schema has formula column) |
 | 10 | Report generation (draft > results > validate > final + snapshot) | Verified (API); UI not yet updated for the new validation messages |
-| 11 | PDF preview / print / download | Code only (HTML report service); not verified, no PDF engine integrated yet |
-| 12 | Logo / header / footer / watermark | Not started |
+| 11 | PDF preview / print / download | Single offline-capable renderer verified by 15 unit tests; print / Save as PDF via the browser. No PDF *file* generation or sharing yet |
+| 12 | Logo / header / footer / watermark | Verified (API) + Settings screen; signatories included |
 | 13-14 | Multi-select, bulk download / print / share | Not started |
 | 15 | Patient history | API filter by patient exists; no UI / trends |
 | 16 | WhatsApp / email | Not started |
 | 17 | Doctor management | Table + model only |
 | 18 | Sample tracking / workflow | Not started (only draft/final) |
-| 19 | Critical results | Flagging verified; acknowledgement workflow not started |
+| 19 | Critical results | Flagging verified; critical banner on the entry screen and box on printed reports; acknowledgement workflow not started |
 | 20 | Google Drive sync | Skeleton only; needs OAuth credentials; not verified |
 | 21 | Fully offline operation | Domain logic ported + tested; local SQLite layer not started |
 | 22-23 | Backup / restore / factory reset | Not started |
@@ -86,12 +112,10 @@ frontend typecheck + 25 vitest tests + production build.
 | 30 | Automated tests + GitHub Releases | CI verified (SQLite, MariaDB, frontend, importer drift check); release automation not started |
 
 ## Next steps (in dependency order)
-1. UI for the new rules: hide role-restricted actions; show "no reference range", "pending
-   pathologist review", missing parameters on finalize and critical results.
-2. Reference range management + pathologist verification workflow (the only way anything becomes
-   VERIFIED), with audit rows.
-3. Catalog growth through review: structure the 26 text-only tests, add pediatric ranges and
-   critical limits.
-4. PDF engine integration and verification (unverified-range notice in the footer).
+1. PDF *file* generation + sharing (WhatsApp / e-mail), multi-select and bulk print / download (#13-16).
+2. Patients screen: role-aware actions, edit / history (#2, #15); doctor management (#17).
+3. Catalog growth through pathologist review: structure the 26 text-only tests, add pediatric ranges
+   and critical limits.
+4. Clinical calculations (#9), sample tracking / workflow (#18), backup / restore / factory reset (#22-23).
 5. Local SQLite layer + offline sign-in + sync design; then Capacitor / Tauri build workflows.
 6. Release automation (APK, EXE, portable ZIP, iOS workflow, PWA).

@@ -59,6 +59,9 @@
     <div class="card" v-if="currentReport">
       <h3>3. Results — {{ currentReport.report_number }}</h3>
       <p class="muted">Status: {{ currentReport.status }}</p>
+      <p>
+        <button type="button" class="btn small" @click="openReport">Preview / Print</button>
+      </p>
       <p v-if="criticalNames.length" class="alert critical">
         Critical result: {{ criticalNames.join(', ') }}. Inform the doctor / patient immediately.
       </p>
@@ -272,6 +275,16 @@ async function saveResults() {
     msg.value = e?.response?.data?.message || 'Save failed.'
   } finally {
     savingResults.value = false
+  }
+}
+
+async function openReport() {
+  if (!currentReport.value) return
+  try {
+    if (dirty.value) await saveResults()
+    await reportsApi.openReport(currentReport.value.id)
+  } catch {
+    msg.value = 'Could not open the report. Please try again.'
   }
 }
 

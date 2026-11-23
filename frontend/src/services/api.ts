@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { session, type SessionUser } from './session'
+import { brandingFromSettings, renderReportHtml, type LabSettings, type ReportData } from '../domain/reportHtml'
 
 function deviceCode(): string {
   try {
@@ -83,12 +84,16 @@ export const reportsApi = {
     api
       .post(`/reports/${id}/finalize`, allowIncomplete ? { allow_incomplete: true } : {})
       .then((r) => r.data),
-  // The PDF/print view needs the login token, so it cannot be a plain link: fetch it, then open it.
-  async openPdf(id: string): Promise<void> {
+  // Reports are rendered in the app by ONE engine (works offline); only the data comes from the API.
+  async openReport(id: string): Promise<void> {
     const win = window.open('', '_blank') // opened synchronously so popup blockers allow it
     try {
-      const res = await api.get(`/reports/${id}/pdf`, { responseType: 'blob' })
-      const url = URL.createObjectURL(res.data as Blob)
+      const [report, settings] = await Promise.all([
+        api.get(`/reports/${id}`).then((r) => r.data.data as ReportData),
+        api.get('/settings').then((r) => r.data.data as Partial<LabSettings>),
+      ])
+      const html = renderReportHtml(report, brandingFromSettings(settings), { interactive: true })
+      const url = URL.createObjectURL(new Blob([html], { type: 'text/html;charset=utf-8' }))
       if (win) win.location.href = url
       else window.open(url, '_blank')
       setTimeout(() => URL.revokeObjectURL(url), 5 * 60 * 1000)
@@ -129,4 +134,11 @@ export const authApi = {
     password: string
     password_confirmation: string
   }) => api.put('/auth/password', payload).then((r) => r.data),
+}
+
+// ---------- Laboratory settings (letterhead, notes) ----------
+export const settingsApi = {
+  get: () => api.get('/settings').then((r) => r.data as { data: LabSettings }),
+  update: (payload: Partial<LabSettings>) =>
+    api.put('/settings', payload).then((r) => r.data as { data: LabSettings }),
 }
