@@ -4,9 +4,9 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CatalogController;
 use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\PatientController;
-use App\Http\Controllers\Api\PdfController;
 use App\Http\Controllers\Api\RangeController;
 use App\Http\Controllers\Api\ReportController;
+use App\Http\Controllers\Api\SettingsController;
 use App\Http\Controllers\Api\SetupController;
 use App\Http\Controllers\Api\SyncController;
 use App\Http\Controllers\Api\UserController;
@@ -71,11 +71,15 @@ Route::middleware(['auth:sanctum', 'active'])->group(function () {
     Route::get('/reports', [ReportController::class, 'index']);
     Route::post('/reports', [ReportController::class, 'store']);
     Route::get('/reports/{id}', [ReportController::class, 'show']);
-    Route::get('/reports/{id}/pdf', [PdfController::class, 'show']);
     Route::middleware('role:admin,pathologist,technician')->group(function () {
         Route::put('/reports/{id}/results', [ReportController::class, 'updateResults']);
         Route::post('/reports/{id}/finalize', [ReportController::class, 'finalize']);
     });
+
+    // Laboratory settings (read: everyone, change: admin). Reports are rendered by the app itself
+    // (frontend/src/domain/reportHtml.ts) so they also work offline.
+    Route::get('/settings', [SettingsController::class, 'index']);
+    Route::put('/settings', [SettingsController::class, 'update'])->middleware('role:admin');
 
     // Google Drive sync
     Route::get('/sync/status', [SyncController::class, 'status'])->middleware('role:admin,pathologist');
