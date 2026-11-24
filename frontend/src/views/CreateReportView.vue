@@ -90,8 +90,20 @@
                   type="text"
                   class="result-input"
                   :disabled="currentReport.status !== 'draft' || !canEnterResults"
+                  @input="onResultInput(rt, r)"
                   @change="markDirty"
                 />
+                <span
+                  v-if="r.calculation_formula_snapshot"
+                  class="calc"
+                  :title="'Calculated from other results: ' + r.calculation_formula_snapshot"
+                >{{ isOverridden(r) ? 'manual' : 'calculated' }}</span>
+                <button
+                  v-if="r.calculation_formula_snapshot && isOverridden(r) && currentReport.status === 'draft' && canEnterResults"
+                  type="button"
+                  class="linkbtn"
+                  @click="resetCalculated(rt, r)"
+                >recalculate</button>
               </td>
               <td>{{ r.unit_snapshot || '—' }}</td>
               <td>
@@ -149,6 +161,7 @@ import { ref, computed, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { patientsApi, catalogApi, reportsApi } from '../services/api'
 import { useAuthStore } from '../stores/auth'
+import { recalculate } from '../domain/calculations'
 
 const route = useRoute()
 const auth = useAuthStore()
@@ -256,6 +269,42 @@ function markDirty() {
   dirty.value = true
 }
 
+// ---- calculated results (indirect bilirubin, LDL ...): filled from the values entered, never assumed ----
+const overridden = ref<Set<string>>(new Set()) // calculated rows the user typed over by hand
+const isCalc = (r: any) => Boolean(r.calculation_formula_snapshot)
+const isOverridden = (r: any) =>
+  overridden.value.has(r.id) || (isCalc(r) && Boolean((r.result_value ?? '').trim()) && !r.was_auto_filled)
+
+function applyCalculations(rt: any) {
+  const rows: any[] = rt.results || []
+  for (const u of recalculate(rows, isOverridden)) {
+    const row = rows.find((x) => x.id === u.id)
+    if (row) {
+      row.result_value = u.value
+      row.was_auto_filled = u.auto
+    }
+  }
+}
+
+function onResultInput(rt: any, r: any) {
+  dirty.value = true
+  if (isCalc(r)) {
+    // Typing in a calculated field takes it over; clearing the field gives it back to the calculation.
+    if ((r.result_value ?? '').trim()) overridden.value.add(r.id)
+    else overridden.value.delete(r.id)
+    r.was_auto_filled = false
+  }
+  applyCalculations(rt)
+}
+
+function resetCalculated(rt: any, r: any) {
+  overridden.value.delete(r.id)
+  r.result_value = ''
+  r.was_auto_filled = false
+  dirty.value = true
+  applyCalculations(rt)
+}
+
 async function saveResults() {
   if (!currentReport.value) return
   savingResults.value = true
@@ -264,7 +313,7 @@ async function saveResults() {
     const allResults: any[] = []
     for (const rt of currentReport.value.report_tests || []) {
       for (const r of rt.results || []) {
-        allResults.push({ id: r.id, result_value: r.result_value })
+        allResults.push({ id: r.id, result_value: r.result_value, was_auto_filled: Boolean(r.was_auto_filled) })
       }
     }
     const res = await reportsApi.updateResults(currentReport.value.id, allResults)
@@ -383,6 +432,8 @@ th, td { text-align: left; padding: 0.4rem 0.5rem; border-bottom: 1px solid #eee
 .alert { padding: 0.6rem 0.8rem; border-radius: 6px; margin: 0.75rem 0; font-size: 0.9rem; }
 .alert.critical { background: #f8d7da; color: #842029; border: 1px solid #f5c2c7; font-weight: 600; }
 .alert.warn { background: #fff3cd; color: #664d03; border: 1px solid #ffecb5; }
+.calc { margin-left: 0.4rem; font-size: 0.7rem; color: #0a58ca; background: #e7f1ff; border-radius: 999px; padding: 0.05rem 0.45rem; }
+.linkbtn { background: none; border: none; color: #0a58ca; cursor: pointer; font-size: 0.75rem; text-decoration: underline; padding: 0 0.3rem; }
 .badge { display: inline-block; margin-left: 0.4rem; padding: 0.05rem 0.45rem; border-radius: 999px; font-size: 0.7rem; }
 .badge.warn { background: #fff3cd; color: #664d03; }
 </style>

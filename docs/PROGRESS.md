@@ -5,8 +5,8 @@ Actions proves it. Code that exists but has not been exercised is called **Code 
 
 ## Checkpoint 3 - range verification, one report engine, settings (2026-11-22)
 
-CI is green on PHP 8.2 + SQLite, PHP 8.3 + SQLite, PHP 8.2 + MariaDB 10.11: **79 PHPUnit tests** each;
-frontend typecheck + **60 vitest tests** + build; importer drift check.
+CI is green on PHP 8.2 + SQLite, PHP 8.3 + SQLite, PHP 8.2 + MariaDB 10.11: **82 PHPUnit tests** each;
+frontend typecheck + **81 vitest tests** + build; importer drift check.
 
 - **Reference range management + pathologist verification** (API + Catalog screen): admin and
   pathologist add / edit / remove ranges; only a **pathologist** verifies (one range, or a whole test
@@ -28,6 +28,16 @@ frontend typecheck + **60 vitest tests** + build; importer drift check.
 - **Create Report screen:** result entry and finalize only for admin / pathologist / technician;
   "no reference range for this patient" and "pending review" markers; critical banner; missing
   parameters listed with an explicit "finalize anyway (incomplete)" step; preview / print button.
+- **Staff screen** (admin, "Staff" menu): create accounts, choose the role, activate / deactivate, reset a
+  password; the screen is reachable only for admins (route guard; the server enforces it too). This is
+  how the lab's pathologist account is created, which is needed before anything can be verified.
+- **Calculated results:** indirect bilirubin, globulin, A/G ratio, LDL and VLDL (Friedewald) now have
+  formulas in the catalog (`{T.Bil} - {D.Bil}`, `IF({TG} < 400, ...)` ...), evaluated by a small parser
+  without `eval`. The entry screen fills them in from the values the technician entered, tags them
+  "calculated", and a hand-typed value always wins ("manual", with a recalculate link). A value is
+  produced only when every input was entered; Friedewald refuses TG >= 400 mg/dL. Reports freeze the
+  short name and formula, and record calculated values as auto-filled. The formulas are standard
+  textbook ones but are **pending pathologist review** (formulas have no verification workflow yet).
 
 ## Checkpoint 2 - sign-in, roles, audit trail, workbook import (2026-11-22)
 
@@ -92,7 +102,7 @@ frontend typecheck + 25 vitest tests + production build.
 | 6 | Reference range management + pathologist verification | Verified (API tests); Catalog screen builds, not yet tested in a browser |
 | 7 | Short forms / aliases | Verified |
 | 8 | Result entry + automatic flags | Verified (API) |
-| 9 | Clinical calculations | Not started (schema has formula column) |
+| 9 | Clinical calculations | Verified (unit tests + checks of the seed data): 5 calculated parameters; formulas pending pathologist review |
 | 10 | Report generation (draft > results > validate > final + snapshot) | Verified (API); UI not yet updated for the new validation messages |
 | 11 | PDF preview / print / download | Single offline-capable renderer verified by 15 unit tests; print / Save as PDF via the browser. No PDF *file* generation or sharing yet |
 | 12 | Logo / header / footer / watermark | Verified (API) + Settings screen; signatories included |
@@ -105,7 +115,7 @@ frontend typecheck + 25 vitest tests + production build.
 | 20 | Google Drive sync | Skeleton only; needs OAuth credentials; not verified |
 | 21 | Fully offline operation | Domain logic ported + tested; local SQLite layer not started |
 | 22-23 | Backup / restore / factory reset | Not started |
-| 24 | Security + audit trail | Verified (API): Sanctum login, first-run setup, 4 roles, rate limit, audit trail. Gaps: no HTTPS, no offline sign-in yet, UI does not hide role-restricted buttons, no password reset by e-mail - see SECURITY.md |
+| 24 | Security + audit trail | Verified (API): Sanctum login, first-run setup, 4 roles, rate limit, audit trail. Gaps: no HTTPS, no offline sign-in yet, not every screen hides role-restricted actions, no password reset by e-mail - see SECURITY.md |
 | 25-27 | Android / Windows EXE / iOS | Not started (Capacitor / Tauri) |
 | 28 | XAMPP deployment | Backend migrates, seeds and passes tests on MariaDB 10.11 in CI; installer + guide pending |
 | 29 | PWA / web | Frontend builds in CI; manifest / service worker not started |

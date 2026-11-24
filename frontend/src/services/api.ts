@@ -1,5 +1,6 @@
 import axios from 'axios'
-import { session, type SessionUser } from './session'
+import { session, type Role, type SessionUser } from './session'
+import type { StaffUser } from '../domain/staff'
 import { brandingFromSettings, renderReportHtml, type LabSettings, type ReportData } from '../domain/reportHtml'
 
 function deviceCode(): string {
@@ -134,6 +135,15 @@ export const authApi = {
     password: string
     password_confirmation: string
   }) => api.put('/auth/password', payload).then((r) => r.data),
+}
+
+// ---------- Staff accounts (admin only) ----------
+export const usersApi = {
+  list: () => api.get('/users').then((r) => r.data as { data: StaffUser[] }),
+  create: (payload: { name: string; username: string; password: string; role: Role }) =>
+    api.post('/users', payload).then((r) => r.data),
+  update: (id: string, payload: Record<string, unknown>) =>
+    api.put(`/users/${id}`, payload).then((r) => r.data),
 }
 
 // ---------- Laboratory settings (letterhead, notes) ----------

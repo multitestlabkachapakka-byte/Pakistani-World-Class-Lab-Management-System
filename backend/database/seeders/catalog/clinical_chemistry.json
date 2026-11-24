@@ -12,7 +12,7 @@
     "parameters": [
       {"name": "Total Bilirubin", "short_name": "T.Bil", "unit": "mg/dL", "data_type": "numeric", "sort_order": 1, "ranges": [{"gender": "both", "age_label": "Adult", "low": 0.1, "high": 1.2, "range_text": "0.1 – 1.2", "verification_status": "VERIFY REQUIRED"}]},
       {"name": "Direct Bilirubin", "short_name": "D.Bil", "unit": "mg/dL", "data_type": "numeric", "sort_order": 2, "ranges": [{"gender": "both", "age_label": "Adult", "low": 0.0, "high": 0.5, "range_text": "< 0.5", "verification_status": "VERIFY REQUIRED"}]},
-      {"name": "Indirect Bilirubin", "short_name": "I.Bil", "unit": "mg/dL", "data_type": "numeric", "sort_order": 3, "is_calculated": true, "ranges": [{"gender": "both", "age_label": "Adult", "low": 0.1, "high": 1.0, "range_text": "0.1 – 1.0", "verification_status": "VERIFY REQUIRED"}]},
+      {"name": "Indirect Bilirubin", "short_name": "I.Bil", "unit": "mg/dL", "data_type": "numeric", "sort_order": 3, "is_calculated": true, "calculation_formula": "ROUND({T.Bil} - {D.Bil}, 2)", "ranges": [{"gender": "both", "age_label": "Adult", "low": 0.1, "high": 1.0, "range_text": "0.1 – 1.0", "verification_status": "VERIFY REQUIRED"}]},
       {"name": "ALT (SGPT)", "short_name": "ALT", "unit": "U/L", "data_type": "numeric", "sort_order": 4, "ranges": [
         {"gender": "male", "age_label": "Adult", "low": 0, "high": 45, "range_text": "< 45", "verification_status": "VERIFY REQUIRED"},
         {"gender": "female", "age_label": "Adult", "low": 0, "high": 34, "range_text": "< 34", "verification_status": "VERIFY REQUIRED"}
@@ -22,8 +22,8 @@
       {"name": "GGT", "short_name": "GGT", "unit": "U/L", "data_type": "numeric", "sort_order": 7, "ranges": [{"gender": "male", "age_label": "Adult", "low": 0, "high": 59, "range_text": "< 59", "verification_status": "VERIFY REQUIRED"}]},
       {"name": "Total Protein", "short_name": "TP", "unit": "g/dL", "data_type": "numeric", "sort_order": 8, "ranges": [{"gender": "both", "age_label": "Adult", "low": 6.0, "high": 8.5, "range_text": "6.0 – 8.5", "verification_status": "VERIFY REQUIRED"}]},
       {"name": "Albumin", "short_name": "Alb", "unit": "g/dL", "data_type": "numeric", "sort_order": 9, "ranges": [{"gender": "both", "age_label": "Adult", "low": 3.5, "high": 5.0, "range_text": "3.5 – 5.0", "verification_status": "VERIFY REQUIRED"}]},
-      {"name": "Globulin", "short_name": "Glob", "unit": "g/dL", "data_type": "numeric", "sort_order": 10, "is_calculated": true, "ranges": [{"gender": "both", "age_label": "Adult", "low": 1.8, "high": 3.5, "range_text": "1.8 – 3.5", "verification_status": "VERIFY REQUIRED"}]},
-      {"name": "A/G Ratio", "short_name": "A/G", "unit": null, "data_type": "numeric", "sort_order": 11, "is_calculated": true, "ranges": [{"gender": "both", "age_label": "Adult", "low": 1.0, "high": 2.2, "range_text": "1.0 – 2.2", "verification_status": "VERIFY REQUIRED"}]}
+      {"name": "Globulin", "short_name": "Glob", "unit": "g/dL", "data_type": "numeric", "sort_order": 10, "is_calculated": true, "calculation_formula": "ROUND({TP} - {Alb}, 2)", "ranges": [{"gender": "both", "age_label": "Adult", "low": 1.8, "high": 3.5, "range_text": "1.8 – 3.5", "verification_status": "VERIFY REQUIRED"}]},
+      {"name": "A/G Ratio", "short_name": "A/G", "unit": null, "data_type": "numeric", "sort_order": 11, "is_calculated": true, "calculation_formula": "IF({TP} - {Alb} > 0, ROUND({Alb} / ({TP} - {Alb}), 2), null)", "ranges": [{"gender": "both", "age_label": "Adult", "low": 1.0, "high": 2.2, "range_text": "1.0 – 2.2", "verification_status": "VERIFY REQUIRED"}]}
     ]
   },
   {
@@ -65,8 +65,8 @@
         {"gender": "male", "age_label": "Adult", "low": 40, "range_text": "≥ 40 (Optimal ≥ 60)", "verification_status": "VERIFY REQUIRED"},
         {"gender": "female", "age_label": "Adult", "low": 50, "range_text": "≥ 50 (Optimal ≥ 60)", "verification_status": "VERIFY REQUIRED"}
       ]},
-      {"name": "LDL Cholesterol", "short_name": "LDL", "unit": "mg/dL", "data_type": "numeric", "sort_order": 4, "is_calculated": true, "ranges": [{"gender": "both", "age_label": "Adult", "low": 0, "high": 100, "range_text": "Optimal < 100", "verification_status": "VERIFY REQUIRED"}]},
-      {"name": "VLDL", "short_name": "VLDL", "unit": "mg/dL", "data_type": "numeric", "sort_order": 5, "is_calculated": true, "ranges": [{"gender": "both", "age_label": "Adult", "low": 5, "high": 40, "range_text": "5 – 40", "verification_status": "VERIFY REQUIRED"}]}
+      {"name": "LDL Cholesterol", "short_name": "LDL", "unit": "mg/dL", "data_type": "numeric", "sort_order": 4, "is_calculated": true, "calculation_formula": "IF({TG} < 400, ROUND({TC} - {HDL} - {TG} / 5, 0), null)", "ranges": [{"gender": "both", "age_label": "Adult", "low": 0, "high": 100, "range_text": "Optimal < 100", "verification_status": "VERIFY REQUIRED"}]},
+      {"name": "VLDL", "short_name": "VLDL", "unit": "mg/dL", "data_type": "numeric", "sort_order": 5, "is_calculated": true, "calculation_formula": "IF({TG} < 400, ROUND({TG} / 5, 0), null)", "ranges": [{"gender": "both", "age_label": "Adult", "low": 5, "high": 40, "range_text": "5 – 40", "verification_status": "VERIFY REQUIRED"}]}
     ]
   },
   {

@@ -94,7 +94,8 @@ npm run dev
 Server computer par browser me app kholein (`npm run dev` ke baad jo link aaye). **First-time setup**
 screen aayegi: apna naam, username aur password dein (kam az kam 8 characters, letters + numbers).
 Ye sirf ek dafa aur sirf isi computer se hota hai. Koi default password nahi hai. Baad me staff ke
-accounts admin banata hai (roles: admin, pathologist, technician, receptionist).
+accounts admin **Staff** menu se banata hai (roles: admin, pathologist, technician, receptionist).
+Reference ranges verify karne ke liye lab ke pathologist ka account `pathologist` role ke saath banayein.
 LAN ke kisi aur computer se setup karna ho to `backend/.env` me `LIMS_ALLOW_REMOTE_SETUP=true`
 karein, admin bana kar wapas `false` kar dein.
 

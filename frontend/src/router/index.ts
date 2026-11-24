@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { useAuthStore } from '../stores/auth'
+import type { Role } from '../services/session'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -35,6 +36,12 @@ const router = createRouter({
       name: 'settings',
       component: () => import('../views/SettingsView.vue'),
     },
+    {
+      path: '/staff',
+      name: 'staff',
+      component: () => import('../views/UsersView.vue'),
+      meta: { roles: ['admin'] },
+    },
   ],
 })
 
@@ -45,6 +52,9 @@ router.beforeEach((to) => {
     return { name: 'login', query: to.fullPath === '/' ? {} : { redirect: to.fullPath } }
   }
   if (to.name === 'login' && auth.isAuthenticated) return { path: '/' }
+  // Some screens are for certain roles only (the server enforces this too).
+  const roles = to.meta.roles as Role[] | undefined
+  if (roles && !auth.can(...roles)) return { path: '/' }
 })
 
 export default router

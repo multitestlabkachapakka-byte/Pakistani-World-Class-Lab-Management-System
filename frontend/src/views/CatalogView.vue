@@ -66,6 +66,9 @@
         <div v-for="p in detail.parameters" :key="p.id" class="param">
           <h4>
             {{ p.name }} <small class="muted">{{ p.unit }}</small>
+            <small v-if="p.calculation_formula" class="muted" title="Calculated from the other results of this test">
+              calculated: {{ p.calculation_formula }}
+            </small>
             <button v-if="canManage" class="btn small" @click="startAdd(p)">+ Add range</button>
           </h4>
           <div class="scroll">

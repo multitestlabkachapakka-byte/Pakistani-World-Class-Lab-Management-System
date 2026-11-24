@@ -21,6 +21,7 @@ class ReportResult extends Model
         'was_auto_filled', 'was_manually_edited', 'sort_order', 'interpretation',
         'reference_range_id', 'critical_low', 'critical_high',
         'reference_source', 'reference_verification_status',
+        'short_name_snapshot', 'calculation_formula_snapshot',
     ];
 
     protected $casts = [

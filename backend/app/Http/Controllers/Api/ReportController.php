@@ -132,6 +132,8 @@ class ReportController extends Controller
                         'test_parameter_id' => $param->id,
                         'parameter_name_snapshot' => $param->name,
                         'unit_snapshot' => $param->unit,
+                        'short_name_snapshot' => $param->short_name,
+                        'calculation_formula_snapshot' => $param->is_calculated ? $param->calculation_formula : null,
                         'result_value' => null,
                         'reference_range_id' => $range?->id,
                         'reference_range_text' => $range?->range_text,
@@ -184,6 +186,7 @@ class ReportController extends Controller
             'results.*.id' => 'required|uuid',
             'results.*.result_value' => 'nullable|string|max:255',
             'results.*.print_selected' => 'sometimes|boolean',
+            'results.*.was_auto_filled' => 'sometimes|boolean',
         ]);
 
         $ids = array_column($data['results'], 'id');
@@ -212,12 +215,16 @@ class ReportController extends Controller
                     $result->critical_high
                 );
 
+                // A value the app calculated is not a manual entry; anything typed by hand is.
+                $auto = $value !== null && (bool) ($item['was_auto_filled'] ?? false);
+
                 $result->update([
                     'result_value' => $value,
                     'result_flag' => $flag['flag'],
                     'is_abnormal' => $flag['is_abnormal'],
                     'is_critical' => $flag['is_critical'],
-                    'was_manually_edited' => true,
+                    'was_auto_filled' => $auto,
+                    'was_manually_edited' => !$auto,
                     'print_selected' => $item['print_selected'] ?? $result->print_selected,
                 ]);
             }
