@@ -173,3 +173,66 @@ jobs:
               name: 'log-' + process.env.LOG_NAME, status: 'completed', conclusion: 'neutral',
               output: { title: 'log tail', summary: 'tail of captured output', text: '```\n' + text + '\n```' }
             });
+
+  e2e:
+    name: e2e
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      LOG_NAME: e2e
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: mbstring, pdo_sqlite, sqlite3, curl, zip, xml, bcmath, fileinfo, intl
+          coverage: none
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: |
+            frontend/package-lock.json
+            e2e/package-lock.json
+      - name: Start the backend (fresh SQLite database)
+        working-directory: backend
+        run: |
+          cp .env.example .env
+          composer install --no-interaction --prefer-dist --no-progress 2>&1 | tee -a /tmp/ci.log
+          php artisan key:generate
+          touch "$GITHUB_WORKSPACE/e2e.sqlite"
+          sed -i "s|^DB_CONNECTION=.*|DB_CONNECTION=sqlite|; s|^DB_DATABASE=.*|DB_DATABASE=$GITHUB_WORKSPACE/e2e.sqlite|" .env
+          php artisan migrate:fresh --seed --force 2>&1 | tee -a /tmp/ci.log
+          PHP_CLI_SERVER_WORKERS=4 nohup php artisan serve --host=127.0.0.1 --port=8000 > /tmp/backend.log 2>&1 &
+          for i in $(seq 1 30); do curl -sf http://127.0.0.1:8000/api/health > /dev/null && break; sleep 1; done
+          curl -sf http://127.0.0.1:8000/api/health
+      - name: Build and serve the frontend
+        working-directory: frontend
+        run: |
+          npm ci 2>&1 | tee -a /tmp/ci.log
+          npm run build 2>&1 | tee -a /tmp/ci.log
+          nohup npx vite preview --host 127.0.0.1 --port 4173 --strictPort > /tmp/frontend.log 2>&1 &
+          for i in $(seq 1 30); do curl -sf http://127.0.0.1:4173/ > /dev/null && break; sleep 1; done
+          curl -sf http://127.0.0.1:4173/api/health
+      - name: End-to-end tests (Chromium)
+        working-directory: e2e
+        run: |
+          npm ci 2>&1 | tee -a /tmp/ci.log
+          npx playwright install --with-deps chromium 2>&1 | tee -a /tmp/ci.log
+          npx playwright test 2>&1 | tee -a /tmp/ci.log
+      - name: Server logs (on failure)
+        if: failure()
+        run: |
+          { echo "=== backend (artisan serve)"; tail -n 40 /tmp/backend.log; echo "=== laravel.log"; tail -n 60 backend/storage/logs/laravel.log 2>/dev/null; echo "=== frontend preview"; tail -n 20 /tmp/frontend.log; } 2>&1 | tee -a /tmp/ci.log
+      - name: Publish log tail as a check run
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const text = fs.existsSync('/tmp/ci.log') ? fs.readFileSync('/tmp/ci.log', 'utf8').slice(-60000) : '(no log)';
+            await github.rest.checks.create({
+              owner: context.repo.owner, repo: context.repo.repo, head_sha: context.sha,
+              name: 'log-' + process.env.LOG_NAME, status: 'completed', conclusion: 'neutral',
+              output: { title: 'log tail', summary: 'tail of captured output', text: '```\n' + text + '\n```' }
+            });
