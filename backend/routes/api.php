@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\BackupController;
 use App\Http\Controllers\Api\CatalogController;
 use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\PatientController;
@@ -90,5 +91,12 @@ Route::middleware(['auth:sanctum', 'active'])->group(function () {
         Route::get('/users', [UserController::class, 'index']);
         Route::post('/users', [UserController::class, 'store']);
         Route::put('/users/{id}', [UserController::class, 'update']);
+
+        // Backup, restore, factory reset (encrypted with a passphrase; restore / reset ask for the admin password)
+        Route::post('/backup', [BackupController::class, 'create'])->middleware('throttle:10,1');
+        Route::get('/backups', [BackupController::class, 'index']);
+        Route::get('/backups/{name}', [BackupController::class, 'download']);
+        Route::post('/restore', [BackupController::class, 'restore'])->middleware('throttle:5,1');
+        Route::post('/factory-reset', [BackupController::class, 'factoryReset'])->middleware('throttle:5,1');
     });
 });
