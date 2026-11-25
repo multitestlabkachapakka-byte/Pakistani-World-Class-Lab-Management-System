@@ -2,8 +2,9 @@
 
 Real browser (Chromium via Playwright) against the real backend. They walk through the working
 day of the laboratory: first-time setup, staff accounts and roles, verification of reference ranges,
-and the full report flow (register patient -> tests -> results incl. calculated values -> finalize ->
-print preview, with the frozen snapshot check).
+the full report flow (register patient -> tests -> results incl. calculated values -> finalize ->
+print preview, with the frozen snapshot check), and disaster recovery (encrypted backup -> factory
+reset -> first-time setup -> restore).
 
 The tests run in order and share one database, so start from a FRESH one.
 

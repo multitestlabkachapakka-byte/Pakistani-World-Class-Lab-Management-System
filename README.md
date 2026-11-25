@@ -106,6 +106,13 @@ karein, admin bana kar wapas `false` kar dein.
 
 Detailed guides will be in `docs/INSTALLATION_ROMAN_URDU.md`
 
+### 5. Backup (zaroori)
+Admin ke liye: menu **Backup** -> passphrase likhein (kam az kam 10 characters) -> **Download backup**.
+Ye ek encrypted file hai. **File aur passphrase alag alag mehfooz jagah rakhein; passphrase bhool gaye to
+backup kabhi nahi khul sakta.** Restore: Backup menu -> file chunein -> passphrase aur apna password dein ->
+`RESTORE` likhein. Restore sara maujooda data badal deta hai aur sab ko sign out kar deta hai (pehle server par
+ek safety copy ban jati hai). Details: [docs/SECURITY.md](docs/SECURITY.md)
+
 ---
 
 ## Security Note

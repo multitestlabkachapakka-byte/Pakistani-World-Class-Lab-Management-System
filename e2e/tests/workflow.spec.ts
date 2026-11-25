@@ -1,3 +1,4 @@
+import { readFileSync } from 'node:fs'
 import { expect, test, type Browser, type BrowserContext, type Page } from '@playwright/test'
 
 const BASE = 'http://127.0.0.1:4173'
@@ -9,6 +10,7 @@ const STAFF = {
   receptionist: { name: 'API Receptionist', username: 'api_receptionist', password: 'Recep-pass1', role: 'receptionist' },
 }
 const PATIENT = { name: 'E2E Patient', phone: '03001234567', address: 'E2E Street' }
+const BACKUP_PASSPHRASE = 'e2e-backup-passphrase'
 
 // The tests share one database and run in order.
 test.describe.configure({ mode: 'serial' })
@@ -260,4 +262,71 @@ test('7. a receptionist can book tests but cannot enter results or finalize', as
   await expect(page.locator('input.result-input').first()).toBeDisabled()
   await expect(page.getByRole('button', { name: 'Finalize Report' })).toHaveCount(0)
   await expect(page.getByText('Entering results and finalizing is done by a technician or pathologist.')).toBeVisible()
+})
+
+test('8. disaster recovery: backup, factory reset, first-time setup, restore - everything is back', async ({ browser }) => {
+  const { page } = await openAs(browser, ADMIN.username, ADMIN.password)
+  await page.goto('/')
+  await page.getByRole('link', { name: 'Backup' }).click()
+  await expect(page.getByRole('heading', { name: 'Backup & Restore' })).toBeVisible()
+
+  // --- 1. download an encrypted backup
+  const backup = page.getByTestId('backup-form')
+  await backup.getByLabel('Passphrase', { exact: true }).fill(BACKUP_PASSPHRASE)
+  await backup.getByLabel('Repeat passphrase').fill(BACKUP_PASSPHRASE)
+  const [download] = await Promise.all([
+    page.waitForEvent('download'),
+    backup.getByRole('button', { name: 'Download backup' }).click(),
+  ])
+  expect(download.suggestedFilename()).toMatch(/^lims-backup-.*\.limsbk$/)
+  const file = (await download.path())!
+  const bytes = readFileSync(file)
+  expect(bytes.subarray(0, 7).toString()).toBe('LIMSBK1')
+  expect(bytes.includes('Renamed Later'), 'patient data must not be readable in the file').toBe(false)
+
+  // --- 2. factory reset: everything is gone, the first-time setup starts again
+  const reset = page.getByTestId('reset-form')
+  await reset.getByLabel('Passphrase for the safety copy').fill(BACKUP_PASSPHRASE)
+  await reset.getByLabel('Your password').fill(ADMIN.password)
+  await reset.getByLabel('Type RESET ALL DATA to confirm').fill('RESET ALL DATA')
+  await reset.getByRole('button', { name: 'Erase all data' }).click()
+  await expect(page).toHaveURL(/\/login/)
+  await expect(page.getByRole('heading', { name: 'First-time setup' })).toBeVisible()
+
+  // --- 3. recover: a temporary administrator, then restore the backup
+  await page.getByLabel('Full name').fill('Temporary Admin')
+  await page.getByLabel('Username').fill('tmp_admin')
+  await page.getByLabel('Password', { exact: true }).fill('Temp-pass-1')
+  await page.getByLabel('Confirm password').fill('Temp-pass-1')
+  await page.getByRole('button', { name: 'Create administrator' }).click()
+  await expect(page.getByRole('button', { name: 'Sign out' })).toBeVisible()
+
+  await page.getByRole('link', { name: 'Backup' }).click()
+  await expect(page.getByText(/pre-reset-.*\.limsbk/)).toBeVisible() // the reset kept a safety copy
+
+  const restore = page.getByTestId('restore-form')
+  await restore.getByLabel('Backup file').setInputFiles(file)
+  await restore.getByLabel('Passphrase').fill(BACKUP_PASSPHRASE)
+  await restore.getByLabel('Your password').fill('Temp-pass-1')
+  await restore.getByLabel('Type RESTORE to confirm').fill('RESTORE')
+  await restore.getByRole('button', { name: 'Restore' }).click()
+  await expect(page).toHaveURL(/\/login/)
+
+  // --- 4. the original administrator, the staff, the patients and the verified ranges are back
+  await page.getByLabel('Username').fill(ADMIN.username)
+  await page.getByLabel('Password').fill(ADMIN.password)
+  await page.getByRole('button', { name: 'Sign in' }).click()
+  await expect(page.getByRole('button', { name: 'Sign out' })).toBeVisible()
+  await expect(page.getByText(ADMIN.name)).toBeVisible()
+
+  await page.getByRole('link', { name: 'Patients' }).click()
+  await expect(page.getByRole('row', { name: /Renamed Later/ })).toBeVisible()
+
+  await page.getByRole('link', { name: 'Staff' }).click()
+  await expect(page.getByRole('row', { name: /api_technician/ })).toBeVisible()
+  await expect(page.getByRole('row', { name: /tmp_admin/ })).toHaveCount(0)
+
+  await page.getByRole('link', { name: 'Catalog' }).click()
+  await page.getByPlaceholder('Search by name, code or department').fill('CBC')
+  await expect(page.locator('table.list tbody tr').filter({ hasText: 'Complete Blood Count' }).first()).toContainText('Verified')
 })

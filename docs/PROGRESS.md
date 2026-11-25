@@ -3,6 +3,24 @@
 Rule for this file: a module is only called **Verified** when an automated test run on GitHub
 Actions proves it. Code that exists but has not been exercised is called **Code only**.
 
+## Checkpoint 4 - browser tests, backup / restore / factory reset (2026-11-22)
+
+CI is green on PHP 8.2 + SQLite, PHP 8.3 + SQLite, PHP 8.2 + MariaDB 10.11: **89 PHPUnit tests** each;
+frontend typecheck + **86 vitest tests** + build; importer drift check; **8 browser tests**.
+
+- **End-to-end browser tests** (Playwright, Chromium, real backend; CI job `e2e`): first-time setup,
+  sign in / out, staff accounts, role-restricted navigation, a pathologist verifying a test's ranges
+  (a technician sees no verify buttons), the whole report flow (register patient, enter results incl.
+  calculated values with manual override, DRAFT preview, finalize incomplete with an explicit decision,
+  printed report, and the printed report staying frozen after the patient is renamed), receptionist
+  limits, and disaster recovery. This is the first time the screens are verified in a real browser.
+- **Backup / restore / factory reset** (API + Backup screen, admin only): see SECURITY.md. One
+  encrypted file, restore in one transaction with a safety copy first, refuses wrong passphrase /
+  damaged / newer files, signs everybody out. API round trip tested on SQLite and MariaDB (foreign-key
+  order is worked out from the schema), incl. a finalized report; the browser recovery path
+  (backup -> reset -> setup -> restore) is the 8th browser test.
+- Found by the tests and fixed: the three routes shared one rate-limit counter per user.
+
 ## Checkpoint 3 - range verification, one report engine, settings (2026-11-22)
 
 CI is green on PHP 8.2 + SQLite, PHP 8.3 + SQLite, PHP 8.2 + MariaDB 10.11: **82 PHPUnit tests** each;
@@ -114,18 +132,19 @@ frontend typecheck + 25 vitest tests + production build.
 | 19 | Critical results | Flagging verified; critical banner on the entry screen and box on printed reports; acknowledgement workflow not started |
 | 20 | Google Drive sync | Skeleton only; needs OAuth credentials; not verified |
 | 21 | Fully offline operation | Domain logic ported + tested; local SQLite layer not started |
-| 22-23 | Backup / restore / factory reset | Not started |
+| 22-23 | Backup / restore / factory reset | Verified (API tests on SQLite + MariaDB, browser recovery test). Manual only: no schedule, no automatic upload to Drive yet |
 | 24 | Security + audit trail | Verified (API): Sanctum login, first-run setup, 4 roles, rate limit, audit trail. Gaps: no HTTPS, no offline sign-in yet, not every screen hides role-restricted actions, no password reset by e-mail - see SECURITY.md |
 | 25-27 | Android / Windows EXE / iOS | Not started (Capacitor / Tauri) |
 | 28 | XAMPP deployment | Backend migrates, seeds and passes tests on MariaDB 10.11 in CI; installer + guide pending |
 | 29 | PWA / web | Frontend builds in CI; manifest / service worker not started |
-| 30 | Automated tests + GitHub Releases | CI verified (SQLite, MariaDB, frontend, importer drift check); release automation not started |
+| 30 | Automated tests + GitHub Releases | CI verified (SQLite, MariaDB, frontend, importer drift check, browser tests); release automation not started |
 
 ## Next steps (in dependency order)
-1. PDF *file* generation + sharing (WhatsApp / e-mail), multi-select and bulk print / download (#13-16).
-2. Patients screen: role-aware actions, edit / history (#2, #15); doctor management (#17).
-3. Catalog growth through pathologist review: structure the 26 text-only tests, add pediatric ranges
+1. Patients screen: edit / history (#2, #15) and doctor management (#17).
+2. Multi-select + bulk print (#13-14); real PDF *file* generation + sharing by WhatsApp / e-mail (#16).
+3. Critical result acknowledgement (#19), sample tracking / workflow (#18).
+4. Catalog growth through pathologist review: structure the 26 text-only tests, add pediatric ranges
    and critical limits.
-4. Clinical calculations (#9), sample tracking / workflow (#18), backup / restore / factory reset (#22-23).
-5. Local SQLite layer + offline sign-in + sync design; then Capacitor / Tauri build workflows.
-6. Release automation (APK, EXE, portable ZIP, iOS workflow, PWA).
+5. Scheduled backups + automatic encrypted upload to Google Drive; verify the sync (#20).
+6. Local SQLite layer + offline sign-in + sync design; then Capacitor / Tauri build workflows.
+7. Release automation (APK, EXE, portable ZIP, iOS workflow, PWA).
