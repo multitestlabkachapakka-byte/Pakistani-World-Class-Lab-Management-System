@@ -8,6 +8,7 @@
         <router-link to="/reports/create">Create Report</router-link>
         <router-link to="/catalog">Catalog</router-link>
         <router-link v-if="auth.can('admin')" to="/staff">Staff</router-link>
+        <router-link v-if="auth.can('admin')" to="/backup">Backup</router-link>
         <router-link to="/settings">Settings</router-link>
       </nav>
       <div class="who">

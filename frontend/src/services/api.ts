@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { session, type Role, type SessionUser } from './session'
 import type { StaffUser } from '../domain/staff'
+import { filenameFromDisposition } from '../domain/backup'
 import { brandingFromSettings, renderReportHtml, type LabSettings, type ReportData } from '../domain/reportHtml'
 
 function deviceCode(): string {
@@ -135,6 +136,32 @@ export const authApi = {
     password: string
     password_confirmation: string
   }) => api.put('/auth/password', payload).then((r) => r.data),
+}
+
+// ---------- Backup, restore, factory reset (admin only) ----------
+export const backupApi = {
+  async create(passphrase: string, repeat: string): Promise<{ blob: Blob; filename: string }> {
+    const res = await api.post('/backup', { passphrase, passphrase_confirmation: repeat }, { responseType: 'blob' })
+    return {
+      blob: res.data as Blob,
+      filename: filenameFromDisposition(res.headers['content-disposition']) ?? 'lims-backup.limsbk',
+    }
+  },
+  restore: (file: File, passphrase: string, password: string, confirm: string) => {
+    const form = new FormData()
+    form.append('file', file)
+    form.append('passphrase', passphrase)
+    form.append('password', password)
+    form.append('confirm', confirm)
+    return api.post('/restore', form, { headers: { 'Content-Type': 'multipart/form-data' } }).then((r) => r.data)
+  },
+  factoryReset: (passphrase: string, password: string, confirm: string) =>
+    api.post('/factory-reset', { passphrase, password, confirm }).then((r) => r.data),
+  list: () =>
+    api.get('/backups').then((r) => r.data as { data: { name: string; bytes: number; created_at: string }[] }),
+  async download(name: string): Promise<Blob> {
+    return (await api.get(`/backups/${encodeURIComponent(name)}`, { responseType: 'blob' })).data as Blob
+  },
 }
 
 // ---------- Staff accounts (admin only) ----------

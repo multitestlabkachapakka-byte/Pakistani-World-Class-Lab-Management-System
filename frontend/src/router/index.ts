@@ -37,6 +37,12 @@ const router = createRouter({
       component: () => import('../views/SettingsView.vue'),
     },
     {
+      path: '/backup',
+      name: 'backup',
+      component: () => import('../views/BackupView.vue'),
+      meta: { roles: ['admin'] },
+    },
+    {
       path: '/staff',
       name: 'staff',
       component: () => import('../views/UsersView.vue'),
