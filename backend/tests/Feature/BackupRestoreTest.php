@@ -14,6 +14,7 @@ use App\Services\BackupService;
 use Database\Seeders\CatalogSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Routing\Middleware\ThrottleRequests;
 use Illuminate\Support\Facades\File;
 use Tests\Concerns\SignsIn;
 use Tests\TestCase;
@@ -163,6 +164,7 @@ class BackupRestoreTest extends TestCase
 
     public function test_restore_and_reset_need_the_admin_password_the_exact_phrase_and_an_admin(): void
     {
+        $this->withoutMiddleware(ThrottleRequests::class); // the rate limit has its own test below
         $blob = $this->takeBackup();
 
         $this->restore($blob, ['password' => 'wrong-password'])->assertStatus(422);
@@ -187,6 +189,19 @@ class BackupRestoreTest extends TestCase
             $this->restore($blob)->assertStatus(403);
             $reset()->assertStatus(403);
         }
+    }
+
+    public function test_restore_attempts_are_rate_limited_separately_from_backups(): void
+    {
+        $blob = $this->takeBackup();
+        for ($i = 0; $i < 3; $i++) {
+            $this->takeBackup(); // backups must not use up the restore allowance
+        }
+
+        for ($i = 0; $i < 5; $i++) {
+            $this->restore($blob, ['password' => 'wrong-password'])->assertStatus(422);
+        }
+        $this->restore($blob, ['password' => 'wrong-password'])->assertStatus(429);
     }
 
     public function test_a_backup_from_an_older_version_restores_and_one_from_a_newer_version_is_refused(): void
