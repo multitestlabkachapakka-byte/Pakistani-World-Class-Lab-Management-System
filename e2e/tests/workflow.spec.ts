@@ -330,14 +330,18 @@ test('8. disaster recovery: backup, factory reset, first-time setup, restore - e
   await expect(page.getByRole('button', { name: 'Sign out' })).toBeVisible()
   await expect(page.getByText(ADMIN.name)).toBeVisible()
 
+  // (wait for each screen first: the dashboard, still on screen for a moment, also lists this patient's reports)
   await page.getByRole('link', { name: 'Patients' }).click()
+  await expect(page.getByRole('heading', { name: 'Patients', exact: true })).toBeVisible()
   await expect(page.getByRole('row', { name: /Renamed Later/ })).toBeVisible()
 
   await page.getByRole('link', { name: 'Staff' }).click()
+  await expect(page.getByRole('heading', { name: 'Staff accounts' })).toBeVisible()
   await expect(page.getByRole('row', { name: /api_technician/ })).toBeVisible()
   await expect(page.getByRole('row', { name: /tmp_admin/ })).toHaveCount(0)
 
   await page.getByRole('link', { name: 'Catalog' }).click()
+  await expect(page.getByRole('heading', { name: 'Test Catalog' })).toBeVisible()
   await page.getByPlaceholder('Search by name, code or department').fill('CBC')
   await expect(page.locator('table.list tbody tr').filter({ hasText: 'Complete Blood Count' }).first()).toContainText('Verified')
 })
