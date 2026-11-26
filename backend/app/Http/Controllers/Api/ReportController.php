@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Doctor;
 use App\Models\Patient;
 use App\Models\ReferenceRange;
 use App\Models\Report;
@@ -18,6 +19,7 @@ use Illuminate\Database\UniqueConstraintViolationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 
 class ReportController extends Controller
 {
@@ -32,7 +34,10 @@ class ReportController extends Controller
         $patientId = $request->get('patient_id');
         $date = $request->get('date'); // YYYY-MM-DD
 
-        $query = Report::with(['patient:id,name,mr_number,phone,gender'])
+        $query = Report::with([
+            'patient:id,name,mr_number,phone,gender',
+            'reportTests:id,report_id,test_name_snapshot,sort_order',
+        ])
             ->orderByDesc('created_at');
 
         if ($status) {
@@ -62,7 +67,8 @@ class ReportController extends Controller
     {
         $data = $request->validate([
             'patient_id' => 'required|uuid|exists:patients,id',
-            'doctor_id' => 'nullable|uuid',
+            // Only an active doctor of the list can be chosen; the name is copied into the report.
+            'doctor_id' => ['nullable', 'uuid', Rule::exists('doctors', 'id')->where('is_active', true)->whereNull('deleted_at')],
             'branch_id' => 'nullable|uuid',
             'sample_type' => 'nullable|string|max:100',
             'collected_at' => 'nullable|date',
@@ -102,7 +108,9 @@ class ReportController extends Controller
                 'status' => 'draft',
                 'sample_type' => $data['sample_type'] ?? null,
                 'collected_at' => $collectedAt,
-                'referred_by' => $data['referred_by'] ?? 'Self / Walk-in',
+                'referred_by' => $data['referred_by']
+                    ?? (isset($data['doctor_id']) ? Doctor::find($data['doctor_id'])?->name : null)
+                    ?? 'Self / Walk-in',
                 'clinical_notes' => $data['clinical_notes'] ?? null,
                 'updated_by_device' => $device,
                 'rev' => 1,

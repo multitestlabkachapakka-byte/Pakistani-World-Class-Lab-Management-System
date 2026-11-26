@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\BackupController;
 use App\Http\Controllers\Api\CatalogController;
 use App\Http\Controllers\Api\DashboardController;
+use App\Http\Controllers\Api\DoctorController;
 use App\Http\Controllers\Api\PatientController;
 use App\Http\Controllers\Api\RangeController;
 use App\Http\Controllers\Api\ReportController;
@@ -67,6 +68,13 @@ Route::middleware(['auth:sanctum', 'active'])->group(function () {
     Route::get('/patients/{id}', [PatientController::class, 'show']);
     Route::put('/patients/{id}', [PatientController::class, 'update']);
     Route::delete('/patients/{id}', [PatientController::class, 'destroy'])->middleware('role:admin');
+
+    // Referring doctors (read: everyone, keep up to date: admin + receptionist)
+    Route::get('/doctors', [DoctorController::class, 'index']);
+    Route::middleware('role:admin,receptionist')->group(function () {
+        Route::post('/doctors', [DoctorController::class, 'store']);
+        Route::put('/doctors/{id}', [DoctorController::class, 'update']);
+    });
 
     // Reports
     Route::get('/reports', [ReportController::class, 'index']);
