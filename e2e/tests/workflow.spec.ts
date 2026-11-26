@@ -33,24 +33,34 @@ async function newPage(browser: Browser): Promise<{ context: BrowserContext; pag
   return { context, page }
 }
 
-/** Signs in through the API (fast, and keeps the login rate limit out of the way) and opens a page as that user. */
+// One API login per user for the whole run: the login is rate limited (5 a minute per user) and counts
+// every attempt, so the tests reuse the token instead of signing in again and again.
+const sessions = new Map<string, { token: string; user: string }>()
+
+/** Opens a page already signed in as that user (token from a single API login). */
 async function openAs(browser: Browser, username: string, password: string): Promise<{ page: Page; token: string }> {
   const context = await browser.newContext({ baseURL: BASE })
-  const res = await context.request.post('/api/auth/login', { data: { username, password } })
-  expect(res.ok(), `API login as ${username} -> ${res.status()}`).toBeTruthy()
-  const { data } = await res.json()
+
+  let session = sessions.get(username)
+  if (!session) {
+    const res = await context.request.post('/api/auth/login', { data: { username, password } })
+    expect(res.ok(), `API login as ${username} -> ${res.status()}`).toBeTruthy()
+    const { data } = await res.json()
+    session = { token: data.token as string, user: JSON.stringify(data.user) }
+    sessions.set(username, session)
+  }
 
   await context.addInitScript(
     ([token, user]: [string, string]) => {
       localStorage.setItem('lims.token', token)
       localStorage.setItem('lims.user', user)
     },
-    [data.token, JSON.stringify(data.user)] as [string, string],
+    [session.token, session.user] as [string, string],
   )
 
   const page = await context.newPage()
   opened.push(page)
-  return { page, token: data.token as string }
+  return { page, token: session.token }
 }
 
 test('1. first-time setup creates the administrator; sign out and sign in work', async ({ browser }) => {
@@ -73,11 +83,12 @@ test('1. first-time setup creates the administrator; sign out and sign in work',
   await expect(page).toHaveURL(/\/login/)
   await expect(page.getByRole('heading', { name: 'Sign in' })).toBeVisible()
 
-  await page.getByLabel('Username').fill(ADMIN.username)
+  await page.getByLabel('Username').fill('nobody_here')
   await page.getByLabel('Password').fill('Wrong-pass9')
   await page.getByRole('button', { name: 'Sign in' }).click()
   await expect(page.getByText('Invalid username or password.')).toBeVisible()
 
+  await page.getByLabel('Username').fill(ADMIN.username)
   await page.getByLabel('Password').fill(ADMIN.password)
   await page.getByRole('button', { name: 'Sign in' }).click()
   await expect(page.getByRole('button', { name: 'Sign out' })).toBeVisible()
